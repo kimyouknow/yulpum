@@ -1,10 +1,12 @@
 import React from "react"
-import Temp from "./Temp";
+import Router from "./Components/Router";
+import GlobalStyles from "./Components/GlobalStyles";
 
 function App() {
   return (
     <div className="App">
-      <Temp />
+      <Router />
+      <GlobalStyles />
     </div>
   );
 }
