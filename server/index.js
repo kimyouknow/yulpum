@@ -20,6 +20,18 @@ app.get("/api/hello", (req, res) => {
     res.send("성공~")
 })
 
+// 잘되나 확인용~
+// app.post("/api/login", (req, res) => {
+//     return res.json({
+//         message: "yes~~~~"
+//     })
+// })
+// app.post("/api/register", (req, res) => {
+//     return res.json({
+//         message: "yes~~~~"
+//     })
+// })
+
 //유저 정보
 app.get("/users",(req,res)=> {
     connection.query('SELECT * FROM users', (error,rows) =>{
