@@ -18,6 +18,7 @@ if (config.use_env_variable) {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+//table 추가
 db.Users = require('./users')(sequelize, Sequelize);
 
 

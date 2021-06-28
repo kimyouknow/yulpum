@@ -3,13 +3,17 @@ module.exports=(sequelize, DataTypes) =>{
         name:{
             type: DataTypes.STRING(30),
             allowNull: false,
-            
+            unique: true,  
         },
-        nickName:{
-          type: DataTypes.STRING(30),
+        email:{
+          type: DataTypes.STRING(50),
           allowNull : false,
-          unique: true,  
         },
+        password:{
+            type: DataTypes.INTEGER(50),
+            allowNull:false,
+
+        }
         
     },{
         freezeTableName: true //테이블 옵션, model 명 == table 명
