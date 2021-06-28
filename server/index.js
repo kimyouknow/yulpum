@@ -1,12 +1,12 @@
 import express from "express";
 import dotenv from "dotenv";
-import mysql from "mysql";
-import dbconfig from "./config/dbconfig.js"
 
-const connection = mysql.createConnection(dbconfig);
+let sequelize = require('./models/index.js').sequelize;
 
+//const connection = mysql.createConnection(dbconfig);
 const app = express()
 dotenv.config();
+sequelize.sync();
 const PORT = process.env.PORT || 4000;
 
 const handleListenning = () => 
@@ -20,17 +20,8 @@ app.get("/api/hello", (req, res) => {
     res.send("성공~")
 })
 
-// 잘되나 확인용~
-// app.post("/api/login", (req, res) => {
-//     return res.json({
-//         message: "yes~~~~"
-//     })
-// })
-// app.post("/api/register", (req, res) => {
-//     return res.json({
-//         message: "yes~~~~"
-//     })
-// })
+
+
 
 //유저 정보
 app.get("/users",(req,res)=> {
