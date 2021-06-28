@@ -1,4 +1,4 @@
-module.exports=(sequelize, DataTypes) =>{
+module.exports= (sequelize, DataTypes) =>{
     return sequelize.define('users',{
         name:{
             type: DataTypes.STRING(30),
@@ -16,7 +16,8 @@ module.exports=(sequelize, DataTypes) =>{
         }
         
     },{
-        freezeTableName: true //테이블 옵션, model 명 == table 명
+        freezeTableName: true, //테이블 옵션, model 명 == table 명
+        timestamps: false,
     });
 
 

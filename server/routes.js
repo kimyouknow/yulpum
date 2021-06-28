@@ -1,8 +1,8 @@
 //global
 const HOME = "/";
-const REGISTER = "api/register";
-const LOGIN = "api/login";
-const LOGOUT ="api/logout";
+const REGISTER = "/api/register";
+const LOGIN = "/api/login";
+const LOGOUT ="/api/logout";
 
 
 const routes = {
