@@ -1,10 +1,12 @@
 import React from "react";
 import styled from 'styled-components';
 import SideMenu from "../../Components/SideMenu";
+import Course from "../Course";
 
 const Container = styled.div`
     position: relative;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -14,7 +16,7 @@ const Container = styled.div`
 const HomePresenter = () => (
     <Container>
         <SideMenu />
-        <h2>Home</h2>        
+        <Course />   
     </Container>
 )
 export default HomePresenter

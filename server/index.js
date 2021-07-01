@@ -20,7 +20,7 @@ app.get("/api/hello", (req, res) => {
     res.send("성공~")
 })
 
-// 잘되나 확인용~
+// // 잘되나 확인용~
 // app.post("/api/login", (req, res) => {
 //     return res.json({
 //         message: "yes~~~~"
@@ -29,6 +29,12 @@ app.get("/api/hello", (req, res) => {
 // app.post("/api/register", (req, res) => {
 //     return res.json({
 //         message: "yes~~~~"
+//     })
+// })
+// app.post("/api/add", (req, res) => {
+//     return res.json({
+//         isWell: true,
+//         title: "코딩"
 //     })
 // })
 
