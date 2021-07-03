@@ -24,6 +24,7 @@ const Section = styled.div`
     background-color: white;
     animation: modal-show .3s;
     overflow: hidden;
+    padding: 12px;
 `;
 
 const BackButton = styled.div`
