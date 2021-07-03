@@ -1,24 +1,26 @@
-module.exports= (sequelize, DataTypes) =>{
-    return sequelize.define('users',{
-        name:{
-            type: DataTypes.STRING(30),
-            allowNull: false,
-            unique: true,  
-        },
-        email:{
-          type: DataTypes.STRING(50),
-          allowNull : false,
-        },
-        password:{
-            type: DataTypes.INTEGER(50),
-            allowNull:false,
+import mongoose from 'mongoose';
 
-        }
-        
-    },{
-        freezeTableName: true, //테이블 옵션, model 명 == table 명
-        timestamps: false,
-    });
+const userSchema = mongoose.Schema({
+    name:{
+        type: String,
+        required:true,
+        maxlength: 20
+    },
+    email:{
+        type:String,
+        trim:true,
+        unique: 1
+    },
+    password:{
+        type:String,
+        required:true
+    },
+    role:{
+        type:Number,
+        default:0
+    }
+    
+})
 
-
-}
+const model = mongoose.model("User",userSchema);
+export default model;

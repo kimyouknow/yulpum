@@ -9,8 +9,8 @@ import {
 const globalRoutes = express.Router();
 
 //globalRoutes.post(routes.login,postLogin)
-globalRoutes.post(routes.register,postRegister)
-
+globalRoutes.post(routes.register,postRegister);
+globalRoutes.post(routes.login,postLogin);
 export default globalRoutes;
 
 
