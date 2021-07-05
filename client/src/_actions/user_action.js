@@ -27,7 +27,7 @@ export function registerUser(dataTosubmit) {
 }
 
 export function auth() {
-    const request = axios.get('/api/users/auth')
+    const request = axios.get('/api/auth')
     .then(response =>  response.data )
 
     return {
