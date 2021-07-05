@@ -3,7 +3,7 @@ const HOME = "/";
 const REGISTER = "/api/register";
 const LOGIN = "/api/login";
 const LOGOUT ="/api/logout";
-const AUTH = "/api/users/auth";
+const AUTH = "/api/auth";
 
 const routes = {
 

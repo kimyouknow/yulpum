@@ -6,7 +6,7 @@ import globalRoutes from "./Routes/globalRoutes";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 
-mongoose.connect('mongodb+srv://hyun:qwerty123@cluster0.cutzw.mongodb.net/yeoul_db?retryWrites=true&w=majority',{
+mongoose.connect(process.env.serverURL,{
     userNewUrlParser : true, useUnifiedTopology: true, useCreateIndex:true, useFindAndModify:false
 }).then(() => console.log('DB has been Connected.'))
 .catch(err => console.log(err));
