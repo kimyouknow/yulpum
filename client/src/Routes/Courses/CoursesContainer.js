@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from "react";
-import CoursePresenter from "./CoursePresenter";
+import CoursesPresenter from "./CoursesPresenter";
 import {useDispatch} from "react-redux";
 import {useHistory} from "react-router";
 import {addCourse} from "../../_actions/course_actions";
 
-const CourseContainer = () => {
+const CoursesContainer = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const [clicked, setClicked] = useState(false)
@@ -33,7 +33,7 @@ const CourseContainer = () => {
         }
     }
     return(
-        <CoursePresenter 
+        <CoursesPresenter 
             clicked={clicked}
             clickHandler={clickHandler}
             courseInput={courseInput}
@@ -43,4 +43,4 @@ const CourseContainer = () => {
         />
         )
 }
-export default CourseContainer
+export default CoursesContainer

@@ -1,6 +1,8 @@
 import React from "react";
 import {Link, withRouter} from "react-router-dom";
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 const Navigation = styled.nav`
     background-color: #f5f6fa;
@@ -37,6 +39,16 @@ const SLink = styled(Link)`
     font-weight: 700;
 `;
 
+const Icon = styled.div`
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 700;
+`;
+
 export default withRouter(({location: {pathname}}) => (
     <Navigation>
         <List>
@@ -46,9 +58,12 @@ export default withRouter(({location: {pathname}}) => (
             <Item current={pathname === "/planner"}>
                 <SLink to="/planner">플래너</SLink>
             </Item>
-            <Item current={pathname === "/"}>
-                <SLink to="/">Home</SLink>
-            </Item>
+            {pathname === "/active" ? 
+                <Icon><FontAwesomeIcon icon={faUser} /></Icon>:
+                <Item current={pathname === "/"}>
+                    <SLink to="/">Home</SLink>
+                </Item>
+            }
             <Item current={pathname === "/group"}>
                 <SLink to="/group">그룹</SLink>
             </Item>

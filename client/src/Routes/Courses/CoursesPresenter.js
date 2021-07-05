@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import AddCourse from "../../Components/AddCourse";
+import Course from "../../Components/Course";
 
 const Container = styled.div`
     width: 100%;
@@ -41,7 +42,7 @@ const Text = styled.div`
 `;
 
 
-const CoursePresenter = ({clicked, clickHandler, courseInput, setCourseInput, onSubmitHandler, courses}) => {
+const CoursesPresenter = ({clicked, clickHandler, courseInput, setCourseInput, onSubmitHandler, courses}) => {
     console.log(courses);
     return (
         <>
@@ -50,7 +51,7 @@ const CoursePresenter = ({clicked, clickHandler, courseInput, setCourseInput, on
             <UList>
                 {!courses ? 
                 <Line><Text>Empty</Text></Line> :
-                courses.map(course => <Line><Text>{course}</Text></Line>)
+                courses.map(course => <Line><Course text={course} /></Line>)
             }
                 <Line onClick={() => clickHandler()}>
                     <Button><FontAwesomeIcon icon={faPlus} /></Button>
@@ -61,4 +62,4 @@ const CoursePresenter = ({clicked, clickHandler, courseInput, setCourseInput, on
         </>
     )
 }
-export default CoursePresenter
+export default CoursesPresenter
