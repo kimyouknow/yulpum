@@ -1,4 +1,5 @@
 
+import { noExtendLeft } from "sequelize/types/lib/operators";
 import User from "../models/Users";
 export const postRegister = async (req,res) =>{
   
@@ -74,3 +75,11 @@ export const postLogin = async(req,res) =>{
     }
 
 };
+
+export const logout = async(req,res) =>{
+    req.logout();
+    req.session = null;
+    res.status(200).json({
+        logoutSuccess:true
+    })
+}

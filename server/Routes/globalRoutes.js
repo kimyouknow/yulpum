@@ -2,8 +2,8 @@ import express from "express";
 import routes from "../routes";
 import {
     postRegister,
-    postLogin
-
+    postLogin,
+    logout
 } from "../Controller/userController";
 import{
     auth
@@ -12,7 +12,7 @@ import{
 const globalRoutes = express.Router();
 globalRoutes.post(routes.register,postRegister);
 globalRoutes.post(routes.login,postLogin);
-
+globalRoutes.get(routes.logout,logout);
 globalRoutes.get(routes.auth, auth,(req, res)=>{
     res.status(200).json({
         isAdmin: req.user.role === 0 ? false :true,
