@@ -24,7 +24,6 @@ app.use(routes.home, globalRoutes);
 
 const handleListenning = () =>{ 
     console.log(`✅ Listening on: http://localhost:${PORT}`);
-
 };
 
 app.listen(PORT, handleListenning);
