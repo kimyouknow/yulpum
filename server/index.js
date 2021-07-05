@@ -6,13 +6,14 @@ import globalRoutes from "./Routes/globalRoutes";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 
+dotenv.config();
 mongoose.connect(process.env.serverURL,{
     userNewUrlParser : true, useUnifiedTopology: true, useCreateIndex:true, useFindAndModify:false
 }).then(() => console.log('DB has been Connected.'))
 .catch(err => console.log(err));
 
 const app = express()
-dotenv.config();
+
 
 const PORT = process.env.PORT || 4000;
 

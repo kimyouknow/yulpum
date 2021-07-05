@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import bcrypt, { hash } from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
@@ -27,6 +27,10 @@ const userSchema = mongoose.Schema({
     token:{
         type:String
     },
+    studySubject:{
+        type:Schema.Types.ObjectId,
+        ref:"Subject"
+    }
     
 })
 
