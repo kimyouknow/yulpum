@@ -14,9 +14,9 @@ const Container = styled.div`
     height: 100vh;
 `;
 
-const HomePresenter = () => (
+const HomePresenter = ({clickLogout}) => (
     <Container>
-        <SideMenu />
+        <SideMenu clickLogout={clickLogout}/>
         <Timer />
         <Courses />   
     </Container>
