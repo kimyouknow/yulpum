@@ -17,7 +17,7 @@ export const postRegister = async (req,res) =>{
             });
             await user.save((err)=>{
                 if(err)return console.log(err);
-                console.log("Saveed");
+                console.log("Saved");
             });
         }catch(error){
             console.log(error);
@@ -42,14 +42,11 @@ export const postRegister = async (req,res) =>{
  
     
 };
-
-
 export const postLogin = async(req,res) =>{
    
     const param_email = req.body.email;
     const param_password = req.body.password;
     const user = await User.findOne({email: param_email});
-    console.log(user);
 
     if(user){
 

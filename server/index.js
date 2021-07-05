@@ -21,6 +21,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use(routes.home, globalRoutes);
+
 const handleListenning = () =>{ 
     console.log(`✅ Listening on: http://localhost:${PORT}`);
 
