@@ -75,5 +75,6 @@ userSchema.methods.genToken = function(cb){
         cb(null,user);
     })
 }
+
 const model = mongoose.model("User",userSchema);
 export default model;

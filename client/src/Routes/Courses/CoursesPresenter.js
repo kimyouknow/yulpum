@@ -49,10 +49,10 @@ const CoursesPresenter = ({clicked, clickHandler, courseInput, setCourseInput, o
         <AddCourse clicked={clicked} clickHandler={clickHandler} courseInput={courseInput} setCourseInput={setCourseInput} onSubmitHandler={onSubmitHandler}/>
         <Container>
             <UList>
-                {!courses ? 
+                {/* {!courses ? 
                 <Line><Text>Empty</Text></Line> :
                 courses.map(course => <Line><Course text={course} /></Line>)
-            }
+            } */}
                 <Line onClick={() => clickHandler()}>
                     <Button><FontAwesomeIcon icon={faPlus} /></Button>
                     <Text>과목 추가하기1</Text>

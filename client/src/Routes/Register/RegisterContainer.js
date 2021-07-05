@@ -2,8 +2,10 @@ import React, {useState} from "react";
 import RegisterPresenter from "./RegisterPresenter";
 import {useDispatch} from "react-redux";
 import { registerUser } from "../../_actions/user_action";
+import {useHistory} from "react-router";
 
 const RegisterContainer = () => {
+    const history = useHistory();
     const dispatch = useDispatch();
     const [email, setEmail] = useState("")
     const [name, setName] = useState("")
@@ -25,7 +27,13 @@ const RegisterContainer = () => {
         }
         // 여기서 바로 axios를 통해 data를 보내야하는데 dispatch를 사용해 actions에서 data다루기
         dispatch(registerUser(body))
-            .then(response => console.log(response))
+            .then(response => {
+                if(response.payload.success) {
+                    history.push("/login");
+                } else {
+                    alert("Failed to sign up");
+                }
+            })
     }
     return(
         <RegisterPresenter
