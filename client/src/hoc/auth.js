@@ -20,7 +20,6 @@ export default function AuthHOC(SpecificComponent, option, adminRoute = null) {
             // axios.get('/api/users/auth')
             dispatch(auth()).then(response => {
                 console.log(response.payload.isAuth)
-
                 // 로그인 하지 않은 상태
                 if(!response.payload.isAuth) {
                     if(option) {
@@ -29,6 +28,7 @@ export default function AuthHOC(SpecificComponent, option, adminRoute = null) {
                 } else {
                     // 로그인 한 상태 
                     if(adminRoute && !response.payload.isAdmin) {
+
                         props.history.push('/')
                     } else {
                         // 로그인한 유저가 출입불가능한 곳으로 들어갈때
