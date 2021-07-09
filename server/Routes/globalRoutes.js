@@ -15,8 +15,10 @@ globalRoutes.post(routes.login,postLogin);
 globalRoutes.get(routes.logout,auth,logout);
 globalRoutes.get(routes.auth, auth,(req, res)=>{
     res.status(200).json({
+        user_id:req.user_id,
         isAdmin: req.user.role === 0 ? false :true,
         isAuth: true,
+        role:req.user.role
     })
 });
 
