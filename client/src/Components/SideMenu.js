@@ -46,7 +46,7 @@ const SideBar = styled.div`
     opacity: ${props => props.active ? "0": "1"};
 `;
 
-const SideMenu = withRouter(({location: {pathname}}) => {
+const SideMenu = withRouter(({location: {pathname}, clickLogout}) => {
     const [clicked, setClicked] = useState(false)
     const clickHandler = () => {
         if(clicked) {
@@ -62,12 +62,15 @@ const SideMenu = withRouter(({location: {pathname}}) => {
         </SideBar>
         <Container active={clicked}>
             <List>
-                <Button>
+                <Button onClick={() => clickLogout()}>
+                    <Link to="/logout">logout</Link>
+                </Button>
+                {/* <Button>
                     <Link to="/login">login</Link>
                 </Button>
                 <Button>
                     <Link to="/register">register</Link>
-                </Button>
+                </Button> */}
                 <SideBar onClick={() =>clickHandler()}>
                     <FontAwesomeIcon icon={faArrowLeft} />
                 </SideBar>

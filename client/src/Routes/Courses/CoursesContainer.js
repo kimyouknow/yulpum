@@ -1,24 +1,29 @@
 import React, {useState, useEffect} from "react";
-import CoursePresenter from "./CoursePresenter";
+import CoursesPresenter from "./CoursesPresenter";
 import {useDispatch} from "react-redux";
 import {useHistory} from "react-router";
 import {addCourse} from "../../_actions/course_actions";
 
-const CourseContainer = () => {
+const CoursesContainer = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const [clicked, setClicked] = useState(false)
-    const [courseInput, setCourseInput] = useState("")
-    const [courses, setCourses]= useState(["first"]);
+    const [courseInput, setCourseInput] = useState("");
+    // courese를 임시로 생성한거 
+    const [courses, setCourses]= useState([{name: "first", id : 2511234},{name: "second", id: 234253}]);
     const onSubmitHandler = (e) => {
         e.preventDefault();
+        const addedName = courseInput;
+        const addedId = Date.now();
         let body = {
-            courseInput
-        }
+            addedName,
+            addedId
+        };
         dispatch(addCourse(body))
             .then(response => {
                 if(response.payload.isWell) {
-                    setCourses(courses => [...courses, response.payload.title])
+                    const newCourse = {name: response.payload.title, id: response.payload.id}
+                    setCourses(courses => [...courses, newCourse]);
                     history.push('/');
                 } else {
                     alert("Error!");
@@ -33,7 +38,7 @@ const CourseContainer = () => {
         }
     }
     return(
-        <CoursePresenter 
+        <CoursesPresenter 
             clicked={clicked}
             clickHandler={clickHandler}
             courseInput={courseInput}
@@ -43,4 +48,4 @@ const CourseContainer = () => {
         />
         )
 }
-export default CourseContainer
+export default CoursesContainer

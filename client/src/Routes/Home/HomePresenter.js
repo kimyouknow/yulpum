@@ -1,7 +1,8 @@
 import React from "react";
 import styled from 'styled-components';
 import SideMenu from "../../Components/SideMenu";
-import Course from "../Course";
+import Courses from "../Courses";
+import Timer from "../Timer.js";
 
 const Container = styled.div`
     position: relative;
@@ -13,10 +14,11 @@ const Container = styled.div`
     height: 100vh;
 `;
 
-const HomePresenter = () => (
+const HomePresenter = ({clickLogout}) => (
     <Container>
-        <SideMenu />
-        <Course />   
+        <SideMenu clickLogout={clickLogout}/>
+        <Timer />
+        <Courses />   
     </Container>
 )
 export default HomePresenter
