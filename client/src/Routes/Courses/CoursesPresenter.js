@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
@@ -42,8 +42,8 @@ const Text = styled.div`
 `;
 
 
-const CoursesPresenter = ({clicked, clickHandler, courseInput, setCourseInput, onSubmitHandler, courses}) => {
-    console.log(courses);
+const CoursesPresenter = ({clicked, clickHandler, courseInput, setCourseInput, onSubmitHandler, courses, userID}) => {
+    // console.log(courses);
     return (
         <>
         <AddCourse clicked={clicked} clickHandler={clickHandler} courseInput={courseInput} setCourseInput={setCourseInput} onSubmitHandler={onSubmitHandler}/>
@@ -51,7 +51,7 @@ const CoursesPresenter = ({clicked, clickHandler, courseInput, setCourseInput, o
             <UList>
                 {!courses ? 
                 <Line><Text>Empty</Text></Line> :
-                courses.map(course => <Line key={course.id}><Course text={course.name} /></Line>)
+                courses.map(course => <Line key={course.id}><Course text={course.name} userID={userID} /></Line>)
             }
                 <Line onClick={() => clickHandler()}>
                     <Button><FontAwesomeIcon icon={faPlus} /></Button>

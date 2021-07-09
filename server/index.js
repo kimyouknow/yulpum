@@ -22,6 +22,10 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use(routes.home, globalRoutes);
+// app.post("/api/:id", (req, res) => {
+//     console.log(req.body);
+//     return res.send("hi");
+// })
 
 const handleListenning = () =>{ 
     console.log(`✅ Listening on: http://localhost:${PORT}`);

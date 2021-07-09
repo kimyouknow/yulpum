@@ -2,15 +2,28 @@ import React, {useState, useEffect} from "react";
 import CoursesPresenter from "./CoursesPresenter";
 import {useDispatch} from "react-redux";
 import {useHistory} from "react-router";
-import {addCourse} from "../../_actions/course_actions";
+import {addCourse, getCourses} from "../../_actions/course_actions";
 
-const CoursesContainer = () => {
+const CoursesContainer = ({userID}) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const [clicked, setClicked] = useState(false)
     const [courseInput, setCourseInput] = useState("");
     // courese를 임시로 생성한거 
     const [courses, setCourses]= useState([{name: "first", id : 2511234},{name: "second", id: 234253}]);
+    const displayCourses = () => {
+        if(userID) {
+        let body = {
+            userID
+        }
+        // console.log(userID)
+        dispatch(getCourses(body))
+            .then(response => {
+                console.log(response);
+            })
+        }
+    }
+
     const onSubmitHandler = (e) => {
         e.preventDefault();
         const addedName = courseInput;
@@ -37,6 +50,9 @@ const CoursesContainer = () => {
             setClicked(true)
         }
     }
+    useEffect(() => {
+        displayCourses();
+    },[userID])
     return(
         <CoursesPresenter 
             clicked={clicked}
@@ -45,6 +61,7 @@ const CoursesContainer = () => {
             setCourseInput={setCourseInput}
             onSubmitHandler={onSubmitHandler}
             courses={courses}
+            userID={userID}
         />
         )
 }
