@@ -14,11 +14,11 @@ const Container = styled.div`
     height: 100vh;
 `;
 
-const HomePresenter = ({clickLogout,userID}) => (
+const HomePresenter = ({clickLogout}) => (
     <Container>
         <SideMenu clickLogout={clickLogout}/>
         <Timer />
-        <Courses userID={userID} />   
+        <Courses/>   
     </Container>
 )
 export default HomePresenter

@@ -3,7 +3,7 @@ import axios from 'axios';
 import HomePresenter from "./HomePresenter";
 import {useHistory} from "react-router";
 
-const HomeContainer = ({userID}) => {
+const HomeContainer = () => {
     const history = useHistory();
     const clickLogout = () => {
         axios.get('/api/logout')
@@ -18,7 +18,6 @@ const HomeContainer = ({userID}) => {
     return(
         <HomePresenter 
         clickLogout={clickLogout}
-        userID={userID}
         />
         )
 }

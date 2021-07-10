@@ -12,8 +12,6 @@ export default function AuthHOC(SpecificComponent, option, adminRoute = null) {
         // adminRoute
         // 1.default: null
         // 2. 
-
-        const [userID, setUserID] = useState(null);
         function AuthenticationCheck(props) {
             const dispatch = useDispatch();
             useEffect(()=> {
@@ -21,7 +19,6 @@ export default function AuthHOC(SpecificComponent, option, adminRoute = null) {
             dispatch(auth()).then(response => {
                 const {user_id, isAdmin, isAuth, role} = response.payload;
                 // 로그인 하지 않은 상태
-                setUserID(user_id);
                 if(!isAuth) {
                     if(option) {
                         props.history.push('/login')
@@ -30,14 +27,10 @@ export default function AuthHOC(SpecificComponent, option, adminRoute = null) {
                     // 로그인 한 상태 
                     if(adminRoute && !isAdmin) {
                         props.history.push("/");
-                        // console.log(user_id);
-                        setUserID(user_id);
                     } else {
                         // 로그인한 유저가 출입불가능한 곳으로 들어갈때
                         if(option === false ){
                             props.history.push('/')
-                            
-                            setUserID(user_id);
                         }
                     }
                 }
@@ -46,7 +39,6 @@ export default function AuthHOC(SpecificComponent, option, adminRoute = null) {
             // console.log(userID);
             return (
                 <SpecificComponent
-                userID={userID}
                 />
             )
         }

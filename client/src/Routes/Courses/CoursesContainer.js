@@ -4,7 +4,8 @@ import {useDispatch} from "react-redux";
 import {useHistory} from "react-router";
 import {addCourse, getCourses} from "../../_actions/course_actions";
 
-const CoursesContainer = ({userID}) => {
+const CoursesContainer = () => {
+    const token = document.cookie.split("=")[1];
     const dispatch = useDispatch();
     const history = useHistory();
     const [clicked, setClicked] = useState(false)
@@ -12,16 +13,13 @@ const CoursesContainer = ({userID}) => {
     // courese를 임시로 생성한거 
     const [courses, setCourses]= useState([{name: "first", id : 2511234},{name: "second", id: 234253}]);
     const displayCourses = () => {
-        if(userID) {
         let body = {
-            userID
+            token
         }
-        // console.log(userID)
         dispatch(getCourses(body))
             .then(response => {
                 console.log(response);
             })
-        }
     }
 
     const onSubmitHandler = (e) => {
@@ -52,7 +50,7 @@ const CoursesContainer = ({userID}) => {
     }
     useEffect(() => {
         displayCourses();
-    },[userID])
+    },[])
     return(
         <CoursesPresenter 
             clicked={clicked}
@@ -61,7 +59,6 @@ const CoursesContainer = ({userID}) => {
             setCourseInput={setCourseInput}
             onSubmitHandler={onSubmitHandler}
             courses={courses}
-            userID={userID}
         />
         )
 }

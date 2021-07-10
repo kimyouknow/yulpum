@@ -2,8 +2,7 @@ import axios from 'axios';
 import { ADD_COURSE, GET_COURSES } from './types';
 
 export function getCourses(dataTosubmit) {
-    let url = `/api/${dataTosubmit}`;
-    const request = axios.post(url, dataTosubmit)
+    const request = axios.post("/api/getCourse", dataTosubmit)
         .then(response => response.data)
     
     return {

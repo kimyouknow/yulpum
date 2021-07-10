@@ -42,7 +42,7 @@ const Text = styled.div`
 `;
 
 
-const CoursesPresenter = ({clicked, clickHandler, courseInput, setCourseInput, onSubmitHandler, courses, userID}) => {
+const CoursesPresenter = ({clicked, clickHandler, courseInput, setCourseInput, onSubmitHandler, courses}) => {
     // console.log(courses);
     return (
         <>
@@ -51,7 +51,7 @@ const CoursesPresenter = ({clicked, clickHandler, courseInput, setCourseInput, o
             <UList>
                 {!courses ? 
                 <Line><Text>Empty</Text></Line> :
-                courses.map(course => <Line key={course.id}><Course text={course.name} userID={userID} /></Line>)
+                courses.map(course => <Line key={course.id}><Course text={course.name} /></Line>)
             }
                 <Line onClick={() => clickHandler()}>
                     <Button><FontAwesomeIcon icon={faPlus} /></Button>
