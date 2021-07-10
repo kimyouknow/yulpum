@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from "react";
 import ActiveTimerPresenter from "./ActiveTimerPresenter";
 
-const ActiveTimerContainer = ({userID}) => {
-    console.log(userID);
+const ActiveTimerContainer = () => {
     return(
         <ActiveTimerPresenter />
         )
