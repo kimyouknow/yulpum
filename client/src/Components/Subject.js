@@ -15,7 +15,7 @@ const Container = styled.div`
 
 const TimerContainer = styled.div``;
 
-const Course = ({text}) => {
+const Subject = ({text}) => {
     return (
     <SLink to="/active">
         <Container>
@@ -26,4 +26,4 @@ const Course = ({text}) => {
     )
 };
 
-export default Course;
+export default Subject;

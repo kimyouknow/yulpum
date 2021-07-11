@@ -1,22 +1,22 @@
 import React, {useState, useEffect} from "react";
-import CoursesPresenter from "./CoursesPresenter";
+import SubjectsPresenter from "./SubjectsPresenter";
 import {useDispatch} from "react-redux";
 import {useHistory} from "react-router";
-import {addCourse, getCourses} from "../../_actions/course_actions";
+import {addSubject, getSubject} from "../../_actions/subject_actions";
 
-const CoursesContainer = () => {
+const SubjectsContainer = () => {
     const token = document.cookie.split("=")[1];
     const dispatch = useDispatch();
     const history = useHistory();
     const [clicked, setClicked] = useState(false)
-    const [courseInput, setCourseInput] = useState("");
+    const [subjectInput, setSubjectInput] = useState("");
     // courese를 임시로 생성한거 
-    const [courses, setCourses]= useState([{name: "first", id : 2511234},{name: "second", id: 234253}]);
-    const displayCourses = () => {
+    const [subjects, setSubjects]= useState([{name: "first", id : 2511234},{name: "second", id: 234253}]);
+    const displaySubject = () => {
         let body = {
             token
         }
-        dispatch(getCourses(body))
+        dispatch(getSubject(body))
             .then(response => {
                 console.log(response);
             })
@@ -24,17 +24,17 @@ const CoursesContainer = () => {
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
-        const addedName = courseInput;
+        const addedName = subjectInput;
         const addedId = Date.now();
         let body = {
             addedName,
             addedId
         };
-        dispatch(addCourse(body))
+        dispatch(addSubject(body))
             .then(response => {
                 if(response.payload.isWell) {
-                    const newCourse = {name: response.payload.title, id: response.payload.id}
-                    setCourses(courses => [...courses, newCourse]);
+                    const newSubject = {name: response.payload.title, id: response.payload.id}
+                    setSubjects(subject => [...subject, newSubject]);
                     history.push('/');
                 } else {
                     alert("Error!");
@@ -49,17 +49,17 @@ const CoursesContainer = () => {
         }
     }
     useEffect(() => {
-        displayCourses();
+        displaySubject();
     },[])
     return(
-        <CoursesPresenter 
+        <SubjectsPresenter 
             clicked={clicked}
             clickHandler={clickHandler}
-            courseInput={courseInput}
-            setCourseInput={setCourseInput}
+            subjectInput={subjectInput}
+            setSubjectInput={setSubjectInput}
             onSubmitHandler={onSubmitHandler}
-            courses={courses}
+            subjects={subjects}
         />
         )
 }
-export default CoursesContainer
+export default SubjectsContainer

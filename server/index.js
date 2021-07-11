@@ -22,8 +22,8 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use(routes.home, globalRoutes);
-app.post("/api/getCourse", (req, res) => {
-    console.log(req.body);
+app.post("/api/getSubject", (req, res) => {
+    // console.log(req.body);
     return res.send("hi");
 })
 
