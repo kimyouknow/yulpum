@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { TIMER } from './types';
 
-export function sumTimer(dataTosubmit) {
-    const request = axios.post('api/sum', dataTosubmit)
+export function updateTimer(dataTosubmit) {
+    const request = axios.post('api/update-time', dataTosubmit)
             .then(response => response.data)
 
     return {

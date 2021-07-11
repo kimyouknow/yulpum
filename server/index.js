@@ -27,6 +27,16 @@ app.post("/api/getSubject", (req, res) => {
     return res.send("hi");
 })
 
+app.post("/api/update-time", (req, res) => {
+    const {token, timeValue} = req.body;
+    return  res.json({
+        isWell:true,
+        token,
+        timeValue
+    });
+})
+
+
 const handleListenning = () =>{ 
     console.log(`✅ Listening on: http://localhost:${PORT}`);
 };
