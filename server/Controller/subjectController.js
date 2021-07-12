@@ -44,3 +44,48 @@ export const addSubject = (req,res)=>{
     });
 
 }
+
+
+//home 에서 괴목 명과 시간 띄워줌
+export const getSubject = async(req,res)=>{
+    const {
+        user_id,
+        token,//유저 토큰과
+        subject
+      
+    }=req.body;
+
+    await User.findByToken(token, (err,user)=>{
+        if(err) throw err;
+        const subject = await user.populate("studySubject");
+        res.status(200).send(subject);
+   
+    });
+
+};
+
+
+///active page에서 detail을 띄워줌
+export const subjectDetail = async(req,res)=>{
+
+    const {
+        user_id,
+        token,//유저 토큰과 토큰 id
+        subject
+      
+    }=req.body;
+    await User.findByToken(token, (err,user)=>{
+        if(err) throw err;
+        const study = await user.populate("studySubject");
+        console.log(study);//확인용
+        let found = study.find(study => study._id=== subject);
+        if(!found){
+            res.stats(404);
+            console.log("error, no subject");
+        }
+        else{
+            res.send(found);
+            res.status(200);
+        }
+    });
+};
