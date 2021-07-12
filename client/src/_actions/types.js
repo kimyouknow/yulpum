@@ -2,5 +2,6 @@
 export const LOGIN_USER = 'login_user';
 export const REGISTER_USER = 'register_user';
 export const AUTH_USER = 'auth_user';
-export const COURSE = 'course';
+export const ADD_SUBJECT = 'add_subject';
+export const GET_SUBJECTS = 'get_subjects';
 export const TIMER = 'timer';

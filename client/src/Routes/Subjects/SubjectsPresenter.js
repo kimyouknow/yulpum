@@ -1,9 +1,9 @@
-import React, {useState} from "react";
+import React from "react";
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import AddCourse from "../../Components/AddCourse";
-import Course from "../../Components/Course";
+import AddSubject from "../../Components/AddSubject";
+import Subject from "../../Components/Subject";
 
 const Container = styled.div`
     width: 100%;
@@ -42,16 +42,16 @@ const Text = styled.div`
 `;
 
 
-const CoursesPresenter = ({clicked, clickHandler, courseInput, setCourseInput, onSubmitHandler, courses}) => {
-    console.log(courses);
+const SubjectsPresenter = ({clicked, clickHandler, subjectInput, setSubjectInput, onSubmitHandler, subjects}) => {
+    console.log(subjects);
     return (
         <>
-        <AddCourse clicked={clicked} clickHandler={clickHandler} courseInput={courseInput} setCourseInput={setCourseInput} onSubmitHandler={onSubmitHandler}/>
+        <AddSubject clicked={clicked} clickHandler={clickHandler} subjectInput={subjectInput} setSubjectInput={setSubjectInput} onSubmitHandler={onSubmitHandler}/>
         <Container>
             <UList>
-                {!courses ? 
+                {!subjects ? 
                 <Line><Text>Empty</Text></Line> :
-                courses.map(course => <Line key={course.id}><Course text={course.name} /></Line>)
+                subjects.map(subject => <Line key={subject.id}><Subject text={subject.name} /></Line>)
             }
                 <Line onClick={() => clickHandler()}>
                     <Button><FontAwesomeIcon icon={faPlus} /></Button>
@@ -62,4 +62,4 @@ const CoursesPresenter = ({clicked, clickHandler, courseInput, setCourseInput, o
         </>
     )
 }
-export default CoursesPresenter
+export default SubjectsPresenter

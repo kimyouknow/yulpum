@@ -1,7 +1,7 @@
 import React from "react";
 import styled from 'styled-components';
 import SideMenu from "../../Components/SideMenu";
-import Courses from "../Courses";
+import Subjects from "../Subjects";
 import Timer from "../Timer.js";
 
 const Container = styled.div`
@@ -18,7 +18,7 @@ const HomePresenter = ({clickLogout}) => (
     <Container>
         <SideMenu clickLogout={clickLogout}/>
         <Timer />
-        <Courses />   
+        <Subjects/>   
     </Container>
 )
 export default HomePresenter

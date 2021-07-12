@@ -43,7 +43,7 @@ const Input = styled.input``;
 
 const Button = styled.button``;
 
-const AddCourse = ({clicked, clickHandler, courseInput ,setCourseInput, onSubmitHandler}) => {
+const AddSubject = ({clicked, clickHandler, subjectInput ,setSubjectInput, onSubmitHandler}) => {
 
     return (
         <>
@@ -53,8 +53,8 @@ const AddCourse = ({clicked, clickHandler, courseInput ,setCourseInput, onSubmit
                     <FontAwesomeIcon icon={faArrowLeft} />
                 </BackButton>
                 <Form onSubmit={(e => onSubmitHandler(e))}>
-                    <label>Course</label>
-                    <input type="text" value={courseInput} onChange={(e => setCourseInput(e.target.value))} />
+                    <label>subject</label>
+                    <input type="text" value={subjectInput} onChange={(e => setSubjectInput(e.target.value))} />
                     <Button onClick={() => clickHandler()}>ADD</Button>
                 </Form>
             </Section>
@@ -63,4 +63,4 @@ const AddCourse = ({clicked, clickHandler, courseInput ,setCourseInput, onSubmit
     );
 }
 
-export default AddCourse;
+export default AddSubject;

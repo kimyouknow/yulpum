@@ -22,6 +22,20 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use(routes.home, globalRoutes);
+app.post("/api/getSubject", (req, res) => {
+    // console.log(req.body);
+    return res.send("hi");
+})
+
+app.post("/api/update-time", (req, res) => {
+    const {token, timeValue} = req.body;
+    return  res.json({
+        isWell:true,
+        token,
+        timeValue
+    });
+})
+
 
 const handleListenning = () =>{ 
     console.log(`✅ Listening on: http://localhost:${PORT}`);
