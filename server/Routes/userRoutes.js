@@ -11,7 +11,7 @@ const userRoutes = express.Router();
 
 userRoutes.post(routes.saveStudy,saveStudy);
 userRoutes.post(routes.addSubject,addSubject);
-userRoutes.get(routes.activepage,routes.subjectDetail,subjectDetail);
+userRoutes.get(routes.subjectDetail,subjectDetail);
 userRoutes.get(routes.getSubject,getSubject);
 
 export default userRoutes;

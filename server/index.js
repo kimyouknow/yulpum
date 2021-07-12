@@ -6,8 +6,7 @@ import globalRoutes from "./Routes/globalRoutes";
 import userRoutes from "./Routes/userRoutes";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
-import "./models/Subject";
-import "./models/User";
+
 
 
 
@@ -27,7 +26,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use(routes.home, globalRoutes);
-app.use(routes.home, userRoutes);
+app.use(routes.activepage, userRoutes);
 
 const handleListenning = () =>{ 
     console.log(`✅ Listening on: http://localhost:${PORT}`);
