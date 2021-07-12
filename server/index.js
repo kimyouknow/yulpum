@@ -3,8 +3,10 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import routes from "./routes.js";
 import globalRoutes from "./Routes/globalRoutes";
+import globalRoutes from "./Routes/userRoutes";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
+import userRoutes from "./Routes/userRoutes";
 
 dotenv.config();
 mongoose.connect(process.env.serverURL,{
@@ -22,7 +24,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use(routes.home, globalRoutes);
-
+app.use(routes.home, userRoutes);
 const handleListenning = () =>{ 
     console.log(`✅ Listening on: http://localhost:${PORT}`);
 };
