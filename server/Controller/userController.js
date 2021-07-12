@@ -1,4 +1,4 @@
-import User from "../models/Users";
+import User from "../models/User";
 export const postRegister = async (req,res) =>{
   
     const param_name = req.body.name;

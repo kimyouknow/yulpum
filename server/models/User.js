@@ -2,9 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 import bcrypt, { hash } from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-
 const saltRounds = 10;
-
 const userSchema = mongoose.Schema({
     name:{
         type: String,

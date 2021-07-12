@@ -9,6 +9,7 @@ const SAVE="/api/save-subject";
 const GETSUBJECT = "/api/get-subject";
 const ADDSUBJECT ="/api/add-subject";
 const SUBJECTDETAIL = "/api/subject-detail";
+
 const routes = {
 
     home:HOME,
@@ -18,7 +19,7 @@ const routes = {
     auth:AUTH,
     getSubject:GETSUBJECT,
     activepage:ACTIVEPAGE,
-    save:SAVE,
+    saveStudy:SAVE,
     addSubject:ADDSUBJECT,
     subjectDetail:SUBJECTDETAIL
     

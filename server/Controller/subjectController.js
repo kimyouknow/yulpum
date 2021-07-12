@@ -1,4 +1,4 @@
-import User from "../models/users";
+import User from "../models/User";
 import Subject from "../models/Subject";
 //active page에서 공부 종료시 실행
 export const saveStudy =async(req,res)=>{
