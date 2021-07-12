@@ -43,7 +43,7 @@ const Text = styled.div`
 
 
 const SubjectsPresenter = ({clicked, clickHandler, subjectInput, setSubjectInput, onSubmitHandler, subjects}) => {
-    // console.log(subjects);
+    console.log(subjects);
     return (
         <>
         <AddSubject clicked={clicked} clickHandler={clickHandler} subjectInput={subjectInput} setSubjectInput={setSubjectInput} onSubmitHandler={onSubmitHandler}/>
@@ -51,7 +51,7 @@ const SubjectsPresenter = ({clicked, clickHandler, subjectInput, setSubjectInput
             <UList>
                 {!subjects ? 
                 <Line><Text>Empty</Text></Line> :
-                subjects.map(subject => <Line key={subject.id}><Subject text={subject.name} id={subject.id}/></Line>)
+                subjects.map(subject => <Line key={subject.id}><Subject text={subject.name} /></Line>)
             }
                 <Line onClick={() => clickHandler()}>
                     <Button><FontAwesomeIcon icon={faPlus} /></Button>

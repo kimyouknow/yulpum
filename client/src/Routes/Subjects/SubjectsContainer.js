@@ -28,8 +28,7 @@ const SubjectsContainer = () => {
         const addedId = Date.now();
         let body = {
             addedName,
-            addedId,
-            timeValue: 0
+            addedId
         };
         dispatch(addSubject(body))
             .then(response => {
