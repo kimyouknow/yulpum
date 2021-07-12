@@ -1,7 +1,7 @@
 import User from "../models/User";
 import Subject from "../models/Subject";
 //active page에서 공부 종료시 실행
-export const saveStudy =(req,res)=>{
+export const saveStudy = async(req,res)=>{
     const {
         user_id,
         token,//유저 토큰과
@@ -24,7 +24,7 @@ export const saveStudy =(req,res)=>{
 }
 
 //home에서 과목 추가시 업데이트
-export const addSubject = (req,res)=>{
+export const addSubject = async(req,res)=>{
     const {
         user_id,
         token,//유저 토큰과

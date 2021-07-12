@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import routes from "./routes.js";
 import globalRoutes from "./Routes/globalRoutes";
-import globalRoutes from "./Routes/userRoutes";
+import userRoutes from "./Routes/userRoutes";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 
@@ -24,20 +24,6 @@ app.use(cookieParser());
 
 app.use(routes.home, globalRoutes);
 app.use(routes.home, userRoutes);
-app.post("/api/getSubject", (req, res) => {
-    // console.log(req.body);
-    return res.send("hi");
-})
-
-app.post("/api/update-time", (req, res) => {
-    const {token, timeValue} = req.body;
-    return  res.json({
-        isWell:true,
-        token,
-        timeValue
-    });
-})
-
 
 const handleListenning = () =>{ 
     console.log(`✅ Listening on: http://localhost:${PORT}`);
