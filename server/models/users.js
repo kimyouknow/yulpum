@@ -27,10 +27,10 @@ const userSchema = mongoose.Schema({
     token:{
         type:String
     },
-    studySubject:{
+    studySubject:[{
         type:Schema.Types.ObjectId,
         ref:"Subject"
-    }
+    }]
     
 })
 
