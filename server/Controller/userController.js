@@ -84,4 +84,17 @@ export const logout = async(req,res) =>{
             logoutSuccess:true
         });
     })
-}
+};
+
+
+//home 에서 괴목 명과 시간 띄워줌
+export const getSubject = async(req,res)=>{
+
+
+};
+
+
+///active page에서 detail을 띄워줌
+export const subjectDetail = async(req,res)=>{
+
+};
