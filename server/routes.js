@@ -4,7 +4,7 @@ const REGISTER = "/api/register";
 const LOGIN = "/api/login";
 const LOGOUT ="/api/logout";
 const AUTH = "/api/auth";
-const SAVE
+// const SAVE
 const routes = {
 
     home:HOME,
