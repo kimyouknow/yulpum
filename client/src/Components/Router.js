@@ -17,7 +17,7 @@ export default () => (
             <Navigation />
             <Switch>
                 <Route path="/" exact component={Auth(Home, true)}/>
-                <Route path="/active" exact component={Auth(ActiveTimer, true)}/>
+                <Route path="/active/:id" exact component={Auth(ActiveTimer, true)}/>
                 <Route path="/login" component={Auth(Login, false)}/>
                 <Route path="/register" component={Auth(Register, false)}/>
                 <Route path="/group" component={Auth(Group, true)}/>

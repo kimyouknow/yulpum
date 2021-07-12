@@ -1,8 +1,10 @@
-import { TIMER } from "../_actions/types";
+import { UPDATE_TIMER, GET_SUBJECT_TIME } from "../_actions/types";
 
 export default function (state={}, action) {
     switch(action.type) {
-        case TIMER:
+        case UPDATE_TIMER:
+            return{...state, timerData: action.payload}
+        case GET_SUBJECT_TIME:
             return{...state, timerData: action.payload}
         default:
             return state;

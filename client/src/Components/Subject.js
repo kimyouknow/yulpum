@@ -15,9 +15,9 @@ const Container = styled.div`
 
 const TimerContainer = styled.div``;
 
-const Subject = ({text}) => {
+const Subject = ({text, id}) => {
     return (
-    <SLink to="/active">
+    <SLink to={`/active/${id}`} params={{id: id}}>
         <Container>
             <h1>{text}</h1>
             <TimerContainer>00:00:00</TimerContainer>
