@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { NUMBER } from 'sequelize/types';
 
 const subjectSchema = mongoose.Schema({
 

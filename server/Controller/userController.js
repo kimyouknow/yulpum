@@ -1,4 +1,4 @@
-import User from "../models/Users";
+import User from "../models/User";
 export const postRegister = async (req,res) =>{
   
     const param_name = req.body.name;
@@ -87,14 +87,3 @@ export const logout = async(req,res) =>{
 };
 
 
-//home 에서 괴목 명과 시간 띄워줌
-export const getSubject = async(req,res)=>{
-
-
-};
-
-
-///active page에서 detail을 띄워줌
-export const subjectDetail = async(req,res)=>{
-
-};

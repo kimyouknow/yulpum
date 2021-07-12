@@ -1,4 +1,4 @@
-import User from "../models/User";
+import User from "../models/users";
 import Subject from "../models/Subject";
 //active page에서 공부 종료시 실행
 export const saveStudy = async(req,res)=>{
@@ -11,9 +11,9 @@ export const saveStudy = async(req,res)=>{
     }=req.body;
  
 
-    await User.findByToken(token, (err,user)=>{
+    await User.findByToken(token, (err,user) => {
         if(err) throw err;
-        const study = await user.populate("studySubject");
+        const study = user.populate("studySubject");
         console.log(study);//확인용
         let found = study.find(study => study.Subject === subject);
         console.log(found);//확인용
@@ -57,7 +57,7 @@ export const getSubject = async(req,res)=>{
 
     await User.findByToken(token, (err,user)=>{
         if(err) throw err;
-        const subject = await user.populate("studySubject");
+        const subject = user.populate("studySubject");
         res.status(200).send(subject);
    
     });
@@ -76,7 +76,7 @@ export const subjectDetail = async(req,res)=>{
     }=req.body;
     await User.findByToken(token, (err,user)=>{
         if(err) throw err;
-        const study = await user.populate("studySubject");
+        const study = user.populate("studySubject");
         console.log(study);//확인용
         let found = study.find(study => study._id=== subject);
         if(!found){

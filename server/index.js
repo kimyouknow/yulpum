@@ -6,6 +6,10 @@ import globalRoutes from "./Routes/globalRoutes";
 import userRoutes from "./Routes/userRoutes";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
+import "./models/Subject";
+import "./models/User";
+
+
 
 dotenv.config();
 mongoose.connect(process.env.serverURL,{
