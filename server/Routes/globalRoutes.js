@@ -5,6 +5,12 @@ import {
     postLogin,
     logout
 } from "../Controller/userController";
+import {
+    saveStudy,
+    addSubject,
+    subjectDetail,
+    getSubject
+} from "../Controller/subjectController"
 import{
     auth
 } from "../middleware/auth";
@@ -21,6 +27,12 @@ globalRoutes.get(routes.auth, auth,(req, res)=>{
         role:req.user.role
     })
 });
+
+// globalRoutes.post(routes.saveStudy,saveStudy);
+globalRoutes.post(routes.addSubject,addSubject);
+globalRoutes.post(routes.subjectDetail,subjectDetail);
+globalRoutes.post(routes.getSubject,getSubject);
+
 
 export default globalRoutes;
 

@@ -1,8 +1,12 @@
 import axios from 'axios';
 import { UPDATE_TIMER ,GET_SUBJECT_TIME } from './types';
 
+const api = axios.create({
+    baseURL: "http://localhost:3000/api/"
+})
+
 export function getSubjectTime(dataTosubmit) {
-    const request = axios.get('api/subject-detail', dataTosubmit)
+    const request = api.post('subject-detail', dataTosubmit)
             .then(response => response.data)
 
     return {
@@ -12,7 +16,7 @@ export function getSubjectTime(dataTosubmit) {
 }
 
 export function updateTimer(dataTosubmit) {
-    const request = axios.post('api/save-subject', dataTosubmit)
+    const request = api.post('save-subject', dataTosubmit)
             .then(response => response.data)
 
     return {

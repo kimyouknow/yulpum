@@ -19,6 +19,7 @@ export default function AuthHOC(SpecificComponent, option, adminRoute = null) {
             dispatch(auth()).then(response => {
                 const {user_id, isAdmin, isAuth, role} = response.payload;
                 // 로그인 하지 않은 상태
+                // console.log(user_id, isAdmin, isAuth, role);
                 if(!isAuth) {
                     if(option) {
                         props.history.push('/login')

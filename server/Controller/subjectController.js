@@ -31,7 +31,7 @@ export const addSubject = async(req,res)=>{
         subject
       
     }=req.body;
-
+    console.log(token);
     const Study = await Subject.create({
         subject_name:subject,
         time:0
@@ -55,7 +55,7 @@ export const getSubject = async(req,res)=>{
         subject
       
     }=req.body;
-
+    console.log(token);
     await User.findByToken(token, (err,user)=>{
         if(err) throw err;
         const subject = user.populate("studySubject");

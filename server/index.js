@@ -7,18 +7,13 @@ import userRoutes from "./Routes/userRoutes";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 
-
-
-
 dotenv.config();
 mongoose.connect(process.env.serverURL,{
-    userNewUrlParser : true, useUnifiedTopology: true, useCreateIndex:true, useFindAndModify:false
+    useNewUrlParser : true, useUnifiedTopology: true, useCreateIndex:true, useFindAndModify:false
 }).then(() => console.log('DB has been Connected.'))
 .catch(err => console.log(err));
 
 const app = express()
-
-
 const PORT = process.env.PORT || 4000;
 
 app.use(bodyParser.urlencoded());
@@ -26,7 +21,11 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use(routes.home, globalRoutes);
-app.use(routes.activepage, userRoutes);
+// app.post("/api/get-subject", (req, res) => {
+//     console.log(req, req.body);
+// })
+// app.use(routes.home, userRoutes);
+// app.use(routes.activepage, userRoutes);
 
 const handleListenning = () =>{ 
     console.log(`✅ Listening on: http://localhost:${PORT}`);

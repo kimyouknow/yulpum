@@ -25,10 +25,9 @@ const SubjectsContainer = () => {
     const onSubmitHandler = (e) => {
         e.preventDefault();
         const addedName = subjectInput;
-        const addedId = Date.now();
         let body = {
-            addedName,
-            addedId,
+            subject: addedName,
+            token,
             timeValue: 0
         };
         dispatch(addSubject(body))

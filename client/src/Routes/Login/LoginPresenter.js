@@ -1,5 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
+import {Link} from "react-router-dom";
 
 const Container = styled.div`
     display: flex;
@@ -14,7 +15,13 @@ const Form = styled.form`
     flex-direction: column;
 `;
 
-const Button = styled.button``;
+const SLink = styled(Link)`
+    width: 100%;
+`;
+
+const Button = styled.button`
+    width: 100%;
+`;
 
 const LoginPresenter = ({email, setEmail, password, setPassword, onSubmitHandler}) => (
     <Container>
@@ -25,6 +32,9 @@ const LoginPresenter = ({email, setEmail, password, setPassword, onSubmitHandler
             <label>Password</label>
             <input type="password"value={password} onChange={(e=> setPassword(e.target.value))} />
             <Button>Log In</Button>
+            <SLink to="/register">
+                <Button>Register</Button>
+            </SLink>
         </Form>
     </Container>
 )
