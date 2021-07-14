@@ -5,12 +5,8 @@ import {
     AUTH_USER
 } from './types';
 
-const api = axios.create({
-    baseURL: "http://localhost:3000/api/"
-})
-
 export function loginUser(dataTosubmit) {
-    const request = api.post('login', dataTosubmit)
+    const request = axios.post('/api/login', dataTosubmit)
             .then(response => response.data)
 
     return {
@@ -21,7 +17,7 @@ export function loginUser(dataTosubmit) {
 }
 
 export function registerUser(dataTosubmit) {
-    const request = api.post('register', dataTosubmit)
+    const request = axios.post('/api/register', dataTosubmit)
             .then(response => response.data)
 
     return {
@@ -31,7 +27,7 @@ export function registerUser(dataTosubmit) {
 }
 
 export function auth() {
-    const request = api.get('auth')
+    const request = axios.get('/api/auth')
     .then(response =>  response.data )
 
     return {
