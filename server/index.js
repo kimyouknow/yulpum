@@ -18,13 +18,14 @@ const PORT = process.env.PORT || 4000;
 
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
+// app.use(express.urlencoded({extends: true}));
 app.use(cookieParser());
 
 app.use(routes.home, globalRoutes);
+app.use(routes.home, userRoutes);
 // app.post("/api/get-subject", (req, res) => {
 //     console.log(req, req.body);
 // })
-// app.use(routes.home, userRoutes);
 // app.use(routes.activepage, userRoutes);
 
 const handleListenning = () =>{ 

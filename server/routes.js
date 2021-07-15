@@ -1,14 +1,13 @@
 //global
-const HOME = "/";
-const ACTIVEPAGE = "/active"
-const REGISTER = "/api/register";
-const LOGIN = "/api/login";
-const LOGOUT ="/api/logout";
-const AUTH = "/api/auth";
-const SAVE="/api/save-subject";
-const GETSUBJECT = "/api/get-subject";
-const ADDSUBJECT ="/api/add-subject";
-const SUBJECTDETAIL = "/api/subject-detail";
+const HOME = "/api";
+const REGISTER = "/register";
+const LOGIN = "/login";
+const LOGOUT ="/logout";
+const AUTH = "/auth";
+const SAVE="/save-subject";
+const GETSUBJECT = "/get-subject";
+const ADDSUBJECT ="/add-subject";
+const SUBJECTDETAIL = "/subject-detail";
 
 const routes = {
 
@@ -18,7 +17,6 @@ const routes = {
     logout:LOGOUT,
     auth:AUTH,
     getSubject:GETSUBJECT,
-    activepage:ACTIVEPAGE,
     saveStudy:SAVE,
     addSubject:ADDSUBJECT,
     subjectDetail:SUBJECTDETAIL

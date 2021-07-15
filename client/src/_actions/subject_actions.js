@@ -13,7 +13,7 @@ export function getSubject(dataTosubmit) {
 }
 
 export function addSubject(dataTosubmit) {
-    console.log(dataTosubmit);
+    // console.log(dataTosubmit);
     const request = axios.post('/api/add-subject', dataTosubmit)
             .then(response => response.data)
 

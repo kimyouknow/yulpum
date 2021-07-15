@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import SideMenu from "../../Components/SideMenu";
 import Subjects from "../Subjects";
 import Timer from "../Timer.js";
+import Loader from "../../Components/Loader";
 
 const Container = styled.div`
     position: relative;
@@ -14,11 +15,11 @@ const Container = styled.div`
     height: 100vh;
 `;
 
-const HomePresenter = ({clickLogout}) => (
+const HomePresenter = ({clickLogout, token}) => (
     <Container>
         <SideMenu clickLogout={clickLogout}/>
         <Timer />
-        <Subjects/>   
+        {!token ? <Loader /> : <Subjects tokenData={token}/>}
     </Container>
 )
 export default HomePresenter
