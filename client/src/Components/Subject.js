@@ -12,7 +12,6 @@ const Container = styled.div`
     justify-content: space-between;
 `;
 
-
 const TimerContainer = styled.div``;
 
 const Subject = ({text, id}) => {

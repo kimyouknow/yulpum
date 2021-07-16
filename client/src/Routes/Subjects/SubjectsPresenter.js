@@ -43,7 +43,7 @@ const Text = styled.div`
 
 
 const SubjectsPresenter = ({clicked, clickHandler, subjectInput, setSubjectInput, onSubmitHandler, subjects}) => {
-    console.log(subjects);
+    // console.log(subjects);
     return (
         <>
         <AddSubject clicked={clicked} clickHandler={clickHandler} subjectInput={subjectInput} setSubjectInput={setSubjectInput} onSubmitHandler={onSubmitHandler}/>
