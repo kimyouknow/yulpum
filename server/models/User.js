@@ -1,6 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 import bcrypt, { hash } from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import userRoutes from '../Routes/userRoutes';
 
 
 const saltRounds = 10;
@@ -88,7 +89,7 @@ userSchema.statics.findByToken = function(token,cb){
 
         const query = user.findOne({"_id":decoded,"token":token}, function(err,user){
             if(err)return cb(err);
-            cb(null,query);
+            cb(null,query,user);
             
         })
     })

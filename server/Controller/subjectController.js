@@ -10,14 +10,13 @@ export const saveStudy = async(req,res)=>{
     }=req.body;
  
 
-    await User.findByToken(token, async(err,user) => {
+    await User.findByToken(token, async(err,query,user) => {
         if(err) throw err;
         let studyRet;
-        await user.populate("studySubject").then((err,data)=>{
+        await query.populate("studySubject").then((err,data)=>{
             studyRet = data;
         });
-        console.log("saveStudy : "+subject);//확인용
-        
+    
         const found = studyRet.find(e=>{
             if(e._id == subject_id) return true;
         });  //await 필요없음 
@@ -50,7 +49,7 @@ export const addSubject = async(req,res)=>{
         time:timeValue
     });
     
-    await User.findByToken(token, (err,user)=>{
+    await User.findByToken(token, (err,query,user)=>{
         if(err) throw err;
         user.studySubject.push(Study);
         user.save();
@@ -71,10 +70,10 @@ export const getSubject = async(req,res)=>{
       
     }=req.body;
    
-    await User.findByToken(token, (err,user)=>{
+    await User.findByToken(token, (err,query,user)=>{
         if(err) throw err;
-        console.log("heleleoleo");
-        user.populate("studySubject").then(data =>{
+      
+        query.populate("studySubject").then(data =>{
             res.status(200).send(data.studySubject);
         })
  
@@ -95,10 +94,10 @@ export const subjectDetail = async(req,res)=>{
         subject_id// subject의 id
       
     }=req.body;
-    await User.findByToken(token, async(err,user)=>{
+    await User.findByToken(token, async(err,query,user)=>{
         if(err) throw err;
         let study;
-        await user.populate("studySubject").then(data =>{
+        await query.populate("studySubject").then(data =>{
             study = data.studySubject;
          })
 
