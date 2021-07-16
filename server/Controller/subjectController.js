@@ -4,24 +4,35 @@ import Subject from "../models/Subject";
 export const saveStudy = async(req,res)=>{
     const {
         token,//유저 토큰과
-        id,///과목 id 
+        subject_id,///과목 id 
         timeValue//집중시간 받음
         
     }=req.body;
  
 
-    await User.findByToken(token, (err,user) => {
+    await User.findByToken(token, async(err,user) => {
         if(err) throw err;
         let studyRet;
-        user.populate("Subject").then((err,data)=>{
-            subject = data;
+        await user.populate("studySubject").then((err,data)=>{
+            studyRet = data;
         });
         console.log("saveStudy : "+subject);//확인용
-        let found = studyRet.find(study => study._id === id);
-        console.log(found);//확인용
-        found.time += timeValue;
-        user.save();
-        res.status(200);
+        
+        const found = studyRet.find(e=>{
+            if(e._id == subject_id) return true;
+        });  //await 필요없음 
+
+        if(!found){
+            res.status(404);
+            console.log("error, no subject");
+
+        }else{
+
+            found.time += timeValue;
+            user.save();
+            res.status(200);
+        }
+     
     });
 }
 
@@ -93,8 +104,8 @@ export const subjectDetail = async(req,res)=>{
 
         const found = study.find(e=>{
             if(e._id == subject_id) return true;
-        });
-        console.log(found);//확인용
+        });//await 필요없음 
+
         if(!found){
             res.status(404);
             console.log("error, no subject");
