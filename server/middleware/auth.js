@@ -1,4 +1,4 @@
-import User from"../models/Users";
+import User from"../models/User";
 export const auth =(req, res, next)=>{
     //클라이언트 쿠키에서 토큰 가져와서 
     //복호화함

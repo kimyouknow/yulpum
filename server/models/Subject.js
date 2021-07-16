@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { NUMBER } from 'sequelize/types';
 
 const subjectSchema = mongoose.Schema({
 
@@ -9,7 +8,7 @@ const subjectSchema = mongoose.Schema({
         maxlength:100
     },
     time:{
-        type:NUMBER,
+        type:Number,
         default:0
     }
 

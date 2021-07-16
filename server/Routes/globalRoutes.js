@@ -10,9 +10,6 @@ import{
 } from "../middleware/auth";
 
 const globalRoutes = express.Router();
-globalRoutes.post(routes.register,postRegister);
-globalRoutes.post(routes.login,postLogin);
-globalRoutes.get(routes.logout,auth,logout);
 globalRoutes.get(routes.auth, auth,(req, res)=>{
     res.status(200).json({
         user_id:req.user._id,
@@ -21,6 +18,9 @@ globalRoutes.get(routes.auth, auth,(req, res)=>{
         role:req.user.role
     })
 });
+globalRoutes.post(routes.register,postRegister);
+globalRoutes.post(routes.login,postLogin);
+globalRoutes.get(routes.logout,auth,logout);
 
 export default globalRoutes;
 

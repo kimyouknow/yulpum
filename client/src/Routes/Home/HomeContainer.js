@@ -4,6 +4,7 @@ import HomePresenter from "./HomePresenter";
 import {useHistory} from "react-router";
 
 const HomeContainer = () => {
+    const [token, setToken] = useState(null);
     const history = useHistory();
     const clickLogout = () => {
         axios.get('/api/logout')
@@ -15,9 +16,17 @@ const HomeContainer = () => {
             }
         })
     }
+    const getToken = () => {
+        const tokenData = document.cookie.split("=")[1];
+        setToken(tokenData);
+    }
+    useEffect(() => {
+        getToken()
+    }, [])
     return(
         <HomePresenter 
         clickLogout={clickLogout}
+        token={token}
         />
         )
 }

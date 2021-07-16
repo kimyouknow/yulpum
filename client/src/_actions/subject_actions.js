@@ -2,7 +2,8 @@ import axios from 'axios';
 import { ADD_SUBJECT, GET_SUBJECTS } from './types';
 
 export function getSubject(dataTosubmit) {
-    const request = axios.get("/api/get-subject", dataTosubmit)
+    // console.log(dataTosubmit);
+    const request = axios.post("api/get-subject", dataTosubmit)
         .then(response => response.data)
     
     return {
@@ -12,7 +13,8 @@ export function getSubject(dataTosubmit) {
 }
 
 export function addSubject(dataTosubmit) {
-    const request = axios.post('api/add-subject', dataTosubmit)
+    // console.log(dataTosubmit);
+    const request = axios.post('/api/add-subject', dataTosubmit)
             .then(response => response.data)
 
     return {

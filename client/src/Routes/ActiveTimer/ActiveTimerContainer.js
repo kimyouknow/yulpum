@@ -2,20 +2,22 @@ import React, {useState, useEffect} from "react";
 import { updateTimer, getSubjectTime } from "../../_actions/timer_actions";
 import ActiveTimerPresenter from "./ActiveTimerPresenter";
 import {useDispatch} from "react-redux";
-import {useHistory, useParams  } from "react-router";
+import {useHistory, useParams, useLocation  } from "react-router";
 
 const ActiveTimerContainer = () => {
     const token = document.cookie.split("=")[1];
     const dispatch = useDispatch();
     const history = useHistory();
-    const { id } = useParams();
-    // console.log(token);
+    // const params = useParams();
+    const {state: {id}} = useLocation();
+    // console.log(id);
     const [timeValue, setTimeValue] = useState(0);
     const onSubmitHandler = () => {
         // console.log(timeValue);
         let body = {
             token,
-            timeValue
+            timeValue,
+            id
         };
         dispatch(updateTimer(body))
             .then(response => {

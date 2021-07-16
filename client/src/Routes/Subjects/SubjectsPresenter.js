@@ -51,7 +51,7 @@ const SubjectsPresenter = ({clicked, clickHandler, subjectInput, setSubjectInput
             <UList>
                 {!subjects ? 
                 <Line><Text>Empty</Text></Line> :
-                subjects.map(subject => <Line key={subject.id}><Subject text={subject.name} id={subject.id}/></Line>)
+                subjects.map(subject => <Line key={subject}><Subject text={subject} id={subject}/></Line>)
             }
                 <Line onClick={() => clickHandler()}>
                     <Button><FontAwesomeIcon icon={faPlus} /></Button>

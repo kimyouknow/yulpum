@@ -1,17 +1,26 @@
 //global
-const HOME = "/";
-const REGISTER = "/api/register";
-const LOGIN = "/api/login";
-const LOGOUT ="/api/logout";
-const AUTH = "/api/auth";
-// const SAVE
+const HOME = "/api";
+const REGISTER = "/register";
+const LOGIN = "/login";
+const LOGOUT ="/logout";
+const AUTH = "/auth";
+const SAVE="/save-subject";
+const GETSUBJECT = "/get-subject";
+const ADDSUBJECT ="/add-subject";
+const SUBJECTDETAIL = "/subject-detail";
+
 const routes = {
 
     home:HOME,
     register:REGISTER,
     login:LOGIN,
     logout:LOGOUT,
-    auth:AUTH
+    auth:AUTH,
+    getSubject:GETSUBJECT,
+    saveStudy:SAVE,
+    addSubject:ADDSUBJECT,
+    subjectDetail:SUBJECTDETAIL
+    
 
 }
 
