@@ -9,7 +9,7 @@ const ActiveTimerContainer = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     // const params = useParams();
-    const {state: {id}} = useLocation();
+    const {state: {id: subject_id}} = useLocation();
     // console.log(id);
     const [timeValue, setTimeValue] = useState(0);
     const onSubmitHandler = () => {
@@ -17,7 +17,7 @@ const ActiveTimerContainer = () => {
         let body = {
             token,
             timeValue,
-            id
+            subject_id
         };
         dispatch(updateTimer(body))
             .then(response => {
@@ -32,7 +32,7 @@ const ActiveTimerContainer = () => {
     const getTime = () => {
         let body = {
             token,
-            id
+            subject_id
         }
         dispatch(getSubjectTime(body))
             .then(response => {

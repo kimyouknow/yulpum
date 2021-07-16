@@ -40,7 +40,7 @@ const SubjectsContainer = ({tokenData}) => {
         e.preventDefault();
         const addedName = subjectInput;
         let body = {
-            subject: addedName,
+            subject_title: addedName,
             token: tokenData,
             timeValue: 0
         };
