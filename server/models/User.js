@@ -28,7 +28,7 @@ const userSchema = mongoose.Schema({
         type:String
     },
     studySubject:[{
-        type:Schema.Types.ObjectId,
+        type:mongoose.Schema.Types.ObjectId,
         ref:"Subject"
     }]
     
@@ -83,12 +83,12 @@ userSchema.methods.genToken = function(cb){
 
 userSchema.statics.findByToken = function(token,cb){
     var user = this;
-
+   
     jwt.verify(token,process.env.tokenSecret, function(err, decoded){
 
-        user.findOne({"_id":decoded,"token":token}, function(err,user){
+        const query = user.findOne({"_id":decoded,"token":token}, function(err,user){
             if(err)return cb(err);
-            cb(null,user);
+            cb(null,query);
             
         })
     })
