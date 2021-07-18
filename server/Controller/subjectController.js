@@ -8,28 +8,30 @@ export const saveStudy = async(req,res)=>{
         timeValue//집중시간 받음
         
     }=req.body;
- 
-
+    // console.log(timeValue);
     await User.findByToken(token, async(err,query,user) => {
         if(err) throw err;
         let studyRet;
-        await query.populate("studySubject").then((err,data)=>{
-            studyRet = data;
+        await query.populate("studySubject").then(data=>{
+            studyRet = data.studySubject;
         });
     
         const found = studyRet.find(e=>{
             if(e._id == subject_id) return true;
         });  //await 필요없음 
-
+        
         if(!found){
             res.status(404);
             console.log("error, no subject");
 
         }else{
-
+            // console.log(found);
             found.time += timeValue;
-            user.save();
-            res.status(200);
+            // console.log(found);
+            await user.save();
+            res.status(200).json({
+                isWell: true
+            });
         }
      
     });
@@ -55,7 +57,10 @@ export const addSubject = async(req,res)=>{
         user.save();
         console.log("Study");
         console.log(Study);
-        res.status(200);
+        res.status(200).json({
+            isWell: true,
+            Study
+        });
     });
 
 }
@@ -100,7 +105,6 @@ export const subjectDetail = async(req,res)=>{
         await query.populate("studySubject").then(data =>{
             study = data.studySubject;
          })
-
         const found = study.find(e=>{
             if(e._id == subject_id) return true;
         });//await 필요없음 

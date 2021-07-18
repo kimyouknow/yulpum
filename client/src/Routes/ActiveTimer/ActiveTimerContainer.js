@@ -8,10 +8,10 @@ const ActiveTimerContainer = () => {
     const token = document.cookie.split("=")[1];
     const dispatch = useDispatch();
     const history = useHistory();
-    // const params = useParams();
     const {state: {id: subject_id}} = useLocation();
-    // console.log(id);
     const [timeValue, setTimeValue] = useState(0);
+    const [activedSubject, setActivedSubject] = useState(null);
+    const [intialTime, setIntialTime] = useState(null);
     const onSubmitHandler = () => {
         // console.log(timeValue);
         let body = {
@@ -21,7 +21,6 @@ const ActiveTimerContainer = () => {
         };
         dispatch(updateTimer(body))
             .then(response => {
-                console.log(response);
                 if(response.payload.isWell) {
                     history.push('/');
                 } else {
@@ -36,7 +35,10 @@ const ActiveTimerContainer = () => {
         }
         dispatch(getSubjectTime(body))
             .then(response => {
-                console.log(response);
+                const {subject_name, time} = response.payload;
+                console.log(time);
+                setActivedSubject(subject_name);
+                setIntialTime(time);
             })
     }
     useEffect(() => {
@@ -52,6 +54,8 @@ const ActiveTimerContainer = () => {
         <ActiveTimerPresenter 
             timeValue={timeValue}
             onSubmitHandler={onSubmitHandler}
+            activedSubject={activedSubject}
+            intialTime={intialTime}
         />
         )
 }

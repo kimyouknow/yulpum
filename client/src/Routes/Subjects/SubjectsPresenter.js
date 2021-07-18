@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import AddSubject from "../../Components/AddSubject";
 import Subject from "../../Components/Subject";
+import Loader from "../../Components/Loader";
 
 const Container = styled.div`
     width: 100%;
@@ -50,8 +51,8 @@ const SubjectsPresenter = ({clicked, clickHandler, subjectInput, setSubjectInput
         <Container>
             <UList>
                 {!subjects ? 
-                <Line><Text>Empty</Text></Line> :
-                subjects.map(subject => <Line key={subject}><Subject text={subject} id={subject}/></Line>)
+                <Loader /> :
+                subjects.map(subject => <Line key={subject._id}><Subject text={subject.subject_name} id={subject._id} time={subject.time}/></Line>)
             }
                 <Line onClick={() => clickHandler()}>
                     <Button><FontAwesomeIcon icon={faPlus} /></Button>

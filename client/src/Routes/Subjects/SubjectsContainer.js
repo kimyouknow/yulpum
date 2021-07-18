@@ -25,14 +25,9 @@ const SubjectsContainer = ({tokenData}) => {
         }
         dispatch(getSubject(body))
             .then(response => {
-                // console.log(response);
-                const {token, studySubject} = response.payload;
-                if(token !== tokenData) {
-                    alert("Error!");
-                    history.push('/');
-                }
-                console.log(studySubject);
-                setSubjects(studySubject);
+                const {payload} = response;
+                // console.log(payload);
+                setSubjects(payload);
             })
     }
 
@@ -46,11 +41,11 @@ const SubjectsContainer = ({tokenData}) => {
         };
         dispatch(addSubject(body))
             .then(response => {
-                const {isWell, subjects} = response.payload;
+                const {isWell, Study} = response.payload;
                 if(isWell) {
                     // const newSubject = {name: response.payload.title, id: response.payload.id}
-                    // setSubjects(subject => [...subject, newSubject]);
-                    setSubjects(subjects)
+                    setSubjects(subject => [...subject, Study]);
+                    // setSubjects(subjects)
                     history.push('/');
                 } else {
                     alert("Error!");
