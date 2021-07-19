@@ -25,10 +25,9 @@ export const saveStudy = async(req,res)=>{
             console.log("error, no subject");
 
         }else{
-            // console.log(found);
-            found.time += timeValue;
-            // console.log(found);
-            await user.save();
+            const subject = await Subject.findById(subject_id);
+            subject.time += timeValue;
+            subject.save();
             res.status(200).json({
                 isWell: true
             });
