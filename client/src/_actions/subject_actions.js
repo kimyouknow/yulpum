@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_SUBJECT, GET_SUBJECTS } from './types';
+import { ADD_SUBJECT, GET_SUBJECTS, EDIT_SUBJECTS } from './types';
 
 export function getSubject(dataTosubmit) {
     // console.log(dataTosubmit);
@@ -19,6 +19,17 @@ export function addSubject(dataTosubmit) {
 
     return {
         type: ADD_SUBJECT,
+        payload: request
+    }
+}
+
+export function editSubject(dataTosubmit) {
+    // console.log(dataTosubmit);
+    const request = axios.post('/api/edit-subject', dataTosubmit)
+            .then(response => response.data)
+
+    return {
+        type: EDIT_SUBJECTS,
         payload: request
     }
 }

@@ -4,5 +4,6 @@ export const REGISTER_USER = 'register_user';
 export const AUTH_USER = 'auth_user';
 export const ADD_SUBJECT = 'add_subject';
 export const GET_SUBJECTS = 'get_subjects';
+export const EDIT_SUBJECTS = "edit_subjects";
 export const UPDATE_TIMER = 'update_timer';
 export const GET_SUBJECT_TIME = 'get_subect_time';

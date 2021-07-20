@@ -12,7 +12,8 @@ const Container = styled.div`
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: rgba(0,0,0,0.6);
+    background-color: transparent;
+    opacity: 0.5;
     z-index: 50;
 `;
 
@@ -25,6 +26,9 @@ const Section = styled.div`
     animation: modal-show .3s;
     overflow: hidden;
     padding: 12px;
+    -webkit-box-shadow: 5px 5px 15px -3px rgba(0,0,0,0.65); 
+    box-shadow: 5px 5px 15px -3px rgba(0,0,0,0.65);
+    border: 1px solid;
 `;
 
 const BackButton = styled.div`
@@ -43,19 +47,18 @@ const Input = styled.input``;
 
 const Button = styled.button``;
 
-const AddSubject = ({clicked, clickhandler, subjectInput ,setSubjectInput, onSubmitHandler}) => {
+const EditSubject = ({id, clicked, clickhandler, onSubmitHandler, editInput ,setEditInput}) => {
 
     return (
         <>
-        <Container active={clicked.addButton}>
+        <Container active={clicked.editButton}>
             <Section>
-                <BackButton active={clicked.addButton} onClick={() => clickhandler("add")}>
-                    <FontAwesomeIcon icon={faArrowLeft} />
+                <BackButton active={clicked.editButton} onClick={() => clickhandler("edit")}>
+                    X
                 </BackButton>
-                <Form onSubmit={(e => onSubmitHandler(e, "add"))}>
-                    <label>subject</label>
-                    <input type="text" value={subjectInput} onChange={(e => setSubjectInput(e.target.value))} />
-                    <Button onClick={() => clickhandler("add")}>ADD</Button>
+                <Form onSubmit={(e => onSubmitHandler(e, id))}>
+                <input type="text" value={editInput} onChange={(e => setEditInput(e.target.value))} />
+                    <Button onClick={() => clickhandler("edit")}>EDIT</Button>
                 </Form>
             </Section>
         </Container>
@@ -63,4 +66,4 @@ const AddSubject = ({clicked, clickhandler, subjectInput ,setSubjectInput, onSub
     );
 }
 
-export default AddSubject;
+export default EditSubject;

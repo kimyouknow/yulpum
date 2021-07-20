@@ -4,6 +4,10 @@ import {Link} from "react-router-dom";
 
 const SLink = styled(Link)`
     width: 100%;
+    &:hover {
+        cursor: pointer;
+        background-color: #dcdde1;
+    }
 `;
 
 const Container = styled.div`

@@ -2,21 +2,29 @@ import React, {useState, useEffect} from "react";
 import SubjectsPresenter from "./SubjectsPresenter";
 import {useDispatch} from "react-redux";
 import {useHistory} from "react-router";
-import {addSubject, getSubject} from "../../_actions/subject_actions";
+import {addSubject, editSubject, getSubject} from "../../_actions/subject_actions";
 
 const SubjectsContainer = ({tokenData}) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const [clicked, setClicked] = useState(false)
+    const [clicked, setClicked] = useState({
+        editButton: false,
+        addButton: false
+    });
+    // const [addClicked, setAddClicked] = useState(false);
+    // const [editClicked, setEditClicked] = useState(false);
     const [subjectInput, setSubjectInput] = useState("");
+    const [editInput, setEditInput] = useState("");
     const [subjects, setSubjects] = useState(null);
-    const clickHandler = () => {
-        if(clicked) {
-            setClicked(false);
-        } else {
-            setClicked(true)
+    const clickhandler= (text) => {
+        if (text === "add") {
+            clicked.addButton ? setClicked({addButton: false}) : setClicked({addButton: true});
+        } else if (text === "edit") {
+            clicked.editButton ? setClicked({editButton: false}) : setClicked({editButton: true});
         }
     }
+    // const addClickHandler = () => addClicked ? setAddClicked(false) : setAddClicked(true);
+    // const editClickHandler = () => editClicked ? setEditClicked(false) : setEditClicked(true);
     const displaySubject = () => {
         let body = {
             token: tokenData
@@ -29,8 +37,9 @@ const SubjectsContainer = ({tokenData}) => {
             })
     }
 
-    const onSubmitHandler = (e) => {
+    const onSubmitHandler = (e, element) => {
         e.preventDefault();
+        if (element === "add"){
         const addedName = subjectInput;
         let body = {
             subject_title: addedName,
@@ -49,16 +58,30 @@ const SubjectsContainer = ({tokenData}) => {
                     alert("Error!");
                 }
             })
+        } else {
+            let body = {
+                subject_id: element,
+                editSubject_title: editInput
+            };
+            dispatch(editSubject(body))
+                .then(response => console.log(response))
+        }
     }
     useEffect(() => {
         displaySubject();
     },[])
     return(
         <SubjectsPresenter 
-            clicked={clicked}
-            clickHandler={clickHandler}
+        clicked={clicked}
+        clickhandler={clickhandler}
+            // addClicked={addClicked}
+            // addClickHandler={addClickHandler}
+            // editClicked={editClicked}
+            // editClickHandler={editClickHandler}
             subjectInput={subjectInput}
             setSubjectInput={setSubjectInput}
+            editInput={editInput}
+            setEditInput={setEditInput}
             onSubmitHandler={onSubmitHandler}
             subjects={subjects}
         />
