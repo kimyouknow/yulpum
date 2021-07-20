@@ -9,8 +9,6 @@ const SubjectsContainer = ({tokenData}) => {
     const history = useHistory();
     const [clicked, setClicked] = useState(false)
     const [subjectInput, setSubjectInput] = useState("");
-    // courese를 임시로 생성한거 
-    // const [subjects, setSubjects]= useState([{name: "first", id : 2511234},{name: "second", id: 234253}]);
     const [subjects, setSubjects] = useState(null);
     const clickHandler = () => {
         if(clicked) {
