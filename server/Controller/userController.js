@@ -42,7 +42,6 @@ export const postRegister = async (req,res) =>{
     
 };
 export const postLogin = async(req,res) =>{
-   
     const param_email = req.body.email;
     const param_password = req.body.password;
     const user = await User.findOne({email: param_email});
@@ -85,6 +84,5 @@ export const logout = async(req,res) =>{
         });
     })
 };
-
 
 

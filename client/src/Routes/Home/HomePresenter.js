@@ -1,24 +1,20 @@
 import React from "react";
 import styled from 'styled-components';
 import SideMenu from "../../Components/SideMenu";
-import Courses from "../Courses";
-import Timer from "../Timer.js";
+import Subjects from "../Subjects";
+import Loader from "../../Components/Loader";
 
 const Container = styled.div`
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
+    max-width: 960px;
+    margin: 0 auto;
+    margin-top:48px;
 `;
 
-const HomePresenter = ({clickLogout}) => (
+const HomePresenter = ({clickLogout, token}) => (
     <Container>
         <SideMenu clickLogout={clickLogout}/>
-        <Timer />
-        <Courses />   
+        <h1>Timer</h1>
+        {!token ? <Loader /> : <Subjects tokenData={token}/>}
     </Container>
 )
 export default HomePresenter

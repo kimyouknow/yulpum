@@ -5,7 +5,7 @@ export const auth =(req, res, next)=>{
     
     let token = req.cookies.user_auth;
 
-    User.findByToken(token, (err,user)=>{
+    User.findByToken(token, (err,query,user)=>{
         if(err) throw err;
         if(!user) return res.json({isAuth: false, error:true});
         // console.log('?',user);

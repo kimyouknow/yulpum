@@ -6,7 +6,7 @@ import {
 } from './types';
 
 export function loginUser(dataTosubmit) {
-    const request = axios.post('api/login', dataTosubmit)
+    const request = axios.post('/api/login', dataTosubmit)
             .then(response => response.data)
 
     return {
@@ -17,7 +17,7 @@ export function loginUser(dataTosubmit) {
 }
 
 export function registerUser(dataTosubmit) {
-    const request = axios.post('api/register', dataTosubmit)
+    const request = axios.post('/api/register', dataTosubmit)
             .then(response => response.data)
 
     return {

@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 
-
 const subjectSchema = mongoose.Schema({
 
     subject_name:{
@@ -8,13 +7,12 @@ const subjectSchema = mongoose.Schema({
         required:true,
         maxlength:100
     },
-    total_time:{
+    time:{
         type:Number,
         default:0
     }
 
 })
-
 
 
 const model = mongoose.model("Subject",subjectSchema);

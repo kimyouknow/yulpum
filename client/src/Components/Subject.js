@@ -4,6 +4,10 @@ import {Link} from "react-router-dom";
 
 const SLink = styled(Link)`
     width: 100%;
+    &:hover {
+        cursor: pointer;
+        background-color: #dcdde1;
+    }
 `;
 
 const Container = styled.div`
@@ -12,18 +16,18 @@ const Container = styled.div`
     justify-content: space-between;
 `;
 
-
 const TimerContainer = styled.div``;
 
-const Course = ({text}) => {
+const Subject = ({text, id, time}) => {
     return (
-    <SLink to="/active">
+    <SLink to={{pathname: "/active", state: {id: id}}}>
+        {/* to={`/active/${id}`} params={{id: id}} */}
         <Container>
             <h1>{text}</h1>
-            <TimerContainer>00:00:00</TimerContainer>
+            <TimerContainer>{time}</TimerContainer>
         </Container>
     </SLink>
     )
 };
 
-export default Course;
+export default Subject;

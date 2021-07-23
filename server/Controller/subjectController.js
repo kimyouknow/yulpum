@@ -82,8 +82,6 @@ export const subjectDetail = async(req,res)=>{
         if(!found){
             res.stats(404);
             console.log("error, no subject");
-<<<<<<< Updated upstream
-=======
 
         }else{
             res.send(found);
@@ -157,9 +155,6 @@ export const subjectDelete = async(req,res)=>{
                 }
             });
             
-  
-
->>>>>>> Stashed changes
         }
         else{
             res.send(found);
