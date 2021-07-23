@@ -1,33 +1,35 @@
 import express from "express";
 import dotenv from "dotenv";
-import mysql from "mysql";
-import dbconfig from "./config/dbconfig.js"
+import bodyParser from "body-parser";
+import routes from "./routes.js";
+import globalRoutes from "./Routes/globalRoutes";
+import userRoutes from "./Routes/userRoutes";
+import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 
-const connection = mysql.createConnection(dbconfig);
+dotenv.config();
+mongoose.connect(process.env.serverURL,{
+    useNewUrlParser : true, useUnifiedTopology: true, useCreateIndex:true, useFindAndModify:false
+}).then(() => console.log('DB has been Connected.'))
+.catch(err => console.log(err));
 
 const app = express()
-dotenv.config();
 const PORT = process.env.PORT || 4000;
 
-const handleListenning = () => 
+app.use(bodyParser.urlencoded());
+app.use(bodyParser.json());
+// app.use(express.urlencoded({extends: true}));
+app.use(cookieParser());
+
+app.use(routes.home, globalRoutes);
+app.use(routes.home, userRoutes);
+// app.post("/api/get-subject", (req, res) => {
+//     console.log(req, req.body);
+// })
+// app.use(routes.activepage, userRoutes);
+
+const handleListenning = () =>{ 
     console.log(`✅ Listening on: http://localhost:${PORT}`);
-
-app.get('/', function (req, res) {
-    res.send('Hello World!!');
-})
-
-app.get("/api/hello", (req, res) => {
-    res.send("성공~")
-})
-
-//유저 정보
-app.get("/users",(req,res)=> {
-    connection.query('SELECT * FROM users', (error,rows) =>{
-        if(error) throw error;
-        console.log('User info is :', rows);
-        res.send(rows);
-
-    });
-});
+};
 
 app.listen(PORT, handleListenning);
