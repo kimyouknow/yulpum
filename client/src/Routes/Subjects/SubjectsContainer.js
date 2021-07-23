@@ -38,7 +38,13 @@ const SubjectsContainer = ({tokenData}) => {
             subject_id: id,
         }
         dispatch(deleteSubject(body))
-            .then(response => console.log(response))
+            .then(response => {
+                const {isSuccess} = response.payload;
+                if (!isSuccess) {
+                    alert("Error!");
+                } 
+                setSubjects(subjects.filter(element => element._id !== id));
+            })
     }
 
     const onSubmitHandler = (e, element) => {
@@ -69,7 +75,13 @@ const SubjectsContainer = ({tokenData}) => {
                 editSubject_title: editInput
             };
             dispatch(editSubject(body))
-                .then(response => console.log(response))
+                .then(response => {
+                const {isSuccess} = response.payload;
+                if (!isSuccess) {
+                    alert("Error!");
+                } 
+                setSubjects(subjects.map(item => item._id === element ? {...item, subject_name: editInput} : item));
+                })
         }
     }
     useEffect(() => {
