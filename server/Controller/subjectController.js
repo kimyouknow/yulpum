@@ -56,7 +56,10 @@ export const addSubject = async(req,res)=>{
         user.save();
         console.log("Study");
         console.log(Study);
-        res.status(200);
+        res.status(200).json({
+            isSuccess:true,
+            Study
+        });
     });
 
 }

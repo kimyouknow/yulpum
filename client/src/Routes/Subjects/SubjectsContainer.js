@@ -58,12 +58,9 @@ const SubjectsContainer = ({tokenData}) => {
         };
         dispatch(addSubject(body))
             .then(response => {
-                const {isWell, Study} = response.payload;
-                if(isWell) {
-                    // const newSubject = {name: response.payload.title, id: response.payload.id}
+                const {isSuccess, Study} = response.payload;
+                if(isSuccess) {
                     setSubjects(subject => [...subject, Study]);
-                    // setSubjects(subjects)
-                    history.push('/');
                 } else {
                     alert("Error!");
                 }
