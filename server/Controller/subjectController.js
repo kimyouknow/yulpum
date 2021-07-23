@@ -177,7 +177,9 @@ export const subjectDelete = async(req,res)=>{
                     res.send(err);
                 }else{
                     console.log("deleted");
-                    res.send("deleted");
+                    res.status(200).json({
+                        isSuccess:true
+                    });
                 }
             });
             
