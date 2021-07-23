@@ -16,8 +16,8 @@ userRoutes.post(routes.addSubject,addSubject);
 userRoutes.post(routes.subjectDetail,subjectDetail);
 userRoutes.post(routes.getSubject,getSubject);
 
-userRoutes.post(routes.reviseSubject, subjectDelete);
-userRoutes.post(routes.deleteSubject,subjectRevise);
+userRoutes.post(routes.reviseSubject, subjectRevise);
+userRoutes.post(routes.deleteSubject,subjectDelete);
 
 
 export default userRoutes;

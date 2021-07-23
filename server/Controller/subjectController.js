@@ -118,7 +118,7 @@ export const subjectDetail = async(req,res)=>{
 };
 
 
-export const subjectRevise = async(res,req)=>{
+export const subjectRevise = async(req,res)=>{
     const {
         token, //유저 토큰
         subject_id,// subject의 id
@@ -154,29 +154,22 @@ export const subjectRevise = async(res,req)=>{
     });
 }
 
-export const subjectDelete = async(res,req)=>{
-    console.log("진입");
+export const subjectDelete = async(req,res)=>{
     const {
         token, //유저 토큰
         subject_id// subject의 id
       
     }=req.body;
-    console.log("token"+token);
     await User.findByToken(token, async(err,query,user)=>{
         if(err) throw err;
         let study;
         study = user.studySubject
-        console.log("delete 에러");
-         const found = study.findIndex(e=>{
-            if(e == subject_id) return true;
-        });
+        const found = study.find(e=>{
+            if(e._id == subject_id) return true;
+        });//await 필요없음 
 
-
-        //await 필요없음 
-        study.spilce(found,1);
-        user.save();
-         
         if(found){
+           
             //db에서 해당 subject 정보 삭제
             await Subject.deleteOne({_id:subject_id},err=>{
                 if(err){
@@ -192,6 +185,7 @@ export const subjectDelete = async(res,req)=>{
 
         }
         else{
+            console.log("못찾음");
             res.status(404);
         }
 
