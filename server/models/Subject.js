@@ -8,7 +8,7 @@ const subjectSchema = mongoose.Schema({
         required:true,
         maxlength:100
     },
-    time:{
+    total_time:{
         type:Number,
         default:0
     }

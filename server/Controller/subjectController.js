@@ -82,6 +82,84 @@ export const subjectDetail = async(req,res)=>{
         if(!found){
             res.stats(404);
             console.log("error, no subject");
+<<<<<<< Updated upstream
+=======
+
+        }else{
+            res.send(found);
+            res.status(200);
+        }
+    
+    });
+};
+
+
+export const subjectRevise = async(req,res)=>{
+    const {
+        token, //유저 토큰
+        subject_id,// subject의 id
+        editSubject_title
+    }=req.body;
+
+    await User.findByToken(token, async(err,query,user)=>{
+        if(err) throw err;
+        let study;
+        await query.populate("studySubject").then(data =>{
+            study = data.studySubject;
+         });
+
+         const found = study.find(e=>{
+            if(e._id == subject_id) return true;
+        });//await 필요없음 
+        
+        if(found){
+            const subject = await Subject.findById(subject_id);
+            subject.subject_name = editSubject_title;
+            subject.save();
+            res.status(200).json({
+                isSuccess:true
+            });
+
+        }
+        else{
+            res.status(404);
+        }
+
+
+
+    });
+}
+
+export const subjectDelete = async(req,res)=>{
+    const {
+        token, //유저 토큰
+        subject_id// subject의 id
+      
+    }=req.body;
+    await User.findByToken(token, async(err,query,user)=>{
+        if(err) throw err;
+        let study;
+        study = user.studySubject
+        const found = study.find(e=>{
+            if(e._id == subject_id) return true;
+        });//await 필요없음 
+
+        if(found){
+           
+            //db에서 해당 subject 정보 삭제
+            await Subject.deleteOne({_id:subject_id},err=>{ //여기서 삭제되면 자동으로 parents에서도 삭제됨
+                if(err){
+                    console.log("삭제 에러");
+                    res.send(err);
+                }else{
+                    console.log("deleted");
+                    res.send("deleted");
+                }
+            });
+            
+  
+
+>>>>>>> Stashed changes
         }
         else{
             res.send(found);

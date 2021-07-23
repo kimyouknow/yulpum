@@ -29,6 +29,16 @@ const userSchema = mongoose.Schema({
         type:Schema.Types.ObjectId,
         ref:"Subject"
     }]
+    ,
+    groupID:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"group"
+    }]
+    ,
+    myCalender:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"calander"
+    }]
     
 })
 
