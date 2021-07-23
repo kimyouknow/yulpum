@@ -52,7 +52,7 @@ const EditButton = styled.div`
 
 
 const SubjectsPresenter = ({
-    clicked, clickhandler,subjectInput, setSubjectInput, onSubmitHandler, editInput, setEditInput, subjects}) => {
+    clicked, clickhandler,subjectInput, setSubjectInput, onSubmitHandler, editInput, setEditInput, subjects, handleRemove}) => {
     return (
         <>
         <AddSubject 
@@ -79,6 +79,7 @@ const SubjectsPresenter = ({
                         onSubmitHandler={onSubmitHandler}
                         editInput={editInput}
                         setEditInput={setEditInput}
+                        handleRemove={handleRemove}
                     />
                 </Line>)
             }

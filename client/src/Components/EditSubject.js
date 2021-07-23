@@ -47,7 +47,7 @@ const Input = styled.input``;
 
 const Button = styled.button``;
 
-const EditSubject = ({id, clicked, clickhandler, onSubmitHandler, editInput ,setEditInput}) => {
+const EditSubject = ({id, clicked, clickhandler, onSubmitHandler, editInput ,setEditInput, handleRemove}) => {
 
     return (
         <>
@@ -60,6 +60,10 @@ const EditSubject = ({id, clicked, clickhandler, onSubmitHandler, editInput ,set
                 <input type="text" value={editInput} onChange={(e => setEditInput(e.target.value))} />
                     <Button onClick={() => clickhandler("edit")}>EDIT</Button>
                 </Form>
+                <Button onClick={() => {
+                    handleRemove(id);
+                    clickhandler("edit");
+                }}>DELETE</Button>
             </Section>
         </Container>
         </>

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import SubjectsPresenter from "./SubjectsPresenter";
 import {useDispatch} from "react-redux";
 import {useHistory} from "react-router";
-import {addSubject, editSubject, getSubject} from "../../_actions/subject_actions";
+import {addSubject, deleteSubject, editSubject, getSubject} from "../../_actions/subject_actions";
 
 const SubjectsContainer = ({tokenData}) => {
     const dispatch = useDispatch();
@@ -11,8 +11,6 @@ const SubjectsContainer = ({tokenData}) => {
         editButton: false,
         addButton: false
     });
-    // const [addClicked, setAddClicked] = useState(false);
-    // const [editClicked, setEditClicked] = useState(false);
     const [subjectInput, setSubjectInput] = useState("");
     const [editInput, setEditInput] = useState("");
     const [subjects, setSubjects] = useState(null);
@@ -23,8 +21,6 @@ const SubjectsContainer = ({tokenData}) => {
             clicked.editButton ? setClicked({editButton: false}) : setClicked({editButton: true});
         }
     }
-    // const addClickHandler = () => addClicked ? setAddClicked(false) : setAddClicked(true);
-    // const editClickHandler = () => editClicked ? setEditClicked(false) : setEditClicked(true);
     const displaySubject = () => {
         let body = {
             token: tokenData
@@ -35,6 +31,14 @@ const SubjectsContainer = ({tokenData}) => {
                 // console.log(payload);
                 setSubjects(payload);
             })
+    }
+    const handleRemove = (id) => {
+        let body = {
+            token: tokenData,
+            subject_id: id,
+        }
+        dispatch(deleteSubject(body))
+            .then(response => console.log(response))
     }
 
     const onSubmitHandler = (e, element) => {
@@ -61,6 +65,7 @@ const SubjectsContainer = ({tokenData}) => {
         } else {
             let body = {
                 subject_id: element,
+                token: tokenData,
                 editSubject_title: editInput
             };
             dispatch(editSubject(body))
@@ -72,18 +77,15 @@ const SubjectsContainer = ({tokenData}) => {
     },[])
     return(
         <SubjectsPresenter 
-        clicked={clicked}
-        clickhandler={clickhandler}
-            // addClicked={addClicked}
-            // addClickHandler={addClickHandler}
-            // editClicked={editClicked}
-            // editClickHandler={editClickHandler}
+            clicked={clicked}
+            clickhandler={clickhandler}
             subjectInput={subjectInput}
             setSubjectInput={setSubjectInput}
             editInput={editInput}
             setEditInput={setEditInput}
             onSubmitHandler={onSubmitHandler}
             subjects={subjects}
+            handleRemove={handleRemove}
         />
         )
 }

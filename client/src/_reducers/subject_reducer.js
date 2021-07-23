@@ -1,4 +1,4 @@
-import { ADD_SUBJECT, GET_SUBJECTS, EDIT_SUBJECTS } from "../_actions/types";
+import { ADD_SUBJECT, GET_SUBJECTS, EDIT_SUBJECTS, DELETE_SUBJECTS } from "../_actions/types";
 
 export default function (state={}, action) {
     switch(action.type) {
@@ -7,6 +7,8 @@ export default function (state={}, action) {
         case GET_SUBJECTS:
             return{...state, subjectData: action.payload}
         case EDIT_SUBJECTS:  
+            return{...state, subjectData: action.payload}
+        case DELETE_SUBJECTS:  
             return{...state, subjectData: action.payload}
         default:
             return state;
