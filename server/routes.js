@@ -8,6 +8,8 @@ const SAVE="/save-subject";
 const GETSUBJECT = "/get-subject";
 const ADDSUBJECT ="/add-subject";
 const SUBJECTDETAIL = "/subject-detail";
+const REVISESUBJECT = "/edit-subject";
+const DELETESUBEJCT = "/delete-subject";
 
 const routes = {
 
@@ -19,8 +21,9 @@ const routes = {
     getSubject:GETSUBJECT,
     saveStudy:SAVE,
     addSubject:ADDSUBJECT,
-    subjectDetail:SUBJECTDETAIL
-    
+    subjectDetail:SUBJECTDETAIL,
+    reviseSubject:REVISESUBJECT,
+    deleteSubject:DELETESUBEJCT
 
 }
 
