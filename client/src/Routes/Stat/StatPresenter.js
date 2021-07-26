@@ -1,46 +1,90 @@
 import React from "react";
-import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import format from 'date-fns/format';
-import parse from 'date-fns/parse';
-import startOfWeek from 'date-fns/startOfWeek';
-import getDay from 'date-fns/getDay';
-import ko from "date-fns/locale/ko";
+import styled from 'styled-components';
 
-const localizer = dateFnsLocalizer({
-    format,
-    parse,
-    startOfWeek,
-    getDay,
-    locales : ko,
-})
+const Container = styled.div``;
 
+const Header = styled.div`
+    display: flex;
+    justify-content:center;
+    margin-bottom: 20px;
+`;
 
-const ColoredDateCellWrapper = ({ children, value }) =>
-    React.cloneElement(React.Children.only(children), {
-    style: {
-        ...children.style,
-        backgroundColor: value < new Date() ? 'lightgreen' : 'lightblue',
-    },
-})
+const WeekContainer =styled.div`
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+`;
 
-const StatPresenter = ({events,handleSelect}) => (
-    <React.Fragment>
-        {!events ? <h1>Loading</h1> : 
-                <Calendar
-                selectable
-                popup
-                localizer={localizer}
-                events={events}
-                views={["month"]}
-                style={{ height: 500 }}
-                onSelectEvent={event => console.log(event)}
-                onSelectSlot={(event) => handleSelect(event)}
-                // components={{
-                //     dateCellWrapper: ColoredDateCellWrapper,
-                // }}
-                />
-            }
-    </React.Fragment>
-)
+const WeekComponent = styled.div`
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    height: 50px;
+    :nth-child(7n+1){
+        color: #d13e3e;
+    }
+    :nth-child(7n){
+        color: #396ee2;
+    }
+    &:hover{
+        background-color: rgba(0,0,0,0.2);
+    }
+`;
+
+const DisplayMonth = styled.div`
+    &:hover{
+        cursor: pointer;
+    }
+`;
+
+const Button = styled.div`
+    &:hover{
+        cursor: pointer;
+    }
+`;
+
+const DateContainer = styled.div`
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+`;
+
+const DateComponent = styled.div`
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    height: 50px;
+    :nth-child(7n+1){
+        color: #d13e3e;
+    }
+    :nth-child(7n){
+        color: #396ee2;
+    }
+    &:hover{
+        background-color: rgba(0,0,0,0.2);
+    }
+`;
+
+const StatPresenter = ({today,
+    weeks,
+    dates,
+    handleLastMonth,
+    handleNextMonth,
+    handleToday}) => {
+        return (
+            <Container>
+                    <Header>
+                        <Button onClick={() => handleLastMonth()}>◀</Button>
+                        <DisplayMonth onClick={()=> handleToday()}>{today}</DisplayMonth>
+                        <Button onClick={() => handleNextMonth()}>▶</Button>
+                    </Header>
+                    <WeekContainer>
+                        {weeks.map(week => <WeekComponent id={week}>{week}</WeekComponent>)}
+                    </WeekContainer>
+                    <DateContainer>
+                        {!dates ? <h1>Loading</h1> : 
+                        dates.map(date => <DateComponent id={date}>{date}</DateComponent>)}
+                    </DateContainer>
+                </Container>
+        )
+    }
+
 export default StatPresenter
