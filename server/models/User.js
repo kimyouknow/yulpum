@@ -3,7 +3,9 @@ import bcrypt, { hash } from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import userRoutes from '../Routes/userRoutes';
 
+
 const saltRounds = 10;
+
 const userSchema = mongoose.Schema({
     name:{
         type: String,
@@ -33,12 +35,16 @@ const userSchema = mongoose.Schema({
     ,
     groupID:[{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"group"
+        ref:"Group"
     }]
     ,
     myCalender:[{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"calander"
+        ref:"Calander"
+    }],
+    myPlanner:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Planner"
     }]
     
 })
