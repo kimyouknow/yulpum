@@ -8,3 +8,4 @@ export const EDIT_SUBJECTS = "edit_subjects";
 export const DELETE_SUBJECTS = "delete_subjects";
 export const UPDATE_TIMER = 'update_timer';
 export const GET_SUBJECT_TIME = 'get_subect_time';
+export const GET_CALENDAR = 'get_calendar';
