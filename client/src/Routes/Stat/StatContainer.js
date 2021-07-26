@@ -2,56 +2,67 @@ import React, { useEffect, useState } from "react";
 import StatPresenter from "./StatPresenter";
 
 const StatContainer = () => {
-    const [events, setEvents] = useState([]);
-    const initialEvents = [
-        {
-            id: 0,
-            title: 'All Day Event very long title',
-            time: 10,
-            allDay: true,
-            start: new Date(2015, 3, 0),
-            end: new Date(2015, 3, 1),
-        },
-        {
-            id: 1,
-            title: 'Long Event',
-            time: 20,
-            start: new Date(2015, 3, 0),
-            end: new Date(2015, 3, 1),
-        },
-        {
-            id: 2,
-            title: 'SomeDay',
-            time: 30,
-            start: new Date(),
-            end: new Date(),
+    const weeks = ["SUN", "MON","TUE","WED","THU","FRI","SAT"];
+    const [dato, setDato] = useState(new Date());
+    const [today, setToday] = useState("");
+    const [dates, setDates] = useState([]);
+    const renderCalendar = () => {
+        const renderYear = dato.getFullYear();
+        const renderMonth = dato.getMonth();
+        setToday(`${renderYear}년 ${renderMonth+1}월`);
+        const preLast = new Date(renderYear, renderMonth, 0);
+        const currentLast = new Date(renderYear, renderMonth+1, 0);
+        const PLDate = preLast.getDate();
+        const PLDay = preLast.getDay();
+
+        const CLDate = currentLast.getDate();
+        const CLDay = currentLast.getDay();
+
+        const PDates = [];
+        const CDates = [...Array(CLDate+1).keys()].slice(1);
+        const NDates = [];
+        console.log(typeof(CDates[1]));
+        
+        if (PLDay !== 0){
+            for (let i = PLDay; i >= 0; i--){
+                PDates.push(PLDate-i);
+            }
         }
-    ]
-    const handleSelect = (event) => {
-        console.log(event);
-        const {start, end} = event;
-        const title = window.prompt('New Event name');
-        if (title) {
-            setEvents([
-                ...events, {
-                    id: new Date(),
-                    start,
-                    end, 
-                    title}
-            ])
+
+        if (CLDay !== 6) {
+            for (let i = 1; i <= 6-CLDay; i++){
+                NDates.push(i);
+            }
         }
+        setDates(PDates.concat(CDates, NDates));
     }
-    const getEvents = () => {
-        setEvents(initialEvents);
+    const handleLastMonth = () => {    
+        let newMonth = new Date(dato.setMonth(dato.getMonth() - 1));
+        setDato(newMonth);
+        renderCalendar();
+        
+    }
+
+    const handleNextMonth = () => {
+        let newMonth = new Date(dato.setMonth(dato.getMonth() + 1));
+        setDato(newMonth);
+        renderCalendar();
+    }
+    const handleToday = () => {
+        setDato(new Date());
+        renderCalendar();
     }
     useEffect(() => {
-        getEvents();
-    }, [])
-    console.log(events)
+        renderCalendar();
+    },[])
     return(
         <StatPresenter 
-            events={events}
-            handleSelect={handleSelect}
+            today={today}
+            weeks={weeks}
+            dates={dates}
+            handleLastMonth={handleLastMonth}
+            handleNextMonth={handleNextMonth}
+            handleToday={handleToday}
         />
         )
 }
