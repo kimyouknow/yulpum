@@ -19,6 +19,40 @@ export const saveStudy =async(req,res)=>{
         console.log(found);//확인용
         found.time += time;
         user.save();
+        
+        //달력 객체 추가 혹은 업데이트 부분
+        const now = new Date();
+        await Calendar.exists({c_date:new Date(now.getFullYear(),now.getMonth(),now.getDate())},(err,ret)=>{
+            if(err){
+                console.log(err);
+            }else{
+                if(ret){ //이미 오늘날짜 캘린더 객체 존재한다면
+                    
+                    await Calendar.find({c_user_id:user._id,c_date:now},(err,ret)=>{
+                        if(err) throw err;
+                        //뭐 찾았나 출력
+                        console.log(ret);
+                        ret.c_total_time +=time;
+                        ret.save();
+                    })
+                }else{
+                    const calendar = await Calendar.create({
+                        c_user_id:user._id,
+                        c_total_time:time,
+                        c_date:now
+                    });
+                    //어떻게 들어가나 확인
+                    console.log(calendar);
+                    user.myCalendar.push(calendar);
+                    user.save();
+                }
+
+             
+            }
+        });
+    
+  
+
         res.status(200);
     });
 }

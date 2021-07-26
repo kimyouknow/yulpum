@@ -8,11 +8,16 @@ const calendarSchema = mongoose.Schema({
 
     },
     c_todo:{
-        type:String
+        type:String,
+        default:""
     },
     c_date:{
         type:Date,
         required:true
+    },
+    c_total_time:{
+        type:Number,
+        default:0
     }
 
 

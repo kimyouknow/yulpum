@@ -2,10 +2,8 @@ import mongoose from 'mongoose';
 
 
 const plannerSchema = mongoose.Schema({
-
-    subject_name:{
+    p_subject_name:{
         type:String,
-        required:true,
         maxlength:100
     },
     p_date:{
@@ -13,17 +11,12 @@ const plannerSchema = mongoose.Schema({
         required:true,
         
     },
-    p_subject_name:{
-        type:String,
-        maxlength:100
-    },
     p_start_time:{
         type:Date
     },
     p_end_time:{
         type:Date
     },
-
     p_lapse:{
         type:Number
     }
