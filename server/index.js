@@ -26,8 +26,8 @@ app.use(cookieParser());
 
 app.use(routes.home, globalRoutes);
 app.use(routes.home, userRoutes);
-app.use(routes.home, plannerRoutes);
-app.user(routes.home,calendarRoutes);
+// app.use(routes.home, plannerRoutes);
+app.use(routes.home,calendarRoutes);
 const handleListenning = () =>{ 
     console.log(`✅ Listening on: http://localhost:${PORT}`);
 };

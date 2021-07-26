@@ -11,7 +11,7 @@ export const saveStudy =async(req,res)=>{
     }=req.body;
  
 
-    await User.findByToken(token, (err,user)=>{
+    await User.findByToken(token, async(err,user)=>{
         if(err) throw err;
         const study = user.populate("studySubject");
         console.log(study);//확인용
@@ -22,7 +22,7 @@ export const saveStudy =async(req,res)=>{
         
         //달력 객체 추가 혹은 업데이트 부분
         const now = new Date();
-        await Calendar.exists({c_date:new Date(now.getFullYear(),now.getMonth(),now.getDate())},(err,ret)=>{
+        await Calendar.exists({c_date:new Date(now.getFullYear(),now.getMonth(),now.getDate())},async(err,ret)=>{
             if(err){
                 console.log(err);
             }else{
@@ -89,13 +89,14 @@ export const getSubject = async(req,res)=>{
     const {
         user_id,
         token,//유저 토큰과
-        subject
+  
       
     }=req.body;
 
     await User.findByToken(token, (err,user)=>{
         if(err) throw err;
         const subject = user.populate("studySubject");
+        console.log(subject);
         res.status(200).send(subject);
    
     });

@@ -7,7 +7,7 @@ import {
     getSubject,
     subjectDelete,
     subjectRevise,
-    getPlanner
+
 } from "../Controller/subjectController"
 
 const userRoutes = express.Router();
@@ -18,6 +18,5 @@ userRoutes.post(routes.subjectDetail,subjectDetail);
 userRoutes.post(routes.getSubject,getSubject);
 userRoutes.post(routes.reviseSubject, subjectRevise);
 userRoutes.post(routes.deleteSubject,subjectDelete);
-userRoutes.post(routes.getPlanner,getPlanner);
 
 export default userRoutes;

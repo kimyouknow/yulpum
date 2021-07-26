@@ -4,7 +4,9 @@ import {
     getCalendar
 } from "../Controller/calendarController"
 
-const userRoutes = express.Router();
+const calendarRoutes = express.Router();
 
 
-plannerRoutes.post(routes.getCalendar,getCalendar);
+calendarRoutes.post(routes.getCalendar,getCalendar);
+
+export default calendarRoutes;

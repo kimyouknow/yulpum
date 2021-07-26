@@ -10,7 +10,7 @@ export const getCalendar = async(req,res)=>{
         month,
         token
     }=req.body;
-    const id;
+    let id;
     await User.findByToken(token, (err,user)=>{
         if(err) throw err;
         const calendar = user.populate("myCalender");
@@ -22,7 +22,7 @@ export const getCalendar = async(req,res)=>{
     if(id){
         
         const ret = await Calendar.find({user_id:id, c_date:{
-            $gte:new Date(year,month,01),
+            $gte:new Date(year,month,1),
             $lt:new Date(year,month,31)
 
         }});
