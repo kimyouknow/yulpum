@@ -27,46 +27,107 @@ const StatContainer = () => {
         //         }
         //         console.log(body);
         //     })
-
+        const serverData =  [
+            {
+                date: new Date(2021, 6, 1),
+                total_time: 2400,
+                todo: ["english", "study"]
+            },
+            {
+                date: new Date(2021, 6, 9),
+                total_time: 3600,
+                todo: ["science", "math"]
+            },
+            {
+                date: new Date(2021, 6, 12),
+                total_time: 3800,
+                todo: ["coding", "take a work"]
+            },
+            {
+                date: new Date(2021, 6, 24),
+                total_time: 3800,
+                todo: ["coding", "take a work"]
+            },
+            {
+                date: new Date(2021, 6, 20),
+                total_time: 4400,
+                todo: ["multer", "eating"]
+            },
+            {
+                date: new Date(2021, 6, 28),
+                total_time: 4800,
+                todo: ["multer", "eating"]
+            }
+        ]
         const preLast = new Date(renderYear, renderMonth, 0);
         const currentLast = new Date(renderYear, renderMonth+1, 0);
         const PLDate = preLast.getDate();
         const PLDay = preLast.getDay();
-
+        // console.log("PL",PLDate, PLDay,preLast)
         const CLDate = currentLast.getDate();
         const CLDay = currentLast.getDay();
-
+        // console.log("CL",CLDate, CLDay,currentLast)
         const PDates = [];
-        const CDates = [...Array(CLDate+1).keys()].slice(1);
+        const CDates = [];
         const NDates = [];
-        
-        if (PLDay !== 0){
+        const compareDate = (input) => {
+            const inputY = String(input.getFullYear());
+            const inputM = String(input.getMonth());
+            const inputD = String(input.getDate());
+            return inputY+inputM+inputD
+        }
+        for(let i = 1; i < CLDate+1; i++ ){
+            const i_date = new Date(renderYear, renderMonth, i);
+            let i_total_time  = 0;
+            let i_todo = null;
+            const matchDate = serverData.find(obj => compareDate(obj.date) === compareDate(i_date));
+            if(matchDate) {
+                i_total_time = matchDate.total_time
+                i_todo = matchDate.todo
+            }
+            CDates.push({
+                date: i_date,
+                total_time: i_total_time,
+                todo:i_todo,
+                isCurrent: true 
+            })
+        }
+        // Sunday - Saturday : 0 - 6
+        if (PLDay !== 6){
             for (let i = PLDay; i >= 0; i--){
-                PDates.push(PLDate-i);
+                PDates.push({
+                    date: new Date(renderYear, renderMonth-1, PLDate-i),
+                    total_time: -1
+                });
             }
         }
-
         if (CLDay !== 6) {
             for (let i = 1; i <= 6-CLDay; i++){
-                NDates.push(i);
+                NDates.push({
+                    date: new Date(renderYear, renderMonth+1, i),
+                    total_time: -1
+                });
             }
         }
         setDates(PDates.concat(CDates, NDates));
     }
     const handleLastMonth = () => {    
-        let newMonth = new Date(dato.setMonth(dato.getMonth() - 1));
-        setDato(newMonth);
+        const newMonth = new Date(dato.setMonth(dato.getMonth() - 1));
+        const newDate = new Date(newMonth.setDate(1))
+        setDato(newDate);
         renderCalendar();
         
     }
 
     const handleNextMonth = () => {
-        let newMonth = new Date(dato.setMonth(dato.getMonth() + 1));
-        setDato(newMonth);
+        const newMonth = new Date(dato.setMonth(dato.getMonth() + 1));
+        const newDate = new Date(newMonth.setDate(1))
+        setDato(newDate);
         renderCalendar();
     }
     const handleToday = () => {
-        setDato(new Date());
+        const newDate = new Date();
+        setDato(newDate);
         renderCalendar();
     }
     useEffect(() => {

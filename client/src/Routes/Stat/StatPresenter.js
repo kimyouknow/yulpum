@@ -1,7 +1,11 @@
 import React from "react";
 import styled from 'styled-components';
 
-const Container = styled.div``;
+const Container = styled.div`
+    max-width: 960px;
+    margin: 0 auto;
+    margin-top:48px;
+`;
 
 const Header = styled.div`
     display: flex;
@@ -18,15 +22,12 @@ const WeekComponent = styled.div`
     display: flex;
     justify-content:center;
     align-items: center;
-    height: 50px;
+    height: 70px;
     :nth-child(7n+1){
         color: #d13e3e;
     }
     :nth-child(7n){
         color: #396ee2;
-    }
-    &:hover{
-        background-color: rgba(0,0,0,0.2);
     }
 `;
 
@@ -51,15 +52,18 @@ const DateComponent = styled.div`
     display: flex;
     justify-content:center;
     align-items: center;
-    height: 50px;
+    height: 70px;
+    background-color: ${props => (props.timecolor < 0) ? "rgba(223, 230, 233,1.0)":
+    (props.timecolor < 1000) ? "white" :
+    (props.timecolor < 3000) ? "rgba(238, 90, 36, 0.3)" :
+    (props.timecolor < 4000) ? "rgba(238, 90, 36, 0.6)":
+    "rgba(238, 90, 36,1.0)"
+    };
     :nth-child(7n+1){
         color: #d13e3e;
     }
     :nth-child(7n){
         color: #396ee2;
-    }
-    &:hover{
-        background-color: rgba(0,0,0,0.2);
     }
 `;
 
@@ -80,8 +84,9 @@ const StatPresenter = ({today,
                         {weeks.map(week => <WeekComponent id={week}>{week}</WeekComponent>)}
                     </WeekContainer>
                     <DateContainer>
-                        {!dates ? <h1>Loading</h1> : 
-                        dates.map(date => <DateComponent id={date}>{date}</DateComponent>)}
+                         {/* {console.log(dates)} */}
+                    {!dates ? <h1>Loading</h1> : 
+                    dates.map(date => <DateComponent key={date.date} timecolor={date.total_time} >{date.date.getDate()}</DateComponent>)}
                     </DateContainer>
                 </Container>
         )
