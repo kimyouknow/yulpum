@@ -18,7 +18,7 @@ export const saveStudy =async(req,res)=>{
         });
         let found =  studyRet.find(e=> e._id === subject_id);
         console.log(found);//확인용
-        found.time += time;
+        found.time += timevalue;
         user.save();
         if(!found){
             res.status(404);
