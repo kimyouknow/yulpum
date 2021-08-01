@@ -10,33 +10,39 @@ export const getCalendar = async(req,res)=>{
         month,
         token
     }=req.body;
+    let calendar;
     let id;
-    await User.findByToken(token, (err,user)=>{
+    await User.findByToken(token, async(err,query,user)=>{
         if(err) throw err;
-        const calendar = user.populate("myCalender");
-        id=calendar.user_id;
-            
+        await query.populate("myCalendar").then(data=>{
+
+            calendar = data.myCalendar;
+            id = data._id;
+
+        });
+        console.log("cal is "+calendar);
+
+        if(calendar){
+        
+            const ret = await Calendar.find({user_id:id, c_date:{
+                $gte:new Date(year,month,1),
+                $lt:new Date(year,month,31)
+    
+            }});
+            //ret 결과 출력
+            console.log("ret is"+ret);
+            res.send(200);
+    
+        }
+        //토큰 찾지 못함
+        else{
+            console.log("Cannot find user by token");
+    
+    
+        }
 
     });
-    
-    if(id){
-        
-        const ret = await Calendar.find({user_id:id, c_date:{
-            $gte:new Date(year,month,1),
-            $lt:new Date(year,month,31)
-
-        }});
-        //ret 결과 출력
-        console.log(ret);
-        res.send(200);
-
-    }
-    //토큰 찾지 못함
-    else{
-        console.log("Cannot find user by token");
-
-
-    }
+   
     
 
 
