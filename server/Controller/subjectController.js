@@ -1,50 +1,94 @@
 import User from "../models/User";
 import Subject from "../models/Subject";
+import Calendar from "../models/Calendar";
 //active page에서 공부 종료시 실행
-export const saveStudy = async(req,res)=>{
+export const saveStudy =async(req,res)=>{
+    console.log("SaveStudy Function --");
     const {
         token,//유저 토큰과
-        subject_id,///과목 id 
+        subject_id,///과목 이름과 
         timeValue//집중시간 받음
         
     }=req.body;
-    // console.log(timeValue);
-    await User.findByToken(token, async(err,query,user) => {
+
+
+    await User.findByToken(token, async(err,query,user)=>{
         if(err) throw err;
         let studyRet;
+        console.log(subject_id);
         await query.populate("studySubject").then(data=>{
             studyRet = data.studySubject;
-        });
-    
-        const found = studyRet.find(e=>{
-            if(e._id == subject_id) return true;
-        });  //await 필요없음 
         
+        });
+        let found =  studyRet.find(e=> e._id == subject_id);
+       
+        
+        found.total_time += timeValue;
+        user.save();
         if(!found){
             res.status(404);
             console.log("error, no subject");
+  
 
         }else{
             const subject = await Subject.findById(subject_id);
-            subject.time += timeValue;
+            subject.total_time += timeValue;
             subject.save();
+    
+                  //달력 객체 추가 혹은 업데이트 부분
+            const now2 = new Date();
+            const now = now2.toLocaleDateString();
+            await Calendar.exists({c_user_id:user._id,c_date:now},async(err,ret)=>{
+                if(err){
+                    console.log(err);
+                }else{
+                    if(ret){ //이미 오늘날짜 캘린더 객체 존재한다면
+                        
+                        console.log("캘린더 객체 이미 존재");
+                        const cal = await Calendar.findOne({c_user_id:user._id,c_date:now});
+                        cal.c_total_time += timeValue;
+                        cal.save();
+                    }else{
+                        console.log("캘린더 객체 새로 생성");
+                        const calendar = await Calendar.create({
+                            c_user_id:user._id,
+                            c_total_time:timeValue,
+                            c_date:now
+                        });
+                        //어떻게 들어가나 확인
+                        console.log(calendar);
+                        user.myCalendar.push(calendar);
+                        user.save();
+                    }
+
+                
+                }
+            });
+
+
+
+
+            
             res.status(200).json({
                 isWell: true
             });
         }
-     
+      
+    
+  
+
+        res.status(200);
     });
 }
 
 //home에서 과목 추가시 업데이트
 export const addSubject = async(req,res)=>{
     const {
-        subject_title,
+        subject_title, //과목명
         timeValue,
         token
       
     }=req.body;
-
     const Study = await Subject.create({
         subject_name:subject_title,
         time:timeValue
@@ -54,7 +98,6 @@ export const addSubject = async(req,res)=>{
         if(err) throw err;
         user.studySubject.push(Study);
         user.save();
-        console.log("Study");
         console.log(Study);
         res.status(200).json({
             isSuccess:true,
@@ -68,24 +111,24 @@ export const addSubject = async(req,res)=>{
 //home 에서 괴목 명과 시간 띄워줌
 export const getSubject = async(req,res)=>{
     const {
-         user_id,
-         token,//유저 토큰과
-         subject
+        user_id,
+        token,//유저 토큰과
+        subject
+  
       
     }=req.body;
-   
+
     await User.findByToken(token, (err,query,user)=>{
         if(err) throw err;
       
         query.populate("studySubject").then(data =>{
+            console.log(data);
             res.status(200).send(data.studySubject);
         })
  
       
     });
 
-
-   
 
 };
 
@@ -109,7 +152,7 @@ export const subjectDetail = async(req,res)=>{
         });//await 필요없음 
 
         if(!found){
-            res.status(404);
+            res.stats(404);
             console.log("error, no subject");
 
         }else{
@@ -174,7 +217,7 @@ export const subjectDelete = async(req,res)=>{
         if(found){
            
             //db에서 해당 subject 정보 삭제
-            await Subject.deleteOne({_id:subject_id},err=>{
+            await Subject.deleteOne({_id:subject_id},err=>{ //여기서 삭제되면 자동으로 parents에서도 삭제됨
                 if(err){
                     console.log("삭제 에러");
                     res.send(err);
@@ -186,13 +229,12 @@ export const subjectDelete = async(req,res)=>{
                 }
             });
             
-  
-
         }
         else{
             console.log("못찾음");
             res.status(404);
+            res.send(found);
+            res.status(200);
         }
-
     });
-}
+};

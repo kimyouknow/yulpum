@@ -32,6 +32,20 @@ const userSchema = mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"Subject"
     }]
+    ,
+    groupID:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Group"
+    }]
+    ,
+    myCalendar:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Calander"
+    }],
+    myPlanner:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Planner"
+    }]
     
 })
 

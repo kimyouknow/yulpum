@@ -7,13 +7,12 @@ const subjectSchema = mongoose.Schema({
         required:true,
         maxlength:100
     },
-    time:{
+    total_time:{
         type:Number,
         default:0
     }
 
 })
-
 
 
 const model = mongoose.model("Subject",subjectSchema);

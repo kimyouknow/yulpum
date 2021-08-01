@@ -35,10 +35,9 @@ const ActiveTimerContainer = () => {
         }
         dispatch(getSubjectTime(body))
             .then(response => {
-                const {subject_name, time} = response.payload;
-                console.log(time);
+                const {subject_name, total_time} = response.payload;
                 setActivedSubject(subject_name);
-                setIntialTime(time);
+                setIntialTime(total_time);
             })
     }
     useEffect(() => {
