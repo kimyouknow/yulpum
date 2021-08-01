@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
@@ -39,7 +39,7 @@ const Form = styled.form`
     flex-direction: column;
 `;
 
-const Input = styled.input``;
+// const Input = styled.input``;
 
 const Button = styled.button``;
 

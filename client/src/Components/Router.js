@@ -17,7 +17,7 @@ const Container = styled.div`
     height: 100vh;
 `;
 
-export default () => (
+const AppRouter = () => (
     <Suspense fallback={(<div>Loading...</div>)}>
         <Router>
             <Navigation />
@@ -37,3 +37,5 @@ export default () => (
         </Router>
     </Suspense>
 )
+
+export default AppRouter

@@ -1,5 +1,4 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {useDispatch} from 'react-redux';
 import {auth} from '../_actions/user_action';
 
@@ -17,7 +16,7 @@ export default function AuthHOC(SpecificComponent, option, adminRoute = null) {
             useEffect(()=> {
             // axios.get('/api/users/auth')
             dispatch(auth()).then(response => {
-                const {user_id, isAdmin, isAuth, role} = response.payload;
+                const {isAdmin, isAuth} = response.payload;
                 // 로그인 하지 않은 상태
                 // console.log(user_id, isAdmin, isAuth, role);
                 if(!isAuth) {

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import { updateTimer, getSubjectTime } from "../../_actions/timer_actions";
 import ActiveTimerPresenter from "./ActiveTimerPresenter";
 import {useDispatch} from "react-redux";
-import {useHistory, useParams, useLocation  } from "react-router";
+import {useHistory, useLocation  } from "react-router";
 
 const ActiveTimerContainer = () => {
     const token = document.cookie.split("=")[1];

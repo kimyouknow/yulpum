@@ -11,7 +11,7 @@ const Container = styled.div`
 `;
 
 
-export default () => (
+const LoaderCotainer = () => (
     <Container>
         <Loader
             type="Oval"
@@ -22,3 +22,5 @@ export default () => (
         />
     </Container>
 )
+
+export default LoaderCotainer
