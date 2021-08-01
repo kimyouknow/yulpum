@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 import routes from "./routes";
 import globalRoutes from "./Routes/globalRoutes";
 import userRoutes from "./Routes/userRoutes";
-import plannerRoutes from "./Routes/plannerRoutes";
+import lineRoutes from "./Routes/lineRoutes";
 import calendarRoutes from "./Routes/calendarRoutes";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
