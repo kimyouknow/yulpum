@@ -22,6 +22,7 @@ export const saveStudy =async(req,res)=>{
         });
         let found =  studyRet.find(e=> e._id == subject_id);
        
+        
         found.total_time += timeValue;
         user.save();
         if(!found){
@@ -31,9 +32,9 @@ export const saveStudy =async(req,res)=>{
 
         }else{
             const subject = await Subject.findById(subject_id);
-            subject.time += timeValue;
+            subject.total_time += timeValue;
             subject.save();
-
+    
                   //달력 객체 추가 혹은 업데이트 부분
             const now2 = new Date();
             const now = now2.toLocaleDateString();
