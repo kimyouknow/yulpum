@@ -68,7 +68,7 @@ const SubjectsPresenter = ({
                 subjects.map(subject => 
                 <Line key={subject._id}>
                     <Subject text={subject.subject_name} id={subject._id} 
-                    time={subject.time}/>
+                    time={subject.total_time}/>
                     <EditButton onClick={() => clickhandler("edit")}>
                         <FontAwesomeIcon icon={faEllipsisV} />
                     </EditButton>

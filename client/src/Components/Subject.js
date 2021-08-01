@@ -19,6 +19,7 @@ const Container = styled.div`
 const TimerContainer = styled.div``;
 
 const Subject = ({text, id, time}) => {
+    // console.log(time)
     return (
     <SLink to={{pathname: "/active", state: {id: id}}}>
         {/* to={`/active/${id}`} params={{id: id}} */}
