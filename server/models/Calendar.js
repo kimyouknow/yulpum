@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const calendarSchema = mongoose.Schema({
     c_user_id:{
         type:String,
-        required:true
+       
 
     },
     c_todo:{
@@ -12,7 +12,7 @@ const calendarSchema = mongoose.Schema({
     },
     c_date:{
         type:Date,
-        required:true
+
     },
     c_total_time:{
         type:Number,

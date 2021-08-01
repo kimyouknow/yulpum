@@ -22,7 +22,7 @@ export const saveStudy =async(req,res)=>{
         });
         let found =  studyRet.find(e=> e._id == subject_id);
        
-        found.time += timeValue;
+        found.total_time += timeValue;
         user.save();
         if(!found){
             res.status(404);
@@ -35,21 +35,20 @@ export const saveStudy =async(req,res)=>{
             subject.save();
 
                   //달력 객체 추가 혹은 업데이트 부분
-            const now = new Date();
-            await Calendar.exists({c_date:new Date(now.getFullYear(),now.getMonth(),now.getDate())},async(err,ret)=>{
+            const now2 = new Date();
+            const now = now2.toLocaleDateString();
+            await Calendar.exists({c_user_id:user._id,c_date:now},async(err,ret)=>{
                 if(err){
                     console.log(err);
                 }else{
                     if(ret){ //이미 오늘날짜 캘린더 객체 존재한다면
                         
-                        await Calendar.find({c_user_id:user._id,c_date:new Date(now.getFullYear(),now.getMonth(),now.getDate())},(err,ret)=>{
-                            if(err) throw err;
-                            //뭐 찾았나 출력
-                            console.log(ret);
-                            ret.c_total_time +=timeValue;
-                            ret.save();
-                        })
+                        console.log("캘린더 객체 이미 존재");
+                        const cal = await Calendar.findOne({c_user_id:user._id,c_date:now});
+                        cal.c_total_time += timeValue;
+                        cal.save();
                     }else{
+                        console.log("캘린더 객체 새로 생성");
                         const calendar = await Calendar.create({
                             c_user_id:user._id,
                             c_total_time:timeValue,
@@ -122,6 +121,7 @@ export const getSubject = async(req,res)=>{
         if(err) throw err;
       
         query.populate("studySubject").then(data =>{
+            console.log(data);
             res.status(200).send(data.studySubject);
         })
  
