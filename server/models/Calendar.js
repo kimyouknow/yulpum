@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 const calendarSchema = mongoose.Schema({
     c_user_id:{
         type:String,
-        unique:true,
         required:true
 
     },

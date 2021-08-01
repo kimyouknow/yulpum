@@ -38,7 +38,7 @@ const userSchema = mongoose.Schema({
         ref:"Group"
     }]
     ,
-    myCalender:[{
+    myCalendar:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Calander"
     }],

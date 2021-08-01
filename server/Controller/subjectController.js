@@ -1,24 +1,28 @@
 import User from "../models/User";
 import Subject from "../models/Subject";
+import Calendar from "../models/Calendar";
 //active page에서 공부 종료시 실행
 export const saveStudy =async(req,res)=>{
+    console.log("SaveStudy Function --");
     const {
         token,//유저 토큰과
         subject_id,///과목 이름과 
-        timevalue//집중시간 받음
+        timeValue//집중시간 받음
         
     }=req.body;
- 
+
 
     await User.findByToken(token, async(err,query,user)=>{
         if(err) throw err;
         let studyRet;
+        console.log(subject_id);
         await query.populate("studySubject").then(data=>{
             studyRet = data.studySubject;
+        
         });
-        let found =  studyRet.find(e=> e._id === subject_id);
-        console.log(found);//확인용
-        found.time += timevalue;
+        let found =  studyRet.find(e=> e._id == subject_id);
+       
+        found.time += timeValue;
         user.save();
         if(!found){
             res.status(404);
@@ -42,13 +46,13 @@ export const saveStudy =async(req,res)=>{
                             if(err) throw err;
                             //뭐 찾았나 출력
                             console.log(ret);
-                            ret.c_total_time +=time;
+                            ret.c_total_time +=timeValue;
                             ret.save();
                         })
                     }else{
                         const calendar = await Calendar.create({
                             c_user_id:user._id,
-                            c_total_time:time,
+                            c_total_time:timeValue,
                             c_date:now
                         });
                         //어떻게 들어가나 확인
