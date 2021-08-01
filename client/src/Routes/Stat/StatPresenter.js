@@ -46,6 +46,7 @@ const Button = styled.div`
 const DateContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 20px;
 `;
 
 const DateComponent = styled.div`
@@ -64,6 +65,35 @@ const DateComponent = styled.div`
     }
     :nth-child(7n){
         color: #396ee2;
+    }
+`;
+
+const TimeIndicatorContainer = styled.div`
+    display: flex;
+    justify-content:center;
+    column-gap: 20px;
+`;
+
+const TimeIndicator = styled.div`
+    display: flex;
+`;
+
+const TimeIndicatorColor = styled.div`
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    margin-right: 10px;
+    :nth-child(1n){
+        background-color: rgba(223, 230, 233,1.0);
+    }
+    :nth-child(2n){
+        background-color: rgba(238, 90, 36, 0.3);
+    }
+    :nth-child(3){
+        background-color: rgba(238, 90, 36, 0.6);
+    }
+    :nth-child(4){
+        background-color: rgba(238, 90, 36,1.0);
     }
 `;
 
@@ -88,7 +118,21 @@ const StatPresenter = ({today,
                     {!dates ? <h1>Loading</h1> : 
                     dates.map(date => <DateComponent key={date.date} timecolor={date.total_time} >{date.date.getDate()}</DateComponent>)}
                     </DateContainer>
-                </Container>
+                    <TimeIndicatorContainer>
+                        <TimeIndicator>
+                            <TimeIndicatorColor /> 0시간
+                        </TimeIndicator> 
+                        <TimeIndicator>
+                            <TimeIndicatorColor /> 0시간
+                        </TimeIndicator>
+                        <TimeIndicator>
+                            <TimeIndicatorColor /> 0시간
+                        </TimeIndicator>
+                        <TimeIndicator>
+                            <TimeIndicatorColor /> 0시간
+                        </TimeIndicator>
+                    </TimeIndicatorContainer>
+            </Container>
         )
     }
 

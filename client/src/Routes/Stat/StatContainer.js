@@ -29,34 +29,34 @@ const StatContainer = () => {
         //     })
         const serverData =  [
             {
-                date: new Date(2021, 6, 1),
-                total_time: 2400,
-                todo: ["english", "study"]
+                c_date: new Date(2021, 6, 1),
+                c_total_time: 2400,
+                c_todo: "english"
             },
             {
-                date: new Date(2021, 6, 9),
-                total_time: 3600,
-                todo: ["science", "math"]
+                c_date: new Date(2021, 6, 9),
+                c_total_time: 3600,
+                c_todo: "science"
             },
             {
-                date: new Date(2021, 6, 12),
-                total_time: 3800,
-                todo: ["coding", "take a work"]
+                c_date: new Date(2021, 6, 12),
+                c_total_time: 3800,
+                c_todo: "coding"
             },
             {
-                date: new Date(2021, 6, 24),
-                total_time: 3800,
-                todo: ["coding", "take a work"]
+                c_date: new Date(2021, 6, 24),
+                c_total_time: 3800,
+                c_todo: "coding"
             },
             {
-                date: new Date(2021, 6, 20),
-                total_time: 4400,
-                todo: ["multer", "eating"]
+                c_date: new Date(2021, 6, 20),
+                c_total_time: 4400,
+                c_todo: "multer"
             },
             {
-                date: new Date(2021, 6, 28),
-                total_time: 4800,
-                todo: ["multer", "eating"]
+                c_date: new Date(2021, 6, 28),
+                c_total_time: 4800,
+                c_todo: "multer"
             }
         ]
         const preLast = new Date(renderYear, renderMonth, 0);
@@ -80,10 +80,10 @@ const StatContainer = () => {
             const i_date = new Date(renderYear, renderMonth, i);
             let i_total_time  = 0;
             let i_todo = null;
-            const matchDate = serverData.find(obj => compareDate(obj.date) === compareDate(i_date));
+            const matchDate = serverData.find(obj => compareDate(obj.c_date) === compareDate(i_date));
             if(matchDate) {
-                i_total_time = matchDate.total_time
-                i_todo = matchDate.todo
+                i_total_time = matchDate.c_total_time
+                i_todo = matchDate.c_todo
             }
             CDates.push({
                 date: i_date,
