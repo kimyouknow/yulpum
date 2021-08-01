@@ -83,7 +83,7 @@ const TimeIndicatorColor = styled.div`
     width: 20px;
     border-radius: 50%;
     margin-right: 10px;
-    :nth-child(1n){
+    :nth-child(1){
         background-color: rgba(223, 230, 233,1.0);
     }
     :nth-child(2n){
@@ -111,7 +111,7 @@ const StatPresenter = ({today,
                         <Button onClick={() => handleNextMonth()}>▶</Button>
                     </Header>
                     <WeekContainer>
-                        {weeks.map(week => <WeekComponent id={week}>{week}</WeekComponent>)}
+                        {weeks.map(week => <WeekComponent key={week}>{week}</WeekComponent>)}
                     </WeekContainer>
                     <DateContainer>
                          {/* {console.log(dates)} */}
