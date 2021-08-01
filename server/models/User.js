@@ -40,7 +40,7 @@ const userSchema = mongoose.Schema({
     ,
     myCalendar:[{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"Calander"
+        ref:"Calendar"
     }],
     myPlanner:[{
         type:mongoose.Schema.Types.ObjectId,
