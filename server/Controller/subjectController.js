@@ -42,7 +42,7 @@ export const saveStudy =async(req,res)=>{
                 }else{
                     if(ret){ //이미 오늘날짜 캘린더 객체 존재한다면
                         
-                        await Calendar.find({c_user_id:user._id,c_date:now},(err,ret)=>{
+                        await Calendar.find({c_user_id:user._id,c_date:new Date(now.getFullYear(),now.getMonth(),now.getDate())},(err,ret)=>{
                             if(err) throw err;
                             //뭐 찾았나 출력
                             console.log(ret);
