@@ -51,6 +51,7 @@ const SubjectsContainer = ({tokenData}) => {
         e.preventDefault();
         if (element === "add"){
         const addedName = subjectInput;
+        setSubjectInput("");
         let body = {
             subject_title: addedName,
             token: tokenData,
