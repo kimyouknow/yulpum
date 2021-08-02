@@ -34,7 +34,7 @@ export const getCalendar = async(req,res)=>{
             console.log(ret);
             
             res.status(200).json({
-                isSucess:true,
+                isSuccess:true,
                 ret
             });
         }
