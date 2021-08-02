@@ -20,19 +20,23 @@ export const getCalendar = async(req,res)=>{
             id = data._id;
 
         });
-        console.log("cal is "+calendar);
-
         if(calendar){
         
-            const ret = await Calendar.find({user_id:id, c_date:{
-                $gte:new Date(year,month,1),
-                $lt:new Date(year,month,31)
-    
-            }});
+            console.log(calendar);
+            const ret = await Calendar.find({c_user_id:id,c_date:{
+                $gt : new Date(year,month,1),
+                $lt : new Date(year,month,31)
+                    }
+                });
+      
             //ret 결과 출력
-            console.log("ret is"+ret);
-            res.send(200);
-    
+            console.log("ret is@@@@");
+            console.log(ret);
+            
+            res.status(200).json({
+                isSuccess:true,
+                ret
+            });
         }
         //토큰 찾지 못함
         else{
