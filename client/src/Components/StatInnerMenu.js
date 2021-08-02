@@ -12,7 +12,7 @@ const Menu = styled.li``;
 const StatInnerMenu = () => {
     return (
         <InnerMenu>
-            <Menus>
+            {/* <Menus>
                 <Menu>
                     <Link >일간</Link>
                 </Menu>
@@ -22,7 +22,7 @@ const StatInnerMenu = () => {
                 <Menu>
                     <Link >월간</Link>
                 </Menu>
-            </Menus>
+            </Menus> */}
         </InnerMenu>
     )
 }
