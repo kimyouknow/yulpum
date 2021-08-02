@@ -45,7 +45,8 @@ export const saveStudy =async(req,res)=>{
                     if(ret){ //이미 오늘날짜 캘린더 객체 존재한다면
                         
                         console.log("캘린더 객체 이미 존재");
-                        const cal = await Calendar.findOne({c_user_id:user._id,c_date:now});
+                        const cal = await Calendar.find
+                        ({c_user_id:user._id,c_date:now});
                         cal.c_total_time += timeValue;
                         cal.save();
                     }else{

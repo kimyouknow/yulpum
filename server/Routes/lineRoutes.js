@@ -1,10 +1,13 @@
-// import express from "express";
-// import routes from "../routes";
-// import {
-//     getLine
-// } from "../Controller/lineController"
+import express from "express";
+import routes from "../routes";
+import {
+    getLine
+} from "../Controller/lineController"
 
 
-// const lineRoutes = express.Router();
+const lineRoutes = express.Router();
 
-// lineRoutes.post(routes.getLine,getLine);
+lineRoutes.post(routes.getLine,getLine);
+
+
+export default lineRoutes;

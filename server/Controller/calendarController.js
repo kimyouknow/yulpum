@@ -42,7 +42,6 @@ export const getCalendar = async(req,res)=>{
         else{
             console.log("Cannot find user by token");
     
-    
         }
 
     });
