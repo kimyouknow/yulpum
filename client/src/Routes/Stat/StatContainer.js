@@ -20,14 +20,15 @@ const StatContainer = () => {
             month: renderMonth,
             token: tokenData
         }
-        console.log(body);
+
         dispatch(getCalendar(body))
             .then(response => {
-                const {isSuccess, body} = response.payload;
+                console.log(response)
+                const {isSuccess, ret} = response.payload;
                 if (!isSuccess) {
                     alert("Error!");
                 }
-                console.log(body);
+                console.log(ret);
             })
         // const serverData =  [
         //     {
