@@ -24,11 +24,11 @@ const StatContainer = () => {
         dispatch(getCalendar(body))
             .then(response => {
                 console.log(response)
-                const {isSuccess, ret} = response.payload;
-                if (!isSuccess) {
-                    alert("Error!");
-                }
-                console.log(ret);
+                // const {isSuccess, ret} = response.payload;
+                // if (!isSuccess) {
+                //     alert("Error!");
+                // }
+                // console.log(ret);
             })
         // const serverData =  [
         //     {
