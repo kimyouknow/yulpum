@@ -16,11 +16,11 @@ const StatContainer = () => {
         const renderMonth = dato.getMonth();
         setToday(`${renderYear}년 ${renderMonth+1}월`);
         let body = {
-            year: renderYear,
-            month: renderMonth,
+            year: Number(renderYear),
+            month: Number(renderMonth+1),
             token: tokenData
         }
-
+        // console.log(body);
         dispatch(getCalendar(body))
             .then(response => {
                 console.log(response)
