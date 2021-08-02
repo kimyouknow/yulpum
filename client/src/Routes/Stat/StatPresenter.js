@@ -58,9 +58,9 @@ const DateComponent = styled.div`
     height: 70px;
     position: relative;
     background-color: ${props => (props.timecolor < 0) ? "rgba(223, 230, 233,1.0)":
-    (props.timecolor < 1000) ? "white" :
-    (props.timecolor < 3000) ? "rgba(238, 90, 36, 0.3)" :
-    (props.timecolor < 4000) ? "rgba(238, 90, 36, 0.6)":
+    (props.timecolor < 10) ? "white" :
+    (props.timecolor < 30) ? "rgba(238, 90, 36, 0.3)" :
+    (props.timecolor < 40) ? "rgba(238, 90, 36, 0.6)":
     "rgba(238, 90, 36,1.0)"
     };
     :nth-child(7n+1){
@@ -125,7 +125,7 @@ const StatPresenter = ({today, weeks, dates, handleNextMonth, handleLastMonth, h
                     {weeks.map(week => <WeekComponent key={week}>{week}</WeekComponent>)}
                 </WeekContainer>
                 <DateContainer>
-                        {/* {console.log(dates)} */}
+                        {console.log(dates)}
                 {!dates ? <h1>Loading</h1> : 
                 dates.map(date =>
                     <DateComponent key={date.date} timecolor={date.total_time} >

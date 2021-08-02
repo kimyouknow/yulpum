@@ -9,59 +9,16 @@ const StatContainer = () => {
     const weeks = ["SUN", "MON","TUE","WED","THU","FRI","SAT"];
     const [dato, setDato] = useState(new Date());
     const [today, setToday] = useState("");
-    const [serverData, setServerData] = useState([]);
+    // const [serverData, setServerData] = useState(null);
     const [dates, setDates] = useState([]);
-    const renderCalendar = () => {
-        const renderYear = dato.getFullYear();
-        const renderMonth = dato.getMonth();
-        setToday(`${renderYear}년 ${renderMonth+1}월`);
-        let body = {
-            year: renderYear,
-            month: renderMonth,
-            token: tokenData
-        }
-
-        dispatch(getCalendar(body))
-            .then(response => {
-                console.log(response)
-                // const {isSuccess, ret} = response.payload;
-                // if (!isSuccess) {
-                //     alert("Error!");
-                // }
-                // console.log(ret);
-            })
-        // const serverData =  [
-        //     {
-        //         c_date: new Date(2021, 6, 1),
-        //         c_total_time: 2400,
-        //         c_todo: "english"
-        //     },
-        //     {
-        //         c_date: new Date(2021, 6, 9),
-        //         c_total_time: 3600,
-        //         c_todo: "science"
-        //     },
-        //     {
-        //         c_date: new Date(2021, 6, 12),
-        //         c_total_time: 3800,
-        //         c_todo: "coding"
-        //     },
-        //     {
-        //         c_date: new Date(2021, 6, 24),
-        //         c_total_time: 3800,
-        //         c_todo: "coding"
-        //     },
-        //     {
-        //         c_date: new Date(2021, 6, 20),
-        //         c_total_time: 4400,
-        //         c_todo: "multer"
-        //     },
-        //     {
-        //         c_date: new Date(2021, 6, 28),
-        //         c_total_time: 4800,
-        //         c_todo: "multer"
-        //     }
-        // ]
+    const compareDate = (input) => {
+        const inputDate = new Date(input);
+        const inputY = String(inputDate.getFullYear());
+        const inputM = String(inputDate.getMonth());
+        const inputD = String(inputDate.getDate());
+        return inputY+inputM+inputD
+    }
+    const getArray = (renderYear, renderMonth, serverData) => {
         const preLast = new Date(renderYear, renderMonth, 0);
         const currentLast = new Date(renderYear, renderMonth+1, 0);
         const PLDate = preLast.getDate();
@@ -73,12 +30,6 @@ const StatContainer = () => {
         const PDates = [];
         const CDates = [];
         const NDates = [];
-        const compareDate = (input) => {
-            const inputY = String(input.getFullYear());
-            const inputM = String(input.getMonth());
-            const inputD = String(input.getDate());
-            return inputY+inputM+inputD
-        }
         for(let i = 1; i < CLDate+1; i++ ){
             const i_date = new Date(renderYear, renderMonth, i);
             let i_total_time  = 0;
@@ -113,6 +64,27 @@ const StatContainer = () => {
             }
         }
         setDates(PDates.concat(CDates, NDates));
+    }
+    const renderCalendar = () => {
+        const renderYear = dato.getFullYear();
+        const renderMonth = dato.getMonth();
+        setToday(`${renderYear}년 ${renderMonth+1}월`);
+        let body = {
+            year: renderYear,
+            month: renderMonth,
+            token: tokenData
+        }
+        let serverData = null;
+        dispatch(getCalendar(body))
+            .then(response => {
+                // console.log(response)
+                const {isSuccess, ret} = response.payload;
+                if (!isSuccess) {
+                    alert("Error!");
+                }
+                serverData = ret;
+                getArray(renderYear, renderMonth, serverData);
+            })
     }
     const handleLastMonth = () => {    
         const newMonth = new Date(dato.setMonth(dato.getMonth() - 1));
@@ -150,31 +122,35 @@ const StatContainer = () => {
 export default StatContainer
 
 
-// app.post("/api/get-calendar", (req, res) => {
-//     // console.log(req, req.body);
-//     res.status(200).json({
-//         isSuccess: true,
-//         body: [
-//             {
-//                 date: new Date(2021, 7, 1),
-//                 total_time: 3600,
-//                 todo: ["english", "study"]
-//             },
-//             {
-//                 date: new Date(2021, 7, 9),
-//                 total_time: 4800,
-//                 todo: ["science", "math"]
-//             },
-//             {
-//                 date: new Date(2021, 7, 12),
-//                 total_time: 4000,
-//                 todo: ["coding", "take a work"]
-//             },
-//             {
-//                 date: new Date(2021, 7, 20),
-//                 total_time: 4000,
-//                 todo: ["multer", "eating"]
-//             }
-//         ]
-//     });
-// })
+// const serverData =  [
+        //     {
+        //         c_date: new Date(2021, 6, 1),
+        //         c_total_time: 2400,
+        //         c_todo: "english"
+        //     },
+        //     {
+        //         c_date: new Date(2021, 6, 9),
+        //         c_total_time: 3600,
+        //         c_todo: "science"
+        //     },
+        //     {
+        //         c_date: new Date(2021, 6, 12),
+        //         c_total_time: 3800,
+        //         c_todo: "coding"
+        //     },
+        //     {
+        //         c_date: new Date(2021, 6, 24),
+        //         c_total_time: 3800,
+        //         c_todo: "coding"
+        //     },
+        //     {
+        //         c_date: new Date(2021, 6, 20),
+        //         c_total_time: 4400,
+        //         c_todo: "multer"
+        //     },
+        //     {
+        //         c_date: new Date(2021, 6, 28),
+        //         c_total_time: 4800,
+        //         c_todo: "multer"
+        //     }
+        // ]
