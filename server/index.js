@@ -24,9 +24,11 @@ app.use(bodyParser.json());
 // app.use(express.urlencoded({extends: true}));
 app.use(cookieParser());
 
-app.use(routes.home, globalRoutes);
-app.use(routes.home, userRoutes);
-// app.use(routes.home, plannerRoutes);
+app.use(routes.api,routes.home, globalRoutes);
+app.use(routes.api,routes.home,userRoutes);
+
+
+app.use(routes.home,, lineRoutes);
 app.use(routes.home,calendarRoutes);
 const handleListenning = () =>{ 
     console.log(`✅ Listening on: http://localhost:${PORT}`);
