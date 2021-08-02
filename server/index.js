@@ -24,10 +24,10 @@ app.use(bodyParser.json());
 // app.use(express.urlencoded({extends: true}));
 app.use(cookieParser());
 
-app.use(routes.api,routes.home, globalRoutes);
-app.use(routes.api,routes.home,userRoutes);
+app.use(routes.api,globalRoutes);
+app.use(routes.api,userRoutes);
 
-app.use(routes.api,routes.statics,staticRoutes);
+app.use(routes.api,staticRoutes);
 
 
 
