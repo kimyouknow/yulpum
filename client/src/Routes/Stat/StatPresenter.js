@@ -1,5 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
+import StatInnerMenu from "../../Components/StatInnerMenu";
 
 const Container = styled.div`
     max-width: 960px;
@@ -147,6 +148,7 @@ const StatPresenter = ({today, weeks, dates, handleNextMonth, handleLastMonth, h
                         <TimeIndicatorColor /> 9 시간 이상
                     </TimeIndicator>
                 </TimeIndicatorContainer>
+                <StatInnerMenu />
         </Container>
     )
 }
