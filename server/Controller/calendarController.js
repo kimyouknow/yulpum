@@ -20,7 +20,7 @@ export const getCalendar = async(req,res)=>{
             id = data._id;
 
         });
-        console.log("cal is "+calendar);
+       
 
         if(calendar){
         
@@ -30,7 +30,7 @@ export const getCalendar = async(req,res)=>{
     
             }});
             //ret 결과 출력
-            console.log("ret is"+ret);
+            console.log("ret is@@@@"+ret);
             res.send(200);
     
         }
