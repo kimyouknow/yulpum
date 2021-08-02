@@ -4,8 +4,8 @@ import bodyParser from "body-parser";
 import routes from "./routes";
 import globalRoutes from "./Routes/globalRoutes";
 import userRoutes from "./Routes/userRoutes";
-import lineRoutes from "./Routes/lineRoutes";
-import calendarRoutes from "./Routes/calendarRoutes";
+import staticRoutes from "./Routes/staticRoutes";
+
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 
@@ -27,8 +27,8 @@ app.use(cookieParser());
 app.use(routes.api,routes.home, globalRoutes);
 app.use(routes.api,routes.home,userRoutes);
 
-app.use(routes.api,routes.statics,lineRoutes);
-app.use(routes.api,routes.statics,calendarRoutes);
+app.use(routes.api,routes.statics,staticRoutes);
+
 
 
 const handleListenning = () =>{ 
