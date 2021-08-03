@@ -19,12 +19,13 @@ const IconContainer = styled.div`
 const ActiveTimerPresenter = ({timeValue, onSubmitHandler, activedSubject ,intialTime}) => {
     const displayTime = (timeData) => {
         let minutes = Math.floor(timeData/60);
-        let hour = Math.floor(timeData/60);
+        let hour = Math.floor(minutes/60);
         let sec = timeData%60;
         let min = minutes%60;
         return `${hour < 10 ?`0${hour}`:hour}:
                             ${min < 10 ?`0${min}`:min}:
                             ${sec < 10 ?`0${sec}`:sec}`;}
+        console.log(timeValue);
     return (
         <>
             {!activedSubject ? <Loader /> : 

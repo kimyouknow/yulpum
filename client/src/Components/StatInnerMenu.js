@@ -1,9 +1,9 @@
 import React from "react";
 import styled from 'styled-components';
 import {withRouter, Link, Route} from "react-router-dom";
-import StatDailyContainer from "../Routes/StatDaily";
-import StatWeeklyContainer from "../Routes/StatWeekly";
-import StatMonthlyContainer from "../Routes/StatMonthly";
+import StatDaily from "../Routes/StatDaily";
+import StatWeekly from "../Routes/StatWeekly";
+import StatMonthly from "../Routes/StatMonthly";
 
 const InnerMenu = styled.div`
     border-top: 10px solid white;
@@ -43,9 +43,9 @@ const StatInnerMenu = withRouter(({location: {pathname},}) => {
                     <Link to="/stat/monthly" >월간</Link>
                 </Menu>
             </Menus>
-            <Route path="/stat/daily" component={StatDailyContainer} />
-            <Route path="/stat/weekly" component={StatWeeklyContainer} />
-            <Route path="/stat/monthly" component={StatMonthlyContainer} />
+            <Route path="/stat/daily" component={StatDaily} />
+            <Route path="/stat/weekly" component={StatWeekly} />
+            <Route path="/stat/monthly" component={StatMonthly} />
         </InnerMenu>
     )
 })
