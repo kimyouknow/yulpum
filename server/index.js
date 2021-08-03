@@ -4,8 +4,8 @@ import bodyParser from "body-parser";
 import routes from "./routes";
 import globalRoutes from "./Routes/globalRoutes";
 import userRoutes from "./Routes/userRoutes";
-import lineRoutes from "./Routes/lineRoutes";
-import calendarRoutes from "./Routes/calendarRoutes";
+import staticRoutes from "./Routes/staticRoutes";
+
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 
@@ -24,12 +24,13 @@ app.use(bodyParser.json());
 // app.use(express.urlencoded({extends: true}));
 app.use(cookieParser());
 
-app.use(routes.api,routes.home, globalRoutes);
-app.use(routes.api,routes.home,userRoutes);
+app.use(routes.api,globalRoutes);
+app.use(routes.api,userRoutes);
+
+app.use(routes.api,staticRoutes);
 
 
-app.use(routes.home,, lineRoutes);
-app.use(routes.home,calendarRoutes);
+
 const handleListenning = () =>{ 
     console.log(`✅ Listening on: http://localhost:${PORT}`);
 };

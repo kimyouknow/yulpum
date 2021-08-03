@@ -9,7 +9,8 @@ import {
 
 const staticRoutes = express.Router();
 
-staticRoutes.post(routes.getLine,getLine);
-staticRoutes.post(routes.getCalendar,getCalendar);
+var statics = routes.statics;
+staticRoutes.post(statics+routes.getLine,getLine);
+staticRoutes.post(statics+routes.getCalendar,getCalendar);
 
 export default staticRoutes;

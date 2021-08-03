@@ -22,7 +22,7 @@ export const getCalendar = async(req,res)=>{
         });
         if(calendar){
         
-            console.log(calendar);
+    
             const ret = await Calendar.find({c_user_id:id,c_date:{
                 $gt : new Date(year,month,1),
                 $lt : new Date(year,month,31)
