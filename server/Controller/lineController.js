@@ -2,6 +2,14 @@ import User from "../models/User";
 import Line from "../models/Line";
 
 export const getLine = async(req,res)=>{
+    console.log("getLine Function ---");
+    const {
+        token,//유저 토큰과
+        year,
+        month,
+        day
+        
+    }=req.body;
 
     await User.findByToken(token, async(err,query,user)=>{
         if(err) throw err;
@@ -12,12 +20,12 @@ export const getLine = async(req,res)=>{
         })
 
         const found = timeLine.find(e=>{
-            if(e._id == subject_id) return true;
+            if(e.l_date == new Date(year,month,day)) return true;
         });//await 필요없음 
 
         if(!found){
             res.stats(404);
-            console.log("error, no subject");
+            console.log("error, no such timeLine");
 
         }else{
             res.send(found);

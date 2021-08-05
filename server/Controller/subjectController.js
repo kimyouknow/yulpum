@@ -82,7 +82,7 @@ export const saveStudy =async(req,res)=>{
     console.log("SaveStudy Function --");
     const {
         token,//유저 토큰과
-        subject_id,///과목 이름과 
+        subject_id,///과목 id와
         timeValue//집중시간 받음
         
     }=req.body;

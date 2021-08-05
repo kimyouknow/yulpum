@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 import routes from "./routes";
 import homeRoutes from "./Routes/homeRoutes";
 import staticRoutes from "./Routes/staticRoutes";
-
+import plannerRoutes from "./Routes/plannerRoutes";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 
@@ -26,7 +26,7 @@ app.use(cookieParser());
 
 app.use(routes.api,homeRoutes);
 app.use(routes.api,staticRoutes);
-
+app.user(routes.api,plannerRoutes);
 
 
 const handleListenning = () =>{ 
