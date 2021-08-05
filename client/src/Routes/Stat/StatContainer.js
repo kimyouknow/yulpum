@@ -1,10 +1,33 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import StatPresenter from "./StatPresenter";
+import {useDispatch} from "react-redux";
+import { getCalendar } from "../../_actions/calendar_actions";
 
 const StatContainer = () => {
-    
+    const dispatch = useDispatch();
+    const getServerData = async(body) => {
+        const response = await dispatch(getCalendar(body))
+        const {isSuccess, ret} = response.payload;
+        if (!isSuccess) {
+            alert("Error!");
+        }
+        return ret
+        // dispatch(getCalendar(body))
+        //     .then(response => {
+        //         const {isSuccess, ret} = response.payload;
+        //         if (!isSuccess) {
+        //             alert("Error!");
+        //         }
+        //         serverData = ret
+        //     })
+        // return serverData;
+    }
+    useEffect(() => {
+        getServerData();
+    },[])
     return(
         <StatPresenter 
+            getServerData={getServerData}
         />
         )
 }

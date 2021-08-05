@@ -39,10 +39,10 @@ const TimeIndicatorColor = styled.div`
     margin-right: 10px;
 `;
 
-const StatPresenter = () => {
+const StatPresenter = ({getServerData}) => {
     return (
         <Container>
-                <Calendar />
+                <Calendar getServerData={getServerData} />
                 <TimeIndicatorContainer>
                     <TimeIndicator>
                         <TimeIndicatorColor /> 0~3 시간

@@ -89,7 +89,7 @@ const CalendarPresenter = ({today, weeks, dates, handleNextMonth, handleLastMont
             {weeks.map(week => <WeekComponent key={week}>{week}</WeekComponent>)}
         </WeekContainer>
         <DateContainer>
-                {console.log(dates)}
+                {/* {console.log(dates)} */}
         {!dates ? <h1>Loading</h1> : 
         dates.map(date =>
             <DateComponent key={date.date} timecolor={date.total_time} >

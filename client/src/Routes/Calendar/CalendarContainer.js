@@ -1,17 +1,13 @@
 import React, {useState, useEffect} from "react";
 import CalendarPresenter from "./CalendarPresenter";
-import {useDispatch} from "react-redux";
 import { useLocation } from 'react-router-dom';
-import { getCalendar } from "../../_actions/calendar_actions";
 
-const CalendarContainer = () => {
+const CalendarContainer = ({getServerData}) => {
     const pathname = useLocation().pathname;
     const tokenData = document.cookie.split("=")[1];
-    const dispatch = useDispatch();
     const weeks = ["SUN", "MON","TUE","WED","THU","FRI","SAT"];
     const [dato, setDato] = useState(new Date());
     const [today, setToday] = useState("");
-    // const [serverData, setServerData] = useState(null);
     const [dates, setDates] = useState([]);
     const compareDate = (input) => {
         const inputDate = new Date(input);
@@ -75,7 +71,7 @@ const CalendarContainer = () => {
         }
         setDates(PDates.concat(CDates, NDates));
     }
-    const renderCalendar = () => {
+    const renderCalendar = async() => {
         const renderYear = dato.getFullYear();
         const renderMonth = dato.getMonth();
         setToday(`${renderYear}년 ${renderMonth+1}월`);
@@ -84,17 +80,8 @@ const CalendarContainer = () => {
             month: renderMonth,
             token: tokenData
         }
-        let serverData = null;
-        dispatch(getCalendar(body))
-            .then(response => {
-                // console.log(response)
-                const {isSuccess, ret} = response.payload;
-                if (!isSuccess) {
-                    alert("Error!");
-                }
-                serverData = ret;
-                getArray(renderYear, renderMonth, serverData);
-            })
+        const serverData = await getServerData(body);
+        getArray(renderYear, renderMonth, serverData);
     }
     const handleLastMonth = () => {    
         const newMonth = new Date(dato.setMonth(dato.getMonth() - 1));
