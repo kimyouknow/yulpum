@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 import bcrypt, { hash } from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import userRoutes from '../Routes/userRoutes';
+
 
 
 const saltRounds = 10;
@@ -42,9 +42,9 @@ const userSchema = mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"Calendar"
     }],
-    myPlanner:[{
+    myTimeline:[{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"Planner"
+        ref:"Line"
     }]
     
 })

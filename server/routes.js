@@ -37,6 +37,7 @@ const routes = {
     //middle 
     auth:AUTH,
     api:API,
+    
     //pages
     statics:STATICS,
     planner:PLANNER,

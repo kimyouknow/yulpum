@@ -2,8 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import routes from "./routes";
-import globalRoutes from "./Routes/globalRoutes";
-import userRoutes from "./Routes/userRoutes";
+import homeRoutes from "./Routes/homeRoutes";
 import staticRoutes from "./Routes/staticRoutes";
 
 import mongoose from "mongoose";
@@ -24,9 +23,8 @@ app.use(bodyParser.json());
 // app.use(express.urlencoded({extends: true}));
 app.use(cookieParser());
 
-app.use(routes.api,globalRoutes);
-app.use(routes.api,userRoutes);
 
+app.use(routes.api,homeRoutes);
 app.use(routes.api,staticRoutes);
 
 

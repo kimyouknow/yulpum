@@ -1,6 +1,82 @@
 import User from "../models/User";
 import Subject from "../models/Subject";
 import Calendar from "../models/Calendar";
+import Line from "../models/Line";
+
+async function CalendarCheck (timeValue,user){ //캘린더 생성과 갱신 관련 함수
+
+
+          //달력 객체 추가 혹은 업데이트 부분
+   
+    const now = new Date().toLocaleDateString();
+    await Calendar.exists({c_user_id:user._id,c_date:now},async(err,ret)=>{
+        if(err){
+            console.log(err);
+        }else{
+            if(ret){ //이미 오늘날짜 캘린더 객체 존재한다면
+                
+                console.log("캘린더 객체 이미 존재");
+                const cal = await Calendar.findOne({c_user_id:user._id,c_date:now});
+                cal.c_total_time += timeValue;
+                cal.save();
+            }else{
+                console.log("캘린더 객체 새로 생성");
+                const calendar = await Calendar.create({
+                    c_user_id:user._id,
+                    c_total_time:timeValue,
+                    c_date:now
+                });
+                //어떻게 들어가나 확인
+                console.log(calendar);
+                user.myCalendar.push(calendar);
+                user.save();
+            }
+
+        
+        }
+    });
+
+
+}
+
+async function TimelineUpdate(timeVal,subject,user){ // 타임라인 생성과 갱신 관련 함수
+
+    let today = new Date();
+    const now = today.toLocaleDateString();
+    let hours = today.getHours(); // 시
+    let minutes = today.getMinutes();  // 분
+    let seconds = today.getSeconds(); // 초
+    let line = await Line.findOne({l_user_id:user._id,l_date:now, l_subject_name: subject.subject_name});
+    line.l_lapse += timeVal;
+    line.l_end_time = String(hours+":"+minutes+":"+seconds);
+    line.save();
+
+
+
+}
+
+async function TimelineCreate(study,user){
+    console.log("TimelineCreate, param is :");
+    console.log(study)
+    let today = new Date();
+    const now = today.toLocaleDateString(); //년월일
+    let hours = today.getHours(); // 시
+    let minutes = today.getMinutes();  // 분
+    let seconds = today.getSeconds(); // 초
+
+    const line = await Line.create({
+       l_user_id:user._id,
+       l_subject_name: study.subject_name,
+       l_date:now,
+       l_start_time:String(hours+":"+minutes+":"+seconds)
+        
+    });
+    
+    user.myTimeline.push(line);
+    user.save();
+
+}
+
 //active page에서 공부 종료시 실행
 export const saveStudy =async(req,res)=>{
     console.log("SaveStudy Function --");
@@ -27,45 +103,15 @@ export const saveStudy =async(req,res)=>{
         user.save();
         if(!found){
             res.status(404);
-            console.log("error, no subject");
+            console.log("error, no subject found");
   
 
         }else{
             const subject = await Subject.findById(subject_id);
             subject.total_time += timeValue;
             subject.save();
-    
-                  //달력 객체 추가 혹은 업데이트 부분
-            const now2 = new Date();
-            const now = now2.toLocaleDateString();
-            await Calendar.exists({c_user_id:user._id,c_date:now},async(err,ret)=>{
-                if(err){
-                    console.log(err);
-                }else{
-                    if(ret){ //이미 오늘날짜 캘린더 객체 존재한다면
-                        
-                        console.log("캘린더 객체 이미 존재");
-                        const cal = await Calendar.findOne({c_user_id:user._id,c_date:now});
-                        cal.c_total_time += timeValue;
-                        cal.save();
-                    }else{
-                        console.log("캘린더 객체 새로 생성");
-                        const calendar = await Calendar.create({
-                            c_user_id:user._id,
-                            c_total_time:timeValue,
-                            c_date:now
-                        });
-                        //어떻게 들어가나 확인
-                        console.log(calendar);
-                        user.myCalendar.push(calendar);
-                        user.save();
-                    }
-
-                
-                }
-            });
-
-
+            await CalendarCheck(timeValue,user);
+            await TimelineUpdate(timeValue,found,user);//과목 모델, 쿼리
 
 
             
@@ -111,10 +157,7 @@ export const addSubject = async(req,res)=>{
 //home 에서 괴목 명과 시간 띄워줌
 export const getSubject = async(req,res)=>{
     const {
-        user_id,
-        token,//유저 토큰과
-        subject
-  
+        token//유저 토큰
       
     }=req.body;
 
@@ -122,7 +165,6 @@ export const getSubject = async(req,res)=>{
         if(err) throw err;
       
         query.populate("studySubject").then(data =>{
-            console.log(data);
             res.status(200).send(data.studySubject);
         })
  
@@ -156,6 +198,8 @@ export const subjectDetail = async(req,res)=>{
             console.log("error, no subject");
 
         }else{
+            console.log(found);
+            await TimelineCreate(found,user);
             res.send(found);
             res.status(200);
         }
