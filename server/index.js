@@ -26,7 +26,7 @@ app.use(cookieParser());
 
 app.use(routes.api,homeRoutes);
 app.use(routes.api,staticRoutes);
-app.user(routes.api,plannerRoutes);
+app.use(routes.api,plannerRoutes);
 
 
 const handleListenning = () =>{ 
