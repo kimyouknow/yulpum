@@ -53,16 +53,16 @@ export const createTodo = async(req,res)=>{
     const{ 
         year,
         month,
-        day,
+        date,
         todo,
         token
     }=req.body;
 
-    let date = new Date(year,month,day);
+    let Cdate = new Date(year,month,date);
     await User.findByToken(token, async(err,query,user)=>{
         if(err) throw err;
 
-        let cal = await Calendar.findOne({c_user_id: user._id,c_date:date});
+        let cal = await Calendar.findOne({c_user_id: user._id,c_date:Cdate});
         cal.c_todo.push(todo);
         res.status(200).json({
         isSuccess:true,
@@ -80,7 +80,7 @@ export const deleteTodo = async(req,res)=>{
     const{
         year,
         month,
-        day,
+        date,
         token,
         todo
     }=req.body;
@@ -91,7 +91,7 @@ export const deleteTodo = async(req,res)=>{
             calendar = data.myCalendar;
         });
 
-        let foundCal = calendar.find(e => e.c_date == new Date(year,month,day));
+        let foundCal = calendar.find(e => e.c_date == new Date(year,month,date));
         
         let cal =await Calendar.findById(foundCal._id);
         let flag = 0;
