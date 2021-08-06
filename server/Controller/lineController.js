@@ -7,7 +7,7 @@ export const getLine = async(req,res)=>{
         token,//유저 토큰과
         year,
         month,
-        day
+        date
         
     }=req.body;
 
@@ -20,11 +20,11 @@ export const getLine = async(req,res)=>{
         })
 
         const found = timeLine.find(e=>{
-            if(e.l_date == new Date(year,month,day)) return true;
+            if(e.l_date == new Date(year,month,date)) return true;
         });//await 필요없음 
 
         if(!found){
-            res.stats(404);
+            res.status(404);
             console.log("error, no such timeLine");
 
         }else{
