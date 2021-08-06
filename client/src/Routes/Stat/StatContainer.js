@@ -1,33 +1,45 @@
 import React, {useState, useEffect} from "react";
 import StatPresenter from "./StatPresenter";
 import {useDispatch} from "react-redux";
+import { renderCalendar, getRenderBase } from "../../hoc/renderCalendar";
 import { getCalendar } from "../../_actions/calendar_actions";
 
 const StatContainer = () => {
     const dispatch = useDispatch();
+    const tokenData = document.cookie.split("=")[1];
+    const [todoInput, setTodoInput] = useState("");
+    const [dato, setDato] = useState(new Date());
+    const [dates, setDates] = useState([]);
     const getServerData = async(body) => {
-        const response = await dispatch(getCalendar(body))
+        const response = await dispatch(getCalendar(body));
         const {isSuccess, ret} = response.payload;
         if (!isSuccess) {
             alert("Error!");
         }
         return ret
-        // dispatch(getCalendar(body))
-        //     .then(response => {
-        //         const {isSuccess, ret} = response.payload;
-        //         if (!isSuccess) {
-        //             alert("Error!");
-        //         }
-        //         serverData = ret
-        //     })
-        // return serverData;
+    }
+    const temp = async() => {
+        const {renderYear, renderMonth} = await getRenderBase(dato);
+        let body = {
+            year: renderYear,
+            month: renderMonth,
+            token: tokenData
+        }
+        const serverData = await getServerData(body);
+        const dates = renderCalendar(renderYear, renderMonth, serverData, "stat");
+        setDates(dates);
     }
     useEffect(() => {
-        getServerData();
-    },[])
+        temp();
+    }, [dato])
     return(
         <StatPresenter 
+            dates={dates}
+            dato={dato}
+            setDato={setDato}
             getServerData={getServerData}
+            todoInput={todoInput}
+            setTodoInput={setTodoInput}
         />
         )
 }
