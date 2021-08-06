@@ -24,7 +24,7 @@ export const getLine = async(req,res)=>{
         });//await 필요없음 
 
         if(!found){
-            res.stats(404);
+            res.status(404);
             console.log("error, no such timeLine");
 
         }else{
