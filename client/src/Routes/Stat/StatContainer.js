@@ -13,7 +13,7 @@ const StatContainer = () => {
         const {date:activeDate} = data;
         const body = {
             year: new Date(activeDate).getFullYear(),
-            month: new Date(activeDate).getMonth()+1,
+            month: new Date(activeDate).getMonth(),
             date: new Date(activeDate).getDate(),
             token: tokenData
         }
