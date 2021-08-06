@@ -18,10 +18,17 @@ export const getLine = async(req,res)=>{
             timeLine=data.myTimeline
             
         })
-
-        const found = timeLine.find(e=>{
-            if(e.l_date == new Date(year,month,date)) return true;
+        
+        let time = new Date(year,month,date).getTime();
+        console.log("time is : "+ time);
+   
+      const found =  timeLine.find(e=>{
+            console.log(e.l_date.getTime());
+            if(e.l_date.getTime() == time){
+                return true;}
         });//await 필요없음 
+
+        console.log(found);
 
         if(!found){
             res.status(404);
