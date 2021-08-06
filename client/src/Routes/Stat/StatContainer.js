@@ -19,10 +19,10 @@ const StatContainer = () => {
             date: new Date(activeDate).getDate(),
             token: tokenData
         }
-        history.push("/stat/daily");
         const response = await dispatch(getLine(body));
         const {payload} = response;
         console.log(payload);
+        // history.push("/stat/daily");
     }
     const getServerData = async(body) => {
         const response = await dispatch(getCalendar(body));
