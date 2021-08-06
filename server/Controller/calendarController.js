@@ -47,7 +47,71 @@ export const getCalendar = async(req,res)=>{
     });
    
     
+};
 
+export const createTodo = async(req,res)=>{
+    const{ 
+        year,
+        month,
+        day,
+        todo,
+        token
+    }=req.body;
+
+    let date = new Date(year,month,day);
+    await User.findByToken(token, async(err,query,user)=>{
+        if(err) throw err;
+
+        let cal = await Calendar.findOne({c_user_id: user._id,c_date:date});
+        cal.c_todo.push(todo);
+        res.status(200).json({
+        isSuccess:true,
+        });
+
+    });
 
 
 };
+
+
+
+export const deleteTodo = async(req,res)=>{
+    //date로 특정 캘린더 객체의 todo를 삭제함
+    const{
+        year,
+        month,
+        day,
+        token,
+        todo
+    }=req.body;
+
+    await User.findByToken(token, async(err,query,user)=>{
+        if(err) throw err;
+        await query.populate("myCalendar").then(data=>{
+            calendar = data.myCalendar;
+        });
+
+        let foundCal = calendar.find(e => e.c_date == new Date(year,month,day));
+        
+        let cal =await Calendar.findById(foundCal._id);
+        let flag = 0;
+        for(let i = 0 ; i < cal.todo.length() ; i++){
+            if(cal.todo[i] === todo ){
+                cal.todo.splice(i,1);
+                i--;
+                flag = 1;
+            }
+        }
+        if(flag){
+            res.status(200).json({
+                isSuccess:true,
+                });
+        }
+        else{
+            console.log("todo 삭제 실패");
+        }
+     
+    });
+};
+
+
