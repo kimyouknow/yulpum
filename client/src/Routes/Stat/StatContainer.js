@@ -1,15 +1,65 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import StatPresenter from "./StatPresenter";
+import {useDispatch} from "react-redux";
+import { renderCalendar, getRenderBase } from "../../hoc/renderCalendar";
+import { getCalendar, getLine } from "../../_actions/calendar_actions";
 
 const StatContainer = () => {
-    
+    const dispatch = useDispatch();
+    const tokenData = document.cookie.split("=")[1];
+    const [dato, setDato] = useState(new Date());
+    const [dates, setDates] = useState([]);
+    const onClick = async(data) => {
+        const {date:activeDate} = data;
+        const body = {
+            year: new Date(activeDate).getFullYear(),
+            month: new Date(activeDate).getMonth()+1,
+            date: new Date(activeDate).getDate(),
+            token: tokenData
+        }
+        const response = await dispatch(getLine(body));
+        const {payload} = response;
+        console.log(payload);
+    }
+    const getServerData = async(body) => {
+        const response = await dispatch(getCalendar(body));
+        const {isSuccess, ret} = response.payload;
+        if (!isSuccess) {
+            alert("Error!");
+        }
+        return ret
+    }
+    const renderingCalendar = async() => {
+        const {renderYear, renderMonth} = await getRenderBase(dato);
+        let body = {
+            year: renderYear,
+            month: renderMonth,
+            token: tokenData
+        }
+        const serverData = await getServerData(body);
+        const dates = renderCalendar(renderYear, renderMonth, serverData, "stat");
+        setDates(dates);
+    }
+    useEffect(() => {
+        renderingCalendar();
+    }, [dato])
     return(
         <StatPresenter 
+            dates={dates}
+            dato={dato}
+            setDato={setDato}
+            getServerData={getServerData}
+            onClick={onClick}
         />
         )
 }
 export default StatContainer
 
+// const {
+//     token,//유저 토큰과
+//     today///오늘 날짜, 년 월 일 -> year month day number 로
+    
+// }=req.body;
 
 // const serverData =  [
         //     {

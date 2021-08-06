@@ -1,6 +1,7 @@
 import React from "react";
 import styled from 'styled-components';
-import Calendar from "../Calendar";
+import Calendar from "../../Components/Calendar";
+import LoaderCotainer from "../../Components/Loader";
 
 const Container = styled.div`
     max-width: 960px;
@@ -9,10 +10,16 @@ const Container = styled.div`
 `;
 
 
-const PlannerPresenter = () => {
+const PlannerPresenter = ({dates, dato, setDato, planInput ,setPlanInput, onSubmitHandler, onClick, plans}) => {
     return (
         <Container>
-            <Calendar />
+            {!dates ? <LoaderCotainer /> :
+                <Calendar dates={dates} dato={dato} setDato={setDato} onClick={onClick} plans={plans} />
+            }
+            <form onSubmit={(e => onSubmitHandler(e))}>
+                <label>Add to do</label>
+                <input type="text" value={planInput} onChange={(e => setPlanInput(e.target.value))} />
+            </form>
         </Container>
     )
 }
