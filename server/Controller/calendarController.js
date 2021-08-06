@@ -57,13 +57,18 @@ export const createTodo = async(req,res)=>{
         todo,
         token
     }=req.body;
+    
+    console.log("createTodo");
+    console.log(year+ ":"+month+":"+date);
 
+    console.log(todo);
     let Cdate = new Date(year,month,date);
+    console.log(Cdate);
     await User.findByToken(token, async(err,query,user)=>{
         if(err) throw err;
-
         let cal = await Calendar.findOne({c_user_id: user._id,c_date:Cdate});
         cal.c_todo.push(todo);
+        cal.save();
         res.status(200).json({
         isSuccess:true,
         });
