@@ -2,6 +2,9 @@ import mongoose from 'mongoose';
 
 
 const lineSchema = mongoose.Schema({
+    l_user_id:{
+        type:String,
+    },
     l_subject_name:{
         type:String,
         maxlength:100
@@ -12,13 +15,15 @@ const lineSchema = mongoose.Schema({
         
     },
     l_start_time:{
-        type:Date
+        type:String
     },
     l_end_time:{
-        type:Date
+        type:String
+  
     },
     l_lapse:{
-        type:Number
+        type:Number,
+        default:0
     }
 
 })

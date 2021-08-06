@@ -1,13 +1,37 @@
 import User from "../models/User";
-import Subject from "../models/Subject";
 import Line from "../models/Line";
 
 export const getLine = async(req,res)=>{
+    console.log("getLine Function ---");
+    const {
+        token,//유저 토큰과
+        year,
+        month,
+        day
+        
+    }=req.body;
 
-    await User.findByToken(token, (err,user)=>{
+    await User.findByToken(token, async(err,query,user)=>{
         if(err) throw err;
-        const study = user.populate("myCalender");
-  
+        let timeLine;
+        await query.populate("myTimeline").then(data =>{
+            timeLine=data.myTimeline
+            
+        })
+
+        const found = timeLine.find(e=>{
+            if(e.l_date == new Date(year,month,day)) return true;
+        });//await 필요없음 
+
+        if(!found){
+            res.stats(404);
+            console.log("error, no such timeLine");
+
+        }else{
+            res.send(found);
+            res.status(200);
+        }
+      
     });
 
 };

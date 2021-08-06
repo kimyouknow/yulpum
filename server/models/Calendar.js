@@ -3,13 +3,11 @@ import mongoose from 'mongoose';
 const calendarSchema = mongoose.Schema({
     c_user_id:{
         type:String,
-       
-
     },
-    c_todo:{
+    c_todo:[{
         type:String,
         default:""
-    },
+    }],
     c_date:{
         type:Date,
 

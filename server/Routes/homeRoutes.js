@@ -1,22 +1,45 @@
-// import express from "express";
-// import routes from "../routes";
-// import {
-//     saveStudy,
-//     addSubject,
-//     subjectDetail,
-//     getSubject,
-//     subjectDelete,
-//     subjectRevise,
+import express from "express";
+import routes from "../routes";
 
-// } from "../Controller/subjectController"
+import {
+    saveStudy,
+    addSubject,
+    subjectDetail,
+    getSubject,
+    subjectDelete,
+    subjectRevise,
 
-// const userRoutes = express.Router();
+} from "../Controller/subjectController"
 
-// userRoutes.post(routes.saveStudy,saveStudy);
-// userRoutes.post(routes.addSubject,addSubject);
-// userRoutes.post(routes.subjectDetail,subjectDetail);
-// userRoutes.post(routes.getSubject,getSubject);
-// userRoutes.post(routes.reviseSubject, subjectRevise);
-// userRoutes.post(routes.deleteSubject,subjectDelete);
+import {
+    postRegister,
+    postLogin,
+    logout
+} from "../Controller/userController";
 
-// export default userRoutes;
+import{
+    auth
+} from "../middleware/auth";
+
+const homeRoutes = express.Router();
+homeRoutes.get(routes.auth, auth,(req, res)=>{
+    res.status(200).json({
+        user_id:req.user._id,
+        isAdmin: req.user.role === 0 ? false :true,
+        isAuth: true,
+        role:req.user.role
+    })
+});
+
+homeRoutes.post(routes.register,postRegister);
+homeRoutes.post(routes.login,postLogin);
+homeRoutes.get(routes.logout,auth,logout);
+
+homeRoutes.post(routes.saveStudy,saveStudy);
+homeRoutes.post(routes.addSubject,addSubject);
+homeRoutes.post(routes.subjectDetail,subjectDetail);
+homeRoutes.post(routes.getSubject,getSubject);
+homeRoutes.post(routes.reviseSubject, subjectRevise);
+homeRoutes.post(routes.deleteSubject,subjectDelete);
+
+export default homeRoutes;

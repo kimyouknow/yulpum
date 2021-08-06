@@ -15,14 +15,21 @@ const PLANNER = "/planner";
 const RANK = "/rank";
 const GROUP ="/group";
 
-
+//subject
 const SAVE="/save-subject";
 const GETSUBJECT = "/get-subject";
 const ADDSUBJECT ="/add-subject";
 const SUBJECTDETAIL = "/subject-detail";
 const REVISESUBJECT = "/edit-subject";
 const DELETESUBJECT = "/delete-subject";
-const GETPLANNER = "/get-planner";
+
+
+//todo 
+const ADDTODO = "/add-todo";
+const DELETETODO = "/delete-todo";
+
+
+//get something
 const GETCALENDAR = "/get-calendar";
 const GETLINE = "/get-line";
 
@@ -37,25 +44,29 @@ const routes = {
     //middle 
     auth:AUTH,
     api:API,
+    
     //pages
     statics:STATICS,
     planner:PLANNER,
     rank:RANK,
     group:GROUP,
 
-    //get
+    //get something
     getSubject:GETSUBJECT,
-    getPlanner:GETPLANNER,
     getCalendar:GETCALENDAR,
     getLine:GETLINE,
 
+
+    //subject
     saveStudy:SAVE,
     addSubject:ADDSUBJECT,
     subjectDetail:SUBJECTDETAIL,
     reviseSubject:REVISESUBJECT,
     deleteSubject:DELETESUBJECT,
  
-
+    //todo
+    addTodo:ADDTODO,
+    deleteTodo:DELETETODO
 }
 
 export default routes;
