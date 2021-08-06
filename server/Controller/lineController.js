@@ -18,7 +18,7 @@ export const getLine = async(req,res)=>{
             timeLine=data.myTimeline
             
         })
-        
+
         let time = new Date(year,month,date).getTime();
         const found =  timeLine.find(e=>{
               console.log(e.l_date.getTime());
@@ -31,12 +31,17 @@ export const getLine = async(req,res)=>{
         console.log(found);
 
         if(!found){
-            res.status(404);
-            console.log("error, no such timeLine");
+           
+            console.log("no timeLine");  
+            res.status(200).json({
+                IsTimeLine:false
+            });
 
         }else{
             res.send(found);
-            res.status(200);
+            res.status(200).json({
+                IsTimeLine:true
+            });
         }
       
     });
