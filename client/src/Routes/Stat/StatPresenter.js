@@ -40,11 +40,11 @@ const TimeIndicatorColor = styled.div`
     margin-right: 10px;
 `;
 
-const StatPresenter = ({dates, dato, setDato, todoInput ,setTodoInput}) => {
+const StatPresenter = ({dates, dato, setDato, onClick}) => {
     return (
         <Container>
                 {!dates ? <LoaderCotainer /> :
-                    <Calendar dates={dates} dato={dato} setDato={setDato} />
+                    <Calendar dates={dates} dato={dato} setDato={setDato} onClick={onClick} />
                 }   
                 <TimeIndicatorContainer>
                     <TimeIndicator>

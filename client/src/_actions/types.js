@@ -9,3 +9,6 @@ export const DELETE_SUBJECTS = "delete_subjects";
 export const UPDATE_TIMER = 'update_timer';
 export const GET_SUBJECT_TIME = 'get_subect_time';
 export const GET_CALENDAR = 'get_calendar';
+export const GET_LINE="get_line";
+export const ADD_PLAN="add_plan";
+export const DELETE_PLAN="delete_plan";

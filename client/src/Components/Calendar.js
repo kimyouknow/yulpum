@@ -56,6 +56,7 @@ const DateComponent = styled.div`
     (props.timecolor < 40) ? "rgba(238, 90, 36, 0.6)":
     "rgba(238, 90, 36,1.0)"
     };
+    border: ${props => (props.today ? "3px solid red" : "none")};
     :nth-child(7n+1){
         color: #d13e3e;
     }
@@ -82,7 +83,7 @@ const ToDoContainer = styled.div`
 `;
 
 
-const Calendar = ({dates, dato, setDato}) => {
+const Calendar = ({dates, dato, setDato, onClick, plans}) => {
     const weeks = ["SUN", "MON","TUE","WED","THU","FRI","SAT"];
     const handleLastMonth = (dato) => {    
         const newMonth = new Date(dato.setMonth(dato.getMonth() - 1));
@@ -99,7 +100,6 @@ const Calendar = ({dates, dato, setDato}) => {
     const handleToday = () => {
         setDato(new Date());
     }
-    // setToday();
     return (
         <>
             <Header>
@@ -114,7 +114,9 @@ const Calendar = ({dates, dato, setDato}) => {
                     {/* {console.log(dates)} */}
             {!dates ? <h1>Loading</h1> : 
             dates.map(date =>
-                <DateComponent key={date.date} timecolor={date.total_time} >
+                <DateComponent key={date.date} timecolor={date.total_time} today={date.date.getDate() === new Date().getDate() && date.date.getMonth() === new Date().getMonth()} 
+                    onClick={() => onClick(date)}
+                >
                     {date.date.getDate()}
                     <ToDoContainer>{date.todo}</ToDoContainer>
                 </DateComponent>)

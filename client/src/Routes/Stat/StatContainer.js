@@ -2,14 +2,25 @@ import React, {useState, useEffect} from "react";
 import StatPresenter from "./StatPresenter";
 import {useDispatch} from "react-redux";
 import { renderCalendar, getRenderBase } from "../../hoc/renderCalendar";
-import { getCalendar } from "../../_actions/calendar_actions";
+import { getCalendar, getLine } from "../../_actions/calendar_actions";
 
 const StatContainer = () => {
     const dispatch = useDispatch();
     const tokenData = document.cookie.split("=")[1];
-    const [todoInput, setTodoInput] = useState("");
     const [dato, setDato] = useState(new Date());
     const [dates, setDates] = useState([]);
+    const onClick = async(data) => {
+        const {date:activeDate} = data;
+        const body = {
+            year: new Date(activeDate).getFullYear(),
+            month: new Date(activeDate).getMonth()+1,
+            date: new Date(activeDate).getDate(),
+            token: tokenData
+        }
+        const response = await dispatch(getLine(body));
+        const {payload} = response;
+        console.log(payload);
+    }
     const getServerData = async(body) => {
         const response = await dispatch(getCalendar(body));
         const {isSuccess, ret} = response.payload;
@@ -18,7 +29,7 @@ const StatContainer = () => {
         }
         return ret
     }
-    const temp = async() => {
+    const renderingCalendar = async() => {
         const {renderYear, renderMonth} = await getRenderBase(dato);
         let body = {
             year: renderYear,
@@ -30,7 +41,7 @@ const StatContainer = () => {
         setDates(dates);
     }
     useEffect(() => {
-        temp();
+        renderingCalendar();
     }, [dato])
     return(
         <StatPresenter 
@@ -38,13 +49,17 @@ const StatContainer = () => {
             dato={dato}
             setDato={setDato}
             getServerData={getServerData}
-            todoInput={todoInput}
-            setTodoInput={setTodoInput}
+            onClick={onClick}
         />
         )
 }
 export default StatContainer
 
+// const {
+//     token,//유저 토큰과
+//     today///오늘 날짜, 년 월 일 -> year month day number 로
+    
+// }=req.body;
 
 // const serverData =  [
         //     {
