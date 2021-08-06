@@ -1,12 +1,10 @@
 import React, {useState, useEffect} from "react";
 import SubjectsPresenter from "./SubjectsPresenter";
 import {useDispatch} from "react-redux";
-import {useHistory} from "react-router";
 import {addSubject, deleteSubject, editSubject, getSubject} from "../../_actions/subject_actions";
 
 const SubjectsContainer = ({tokenData}) => {
     const dispatch = useDispatch();
-    const history = useHistory();
     const [clicked, setClicked] = useState({
         editButton: false,
         addButton: false

@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from "react";
 import StatPresenter from "./StatPresenter";
 import {useDispatch} from "react-redux";
+import {useHistory} from "react-router";
 import { renderCalendar, getRenderBase } from "../../hoc/renderCalendar";
 import { getCalendar, getLine } from "../../_actions/calendar_actions";
 
 const StatContainer = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const tokenData = document.cookie.split("=")[1];
     const [dato, setDato] = useState(new Date());
     const [dates, setDates] = useState([]);
@@ -20,6 +22,7 @@ const StatContainer = () => {
         const response = await dispatch(getLine(body));
         const {payload} = response;
         console.log(payload);
+        // history.push("/stat/daily");
     }
     const getServerData = async(body) => {
         const response = await dispatch(getCalendar(body));
@@ -54,12 +57,6 @@ const StatContainer = () => {
         )
 }
 export default StatContainer
-
-// const {
-//     token,//유저 토큰과
-//     today///오늘 날짜, 년 월 일 -> year month day number 로
-    
-// }=req.body;
 
 // const serverData =  [
         //     {
