@@ -20,6 +20,9 @@ const PlannerPresenter = ({dates, dato, setDato, planInput ,setPlanInput, onSubm
                 <label>Add to do</label>
                 <input type="text" value={planInput} onChange={(e => setPlanInput(e.target.value))} />
             </form>
+            {!plans ? <span>계획된 일정이 없습니다</span> : 
+            plans.map(plan => <span>plan</span>)
+            }
         </Container>
     )
 }

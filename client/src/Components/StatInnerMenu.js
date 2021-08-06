@@ -43,9 +43,15 @@ const StatInnerMenu = withRouter(({location: {pathname},}) => {
                     <Link to="/stat/monthly" >월간</Link>
                 </Menu>
             </Menus>
-            <Route path="/stat/daily" component={StatDaily} />
-            <Route path="/stat/weekly" component={StatWeekly} />
-            <Route path="/stat/monthly" component={StatMonthly} />
+            <Route path="/stat/daily" >
+                <StatDaily />
+            </Route>
+            <Route path="/stat/weekly" >
+                <StatWeekly />
+            </Route>
+            <Route path="/stat/monthly" >
+                <StatMonthly />
+            </Route>
         </InnerMenu>
     )
 })
