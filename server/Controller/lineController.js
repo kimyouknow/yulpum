@@ -33,13 +33,13 @@ export const getLine = async(req,res)=>{
         if(!found){
            
             console.log("no timeLine");  
-            res.status(200).json({
+            return res.status(200).json({
                 IsTimeLine:false
             });
 
         }else{
             res.send(found);
-            res.status(200).json({
+            return res.status(200).json({
                 IsTimeLine:true
             });
         }
