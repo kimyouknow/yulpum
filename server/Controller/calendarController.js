@@ -91,8 +91,13 @@ export const deleteTodo = async(req,res)=>{
         await query.populate("myCalendar").then(data=>{
             calendar = data.myCalendar;
         });
-
-        let foundCal = calendar.find(e => e.c_date == new Date(year,month,day));
+        let time = new Date(year,month,date).getTime();
+   
+        let foundCal = calendar.find(e => {
+            console.log(e.c_date.getTime());
+            if(e.c_date.getTime() == time.getTime())return true;
+        
+        });
         
         let cal =await Calendar.findById(foundCal._id);
         let flag = 0;
