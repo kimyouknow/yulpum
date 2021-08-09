@@ -29,31 +29,25 @@ const Menu = styled.li`
 `;
 
 
-const StatInnerMenu = withRouter(({location: {pathname},}) => {
+const StatInnerMenu = () => {
     return (
         <InnerMenu>
             <Menus>
-                <Menu active={pathname === "/stat/daily"} >
-                    <Link to="/stat/daily" >일간</Link>
+                <Menu active={true}>
+                    일간
                 </Menu>
-                <Menu active={pathname === "/stat/weekly"} >
-                    <Link to="/stat/weekly" >주간</Link>
+                <Menu active={false}>
+                    주간
                 </Menu>
-                <Menu active={pathname === "/stat/monthly"} >
-                    <Link to="/stat/monthly" >월간</Link>
+                <Menu active={false}>
+                    월간
                 </Menu>
             </Menus>
-            <Route path="/stat/daily" >
                 <StatDaily />
-            </Route>
-            <Route path="/stat/weekly" >
                 <StatWeekly />
-            </Route>
-            <Route path="/stat/monthly" >
                 <StatMonthly />
-            </Route>
         </InnerMenu>
     )
-})
+}
 
 export default StatInnerMenu;
