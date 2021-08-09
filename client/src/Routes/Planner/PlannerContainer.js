@@ -33,16 +33,21 @@ const PlannerContainer = () => {
         const {payload} = response;
         console.log(payload);
     }
-    const handleRemove = async () => {
-        const body = {
-            year: new Date(active).getFullYear(),
-            month: new Date(active).getMonth(),
-            date: new Date(active).getDate(),
-            todo: "temp",
-            token: tokenData
+    const handleCheck = async (isDel, element, idx) => {
+        if(isDel){
+            const body = {
+                year: new Date(active).getFullYear(),
+                month: new Date(active).getMonth(),
+                date: new Date(active).getDate(),
+                todo: element,
+                token: tokenData
+            }
+            console.log(body)
+            const response = await dispatch(DeletePlan(body));
+            console.log(response)
+        } else{
+            
         }
-        const response = await dispatch(DeletePlan(body));
-        console.log(response)
     }
     const getServerData = async(body) => {
         const response = await dispatch(getCalendar(body));
@@ -76,6 +81,7 @@ const PlannerContainer = () => {
             setPlanInput={setPlanInput}
             onSubmitHandler={onSubmitHandler}
             onClick={onClick}
+            handleCheck={handleCheck}
             plans={plans}
         />
         )

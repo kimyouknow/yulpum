@@ -10,11 +10,11 @@ const Container = styled.div`
 `;
 
 
-const PlannerPresenter = ({dates, dato, setDato, planInput ,setPlanInput, onSubmitHandler, onClick, plans}) => {
+const PlannerPresenter = ({dates, dato, setDato, planInput ,setPlanInput, onSubmitHandler, onClick, handleCheck, plans}) => {
     return (
         <Container>
             {!dates ? <LoaderCotainer /> :
-                <Calendar dates={dates} dato={dato} setDato={setDato} onClick={onClick} plans={plans} />
+                <Calendar dates={dates} dato={dato} setDato={setDato} onClick={onClick} handleCheck={handleCheck} plans={plans} />
             }
             <form onSubmit={(e => onSubmitHandler(e))}>
                 <label>Add to do</label>

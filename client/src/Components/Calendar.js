@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from 'styled-components';
 
 const Header = styled.div`
@@ -45,10 +45,11 @@ const DateContainer = styled.div`
 
 const DateComponent = styled.div`
     display: flex;
+    flex-direction: column;
     justify-content:flex-start;
     align-items: flex-start;
     padding: 8px;
-    height: 70px;
+    height: 100px;
     position: relative;
     background-color: ${props => (props.timecolor < 0) ? "rgba(223, 230, 233,1.0)":
     (props.timecolor < 10) ? "white" :
@@ -70,9 +71,11 @@ const DateComponent = styled.div`
 `;
 
 const ToDoContainer = styled.div`
-    position: absolute;
+    /* position: absolute;
     bottom: 10px;
-    left: 0px;
+    left: 0px; */
+    display: flex;
+    justify-content: space-between;
     width: 100%;
     padding-left: 10px;
     color: black;
@@ -82,8 +85,15 @@ const ToDoContainer = styled.div`
     }
 `;
 
+const ToDoElement = styled.div`
+    /* text-decoration: ${props => props.isCom ? "line-through" : "none"}; */
+    :hover{
+    -webkit-transform:scale(1.2);
+    }
 
-const Calendar = ({dates, dato, setDato, onClick, plans}) => {
+`;
+
+const Calendar = ({dates, dato, setDato, onClick, handleCheck, plans}) => {
     const weeks = ["SUN", "MON","TUE","WED","THU","FRI","SAT"];
     const handleLastMonth = (dato) => {    
         const newMonth = new Date(dato.setMonth(dato.getMonth() - 1));
@@ -118,7 +128,13 @@ const Calendar = ({dates, dato, setDato, onClick, plans}) => {
                     onClick={() => onClick(date)}
                 >
                     {date.date.getDate()}
-                    <ToDoContainer>{date.todo}</ToDoContainer>
+                    {date.todo ? date.todo.map((ele, idx) => 
+                    <ToDoContainer key={idx}>
+                        {ele}
+                        <ToDoElement>✅</ToDoElement>
+                        <ToDoElement onClick={() => handleCheck(true,ele, idx)}>❌</ToDoElement>
+                    </ToDoContainer>
+                    ): null}
                 </DateComponent>)
             }
             </DateContainer>
