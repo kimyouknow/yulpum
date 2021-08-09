@@ -7,13 +7,26 @@ import Line from "../models/Line";
 export const getRank = async(req,res)=>{
     let today = new Date();
     const now = today.toLocaleDateString();
-
+    let resultArr =[];
     const ret = await Calendar.find({c_date:now}).sort({c_total_time:-1}).limit(100);
     console.log(ret);
-    
+    let studyStart;
+    let nowStudy;
+    let userName;
+    let totalTime;
     for(let i = 0 ;  i < ret.length(); i++){
-        r
+        let user = await User.find({_id:ret[i].c_user_id});
+        totalTime = ret[i].c_total_time;
+        userName = user.name;
+        nowStudy = user.nowStudy;
+        studyStart = user.studyStart;
+        resultArr.push({name:userName, isStudy: nowStudy, startTime: studyStart, total: totalTime});
+
     }
+
+    return res.status(200).json({
+        resultArr
+    })
     
 
     

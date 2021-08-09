@@ -100,6 +100,9 @@ export const saveStudy =async(req,res)=>{
        
         
         found.total_time += timeValue;
+        //추가됨 테스트 필요
+        found.nowStudy = 1;
+        found.studyStart = new Date().toLocaleDateString();
         user.save();
         if(!found){
             res.status(404);
