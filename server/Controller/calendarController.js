@@ -87,6 +87,7 @@ export const deleteTodo = async(req,res)=>{
 
     await User.findByToken(token, async(err,query,user)=>{
         if(err) throw err;
+        let calendar;
         await query.populate("myCalendar").then(data=>{
             calendar = data.myCalendar;
         });
@@ -100,6 +101,7 @@ export const deleteTodo = async(req,res)=>{
                 cal.todo.splice(i,1);
                 i--;
                 flag = 1;
+                break;
             }
         }
         if(flag){

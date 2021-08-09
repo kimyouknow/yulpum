@@ -4,7 +4,6 @@ import routes from "../routes";
 import {
     getCalendar,
     createTodo,
-    updateTodo,
     deleteTodo
 } from "../Controller/calendarController"
 

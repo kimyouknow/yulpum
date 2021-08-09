@@ -5,6 +5,7 @@ import routes from "./routes";
 import homeRoutes from "./Routes/homeRoutes";
 import staticRoutes from "./Routes/staticRoutes";
 import plannerRoutes from "./Routes/plannerRoutes";
+import rankRoutes from "./Routes/rankRoutes";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 
@@ -26,8 +27,8 @@ app.use(cookieParser());
 
 app.use(routes.api,homeRoutes);
 app.use(routes.api,staticRoutes);
-app.user(routes.api,plannerRoutes);
-
+app.use(routes.api,plannerRoutes);
+app.use(routes.api,rankRoutes);
 
 const handleListenning = () =>{ 
     console.log(`✅ Listening on: http://localhost:${PORT}`);
