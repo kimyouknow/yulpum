@@ -31,7 +31,7 @@ const ModalWindow = styled.div`
 const Modal = ({dates, states,setToday, isAdd, openModal, setOpenModal}) => {
     const {calendar: {activeD, activeM, activeY}} = states;
     const activeDate = {activeY, activeM, activeD};
-    const temp = !dates ? null: dates.find(ele => compareDate(ele.date) === compareDate(activeDate));
+    const temp = !dates ? null: dates.find(ele => compareDate(ele.date) === compareDate(new Date(activeY, activeM, activeD)));
     return (
         <Container show={openModal}>
             <ModalWindow>
