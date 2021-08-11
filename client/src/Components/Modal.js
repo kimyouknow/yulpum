@@ -32,13 +32,11 @@ const Modal = ({dates, states,setToday, isAdd, openModal, setOpenModal}) => {
     const {calendar: {activeD, activeM, activeY}} = states;
     const activeDate = {activeY, activeM, activeD};
     const temp = !dates ? null: dates.find(ele => compareDate(ele.date) === compareDate(new Date(activeY, activeM, activeD)));
+    console.log(activeD, activeM)
     return (
         <Container show={openModal}>
             <ModalWindow>
                 <button onClick={() => setOpenModal(false)}>x</button>
-                <span>{activeY}</span>/
-                <span>{activeM+1}</span>/ 
-                <span>{activeD}</span>
                 <Datepicker setToday={setToday} />
                 {isAdd ?
                     <AddModal setOpenModal={setOpenModal} activeDate={activeDate}/>: 
