@@ -1,5 +1,7 @@
-import React, { useState } from "react";
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
+import {useDispatch} from "react-redux";
+import { changeDate, nextMonth, prevMonth, setToday } from "../_actions/calendar_actions";
 
 const Header = styled.div`
     display: flex;
@@ -45,100 +47,80 @@ const DateContainer = styled.div`
 
 const DateComponent = styled.div`
     display: flex;
-    flex-direction: column;
     justify-content:flex-start;
     align-items: flex-start;
     padding: 8px;
     height: 100px;
     position: relative;
+    border: ${props => (props.today ? "3px solid red" : "none")};
     background-color: ${props => (props.timecolor < 0) ? "rgba(223, 230, 233,1.0)":
     (props.timecolor < 10) ? "white" :
     (props.timecolor < 30) ? "rgba(238, 90, 36, 0.3)" :
     (props.timecolor < 40) ? "rgba(238, 90, 36, 0.6)":
     "rgba(238, 90, 36,1.0)"
     };
-    border: ${props => (props.today ? "3px solid red" : "none")};
     :nth-child(7n+1){
         color: #d13e3e;
-    }
+    };
     :nth-child(7n){
         color: #396ee2;
-    }
-    :hover {
-        background-color: ${props => (props.timecolor < 0) ? "transparent" : "rgba(238, 90, 36, 0.1)"};
-        cursor: ${props => (props.timecolor < 0) ? "not-allowed": "pointer"};
-    }
+    };
+    cursor: pointer;
 `;
 
 const ToDoContainer = styled.div`
-    /* position: absolute;
-    bottom: 10px;
-    left: 0px; */
     display: flex;
-    justify-content: space-between;
+    flex-direction:column;
     width: 100%;
     padding-left: 10px;
     color: black;
     &:hover {
         background-color: rgba(223, 230, 233,1.0);
-        cursor: pointer;
     }
 `;
 
-const ToDoElement = styled.div`
-    /* text-decoration: ${props => props.isCom ? "line-through" : "none"}; */
-    :hover{
-    -webkit-transform:scale(1.2);
-    }
-
-`;
-
-const Calendar = ({dates, dato, setDato, onClick, handleCheck, plans}) => {
-    const weeks = ["SUN", "MON","TUE","WED","THU","FRI","SAT"];
-    const handleLastMonth = (dato) => {    
-        const newMonth = new Date(dato.setMonth(dato.getMonth() - 1));
-        const newDate = new Date(newMonth.setDate(1));
-        setDato(newDate);
-    }
-    
-    const handleNextMonth = (dato) => {
-        const newMonth = new Date(dato.setMonth(dato.getMonth() + 1));
-        const newDate =new Date(newMonth.setDate(1));
-        setDato(newDate);
-    }
-    
-    const handleToday = () => {
-        setDato(new Date());
-    }
+const Calendar = ({activeDate, dates, onClick = null})  => {
+    const dispatch = useDispatch();
+    const weeks = ["SUN", "MON","TUE","WED","THU","FRI","SAT"];    
+    const {activeM,activeY} = activeDate;
     return (
         <>
-            <Header>
-                <Button onClick={() => handleLastMonth(dato)}>◀</Button>
-                <DisplayMonth onClick={()=> handleToday()}>{`${dato.getFullYear()}년 ${dato.getMonth()+1}월`}</DisplayMonth>
-                <Button onClick={() => handleNextMonth(dato)}>▶</Button>
-            </Header>
-            <WeekContainer>
-                {weeks.map(week => <WeekComponent key={week}>{week}</WeekComponent>)}
-            </WeekContainer>
-            <DateContainer>
-                    {/* {console.log(dates)} */}
+        <Header>
+            <Button onClick={() => dispatch(prevMonth(activeM))}>◀</Button>
+                <DisplayMonth onClick={()=> dispatch(setToday(new Date()))}>
+                    {activeY}년 {activeM+1}월
+                </DisplayMonth>
+            <Button onClick={() => dispatch(nextMonth(activeM))}>▶</Button>
+        </Header>
+        <WeekContainer>
+            {weeks.map(week => <WeekComponent key={week}>{week}</WeekComponent>)}
+        </WeekContainer>
+        <DateContainer>
+            {/* {console.log(dates)} */}
             {!dates ? <h1>Loading</h1> : 
             dates.map(date =>
-                <DateComponent key={date.date} timecolor={date.total_time} today={date.date.getDate() === new Date().getDate() && date.date.getMonth() === new Date().getMonth()} 
-                    onClick={() => onClick(date)}
-                >
-                    {date.date.getDate()}
+            <DateComponent key={date.date} 
+                timecolor={date.total_time}
+                onClick={() => {
+                    dispatch(changeDate(date.date))
+                    onClick && onClick();
+                }}
+                isCur={date.isCur}
+                today={date.date.getDate() === new Date().getDate() && date.date.getMonth() === new Date().getMonth()}
+            >
+                {date.date.getDate()}
+                <ToDoContainer>
                     {date.todo ? date.todo.map((ele, idx) => 
-                    <ToDoContainer key={idx}>
-                        {ele}
-                        <ToDoElement>✅</ToDoElement>
-                        <ToDoElement onClick={() => handleCheck(true,ele, idx)}>❌</ToDoElement>
-                    </ToDoContainer>
+                        <ToDoContainer key={idx}>
+                            {ele}
+                        </ToDoContainer>
                     ): null}
-                </DateComponent>)
-            }
-            </DateContainer>
-        </>
-    )
+                </ToDoContainer>
+            </DateComponent>)
+        }
+        </DateContainer>
+    </>
+    );
 }
-export default Calendar
+
+export default Calendar;

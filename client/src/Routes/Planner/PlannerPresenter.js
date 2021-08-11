@@ -2,6 +2,7 @@ import React from "react";
 import styled from 'styled-components';
 import Calendar from "../../Components/Calendar";
 import LoaderCotainer from "../../Components/Loader";
+import Modal from "../../Components/Modal";
 
 const Container = styled.div`
     max-width: 960px;
@@ -10,20 +11,18 @@ const Container = styled.div`
 `;
 
 
-const PlannerPresenter = ({dates, dato, setDato, planInput ,setPlanInput, onSubmitHandler, onClick, handleCheck, plans}) => {
+const PlannerPresenter = ({dates, activeDate, handleModal, isAdd, openModal, setOpenModal}) => {
     return (
-        <Container>
-            {!dates ? <LoaderCotainer /> :
-                <Calendar dates={dates} dato={dato} setDato={setDato} onClick={onClick} handleCheck={handleCheck} plans={plans} />
-            }
-            <form onSubmit={(e => onSubmitHandler(e))}>
-                <label>Add to do</label>
-                <input type="text" value={planInput} onChange={(e => setPlanInput(e.target.value))} />
-            </form>
-            {!plans ? <span>계획된 일정이 없습니다</span> : 
-            plans.map(plan => <span>plan</span>)
-            }
-        </Container>
+        <>
+        {dates.length === 0 ? <LoaderCotainer /> :
+            <Container>
+                <Calendar dates={dates} activeDate={activeDate} />
+                <button onClick={()=> handleModal("add")}>ADD</button>
+                <button onClick={()=> handleModal("edit")}>EDIT</button>
+                <Modal dates={dates} isAdd={isAdd} openModal={openModal} setOpenModal={setOpenModal} />
+            </Container>
+        }
+        </>
     )
 }
 export default PlannerPresenter

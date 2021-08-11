@@ -40,28 +40,30 @@ const TimeIndicatorColor = styled.div`
     margin-right: 10px;
 `;
 
-const StatPresenter = ({dates, dato, setDato, onClick}) => {
+const StatPresenter =  ({dates, activeDate, onClick}) => {
     return (
+        <>
+        {dates.length === 0 ? <LoaderCotainer />:
         <Container>
-                {!dates ? <LoaderCotainer /> :
-                    <Calendar dates={dates} dato={dato} setDato={setDato} onClick={onClick} />
-                }   
-                <TimeIndicatorContainer>
-                    <TimeIndicator>
-                        <TimeIndicatorColor /> 0~3 시간
-                    </TimeIndicator> 
-                    <TimeIndicator>
-                        <TimeIndicatorColor /> 3~6 시간
-                    </TimeIndicator>
-                    <TimeIndicator>
-                        <TimeIndicatorColor /> 6~9 시간
-                    </TimeIndicator>
-                    <TimeIndicator>
-                        <TimeIndicatorColor /> 9 시간 이상
-                    </TimeIndicator>
-                </TimeIndicatorContainer>
-                <StatInnerMenu />
+        <Calendar dates={dates} activeDate={activeDate} onClick={onClick} />
+            <TimeIndicatorContainer>
+                <TimeIndicator>
+                    <TimeIndicatorColor /> 0~3 시간
+                </TimeIndicator> 
+                <TimeIndicator>
+                    <TimeIndicatorColor /> 3~6 시간
+                </TimeIndicator>
+                <TimeIndicator>
+                    <TimeIndicatorColor /> 6~9 시간
+                </TimeIndicator>
+                <TimeIndicator>
+                    <TimeIndicatorColor /> 9 시간 이상
+                </TimeIndicator>
+            </TimeIndicatorContainer>
+            <StatInnerMenu />
         </Container>
+        }
+        </>
     )
 }
 

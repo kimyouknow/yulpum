@@ -1,15 +1,9 @@
-const compareDate = (input) => {
+export const compareDate = (input) => {
     const inputDate = new Date(input);
     const inputY = String(inputDate.getFullYear());
     const inputM = String(inputDate.getMonth());
     const inputD = String(inputDate.getDate());
     return inputY+inputM+inputD
-}
-
-export const getRenderBase = async (newDate) => {
-    const renderYear = newDate.getFullYear();
-    const renderMonth = newDate.getMonth();
-    return {renderYear, renderMonth};
 }
 
 export const renderCalendar = (renderYear, renderMonth, serverData, pathname) => {
@@ -36,13 +30,13 @@ export const renderCalendar = (renderYear, renderMonth, serverData, pathname) =>
                     date: i_date,
                     todo:i_todo,
                     total_time: 0,
-                    isCurrent: true 
+                    isCur: true
                 })
             } else if (pathname === "stat"){
                 CDates.push({
                     date: i_date,
                     total_time: i_total_time,
-                    isCurrent: true 
+                    isCur: true
                 })
             }
         }
@@ -51,7 +45,8 @@ export const renderCalendar = (renderYear, renderMonth, serverData, pathname) =>
             for (let i = PLDay; i >= 0; i--){
                 PDates.push({
                     date: new Date(renderYear, renderMonth-1, PLDate-i),
-                    total_time: -1
+                    total_time: -1,
+                    isCur: false
                 });
             }
         }
@@ -59,7 +54,8 @@ export const renderCalendar = (renderYear, renderMonth, serverData, pathname) =>
             for (let i = 1; i <= 6-CLDay; i++){
                 NDates.push({
                     date: new Date(renderYear, renderMonth+1, i),
-                    total_time: -1
+                    total_time: -1,
+                    isCur: false
                 });
             }
         }
