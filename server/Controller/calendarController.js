@@ -68,10 +68,10 @@ export const createTodo = async(req,res)=>{
         if(err) throw err;
         let cal = await Calendar.findOne({c_user_id: user._id,c_date:Cdate});
         if(!cal){ //캘린더 없으면 새로 추가
-            const now = new Date().toLocaleDateString();
+    
             const calendar = await Calendar.create({
                 c_user_id:user._id,
-                c_date:now
+                c_date:Cdate
             });
             //어떻게 들어가나 확인
             console.log(calendar);
