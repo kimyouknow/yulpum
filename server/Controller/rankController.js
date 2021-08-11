@@ -8,8 +8,9 @@ export const getRank = async(req,res)=>{
     let today = new Date();
     const now = today.toLocaleDateString();
     let resultArr =[];
-    const ret = await Calendar.find({c_date:now}).sort({c_total_time:-1}).limit(100);
+    const ret = await Calendar.find({c_date:now}).sort({c_total_time:-1}).limit(50);
     console.log(ret);
+    if(!ret){
     let studyStart;
     let nowStudy;
     let userName;
@@ -27,6 +28,13 @@ export const getRank = async(req,res)=>{
     return res.status(200).json({
         resultArr
     })
+
+    }else{
+        console.log("there is no such calendar");
+        return res.status(404);
+      
+    }
+
     
 
     

@@ -3,6 +3,16 @@ import Subject from "../models/Subject";
 import Calendar from "../models/Calendar";
 import Line from "../models/Line";
 
+
+async function userUpdate(user){  //유저의 상태를 study 중인걸로 바꾸고, 공부 시작 시간을 기록함
+    const now = new Date().toLocaleDateString();
+    user.nowStudy = 1;
+    user.studyStart = now;
+    user.save();
+
+}
+
+
 async function CalendarCheck (timeValue,user){ //캘린더 생성과 갱신 관련 함수
 
 
@@ -101,7 +111,7 @@ export const saveStudy =async(req,res)=>{
         
         found.total_time += timeValue;
         //추가됨 테스트 필요
-        found.nowStudy = 1;
+        found.nowStudy = 0;
         found.studyStart = new Date().toLocaleDateString();
         user.save();
         if(!found){
@@ -203,6 +213,7 @@ export const subjectDetail = async(req,res)=>{
         }else{
             console.log(found);
             await TimelineCreate(found,user);
+            await userUpdate(user);
             res.send(found);
             res.status(200);
         }
