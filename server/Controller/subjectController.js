@@ -8,7 +8,7 @@ async function userUpdate(user){  //유저의 상태를 study 중인걸로 바�
     const now = new Date().toLocaleDateString();
     user.nowStudy = 1;
     user.studyStart = now;
-    user.save();
+  
 
 }
 
