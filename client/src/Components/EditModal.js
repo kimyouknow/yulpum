@@ -36,7 +36,7 @@ const EditModal = ({temp, setOpenModal ,activeDate}) => {
     return (
         <>
         <PlanUl>
-            {!temp.todo ? <span>계획된 일정이 없습니다</span> : 
+            {!temp.todo || !temp ? <span>계획된 일정이 없습니다</span> : 
                 temp.todo.map((ele, idx) => 
                 <PlanLi key={idx}>
                     <span>{ele}</span>
