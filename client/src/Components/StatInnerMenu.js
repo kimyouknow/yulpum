@@ -1,6 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
-import {withRouter, Link, Route} from "react-router-dom";
+// import {withRouter, Link, Route} from "react-router-dom";
 import StatDaily from "../Routes/StatDaily";
 import StatWeekly from "../Routes/StatWeekly";
 import StatMonthly from "../Routes/StatMonthly";

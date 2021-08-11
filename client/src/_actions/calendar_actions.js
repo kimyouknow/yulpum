@@ -1,5 +1,20 @@
 import axios from 'axios';
-import { ADD_PLAN, DELETE_PLAN, GET_CALENDAR, GET_LINE } from './types';
+import { ADD_PLAN, CHANGE_DATE, DELETE_PLAN, GET_CALENDAR, GET_LINE, NEXT_MONTH, PREV_MONTH, SET_TODAY } from './types';
+
+
+export const changeDate = (date) =>{
+    return {type: CHANGE_DATE, date};
+};
+export const setToday = (date) =>{
+    return {type: SET_TODAY, date};
+};
+export const prevMonth = (thisMonth) =>{
+    return {type:PREV_MONTH, thisMonth};
+};
+export const nextMonth = (thisMonth) =>{
+    return {type:NEXT_MONTH, thisMonth};
+};
+
 
 export function getCalendar(dataTosubmit) {
     const request = axios.post("api/statics/get-calendar", dataTosubmit)

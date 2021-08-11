@@ -1,22 +1,22 @@
 import React, {useState, useEffect} from "react";
 import StatPresenter from "./StatPresenter";
 import {useDispatch} from "react-redux";
-import {useHistory} from "react-router";
-import { renderCalendar, getRenderBase } from "../../hoc/renderCalendar";
+import { connect } from "react-redux";
+import { renderCalendar } from "../../hoc/renderCalendar";
 import { getCalendar, getLine } from "../../_actions/calendar_actions";
 
-const StatContainer = () => {
-    const dispatch = useDispatch();
-    const history = useHistory();
-    const tokenData = document.cookie.split("=")[1];
-    const [dato, setDato] = useState(new Date());
+const StatContainer = ({states}) => {
+    const {calendar: {activeD, activeM, activeY}} = states;
+    // const active = new Date(activeY, activeM, activeD);
     const [dates, setDates] = useState([]);
-    const onClick = async(data) => {
-        const {date:activeDate} = data;
+    const dispatch = useDispatch();
+    const tokenData = document.cookie.split("=")[1];
+    const onClick = async() => {
+        // const {date:activeDate} = data;
         const body = {
-            year: new Date(activeDate).getFullYear(),
-            month: new Date(activeDate).getMonth(),
-            date: new Date(activeDate).getDate(),
+            year: activeY,
+            month: activeM,
+            date: activeD,
             token: tokenData
         }
         const response = await dispatch(getLine(body));
@@ -33,60 +33,28 @@ const StatContainer = () => {
         return ret
     }
     const renderingCalendar = async() => {
-        const {renderYear, renderMonth} = await getRenderBase(dato);
         let body = {
-            year: renderYear,
-            month: renderMonth,
+            year: activeY,
+            month: activeM,
             token: tokenData
         }
         const serverData = await getServerData(body);
-        const dates = renderCalendar(renderYear, renderMonth, serverData, "stat");
+        const dates = renderCalendar(activeY, activeM, serverData, "stat");
         setDates(dates);
     }
     useEffect(() => {
         renderingCalendar();
-    }, [dato])
+    }, [states])
     return(
         <StatPresenter 
             dates={dates}
-            dato={dato}
-            setDato={setDato}
-            getServerData={getServerData}
+            activeDate={{activeD,activeM,activeY}}
             onClick={onClick}
         />
         )
 }
-export default StatContainer
+function mapStateToProps(state, ownProps){
+    return {states : state}
+}
 
-// const serverData =  [
-        //     {
-        //         c_date: new Date(2021, 6, 1),
-        //         c_total_time: 2400,
-        //         c_todo: "english"
-        //     },
-        //     {
-        //         c_date: new Date(2021, 6, 9),
-        //         c_total_time: 3600,
-        //         c_todo: "science"
-        //     },
-        //     {
-        //         c_date: new Date(2021, 6, 12),
-        //         c_total_time: 3800,
-        //         c_todo: "coding"
-        //     },
-        //     {
-        //         c_date: new Date(2021, 6, 24),
-        //         c_total_time: 3800,
-        //         c_todo: "coding"
-        //     },
-        //     {
-        //         c_date: new Date(2021, 6, 20),
-        //         c_total_time: 4400,
-        //         c_todo: "multer"
-        //     },
-        //     {
-        //         c_date: new Date(2021, 6, 28),
-        //         c_total_time: 4800,
-        //         c_todo: "multer"
-        //     }
-        // ]
+export default connect(mapStateToProps, null)(StatContainer);

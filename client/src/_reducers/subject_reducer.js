@@ -1,6 +1,6 @@
 import { ADD_SUBJECT, GET_SUBJECTS, EDIT_SUBJECTS, DELETE_SUBJECTS } from "../_actions/types";
 
-export default function (state={}, action) {
+const subjectReducer = (state={}, action) => {
     switch(action.type) {
         case ADD_SUBJECT:
             return{...state, subjectData: action.payload}
@@ -14,3 +14,5 @@ export default function (state={}, action) {
             return state;
     }
 }
+
+export default subjectReducer

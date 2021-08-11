@@ -1,54 +1,23 @@
 import React, {useState, useEffect} from "react";
 import PlannerPresenter from "./PlannerPresenter";
 import {useDispatch} from "react-redux";
-import { renderCalendar, getRenderBase } from "../../hoc/renderCalendar";
-import { AddPlan, DeletePlan, getCalendar } from "../../_actions/calendar_actions";
+import { connect } from "react-redux";
+import { renderCalendar } from "../../hoc/renderCalendar";
+import { getCalendar } from "../../_actions/calendar_actions";
 
-// 여기에 랜더링이 있으어햠 -> todo를 추가할 때마다 재 랜덜링되어야해서
-//  date가 바귈떄마다 재 랜더링
-
-const PlannerContainer = () => {
+const PlannerContainer = ({states}) => {
+    const {calendar: {activeD, activeM, activeY}} = states;
+    // const active = new Date(activeY, activeM, activeD);
+    const [dates, setDates] = useState([]);
     const dispatch = useDispatch();
     const tokenData = document.cookie.split("=")[1];
-    const [planInput, setPlanInput] = useState("");
-    const [dato, setDato] = useState(new Date());
-    const [active, setActive] = useState(new Date());
-    const [dates, setDates] = useState([]);
-    const [plans, setPlans] = useState(null);
-    const onClick = (data) => {
-        const {date:activeDate} = data;
-        setActive(new Date(activeDate));
-    }
-    const onSubmitHandler = async (e) => {
-        e.preventDefault();
-        setPlanInput("");
-        const body = {
-            year: new Date(active).getFullYear(),
-            month: new Date(active).getMonth(),
-            date: new Date(active).getDate(),
-            todo: planInput,
-            token: tokenData
-        }
-        const response = await dispatch(AddPlan(body));
-        const {payload} = response;
-        console.log(payload);
-    }
-    const handleCheck = async (isDel, element, idx) => {
-        if(isDel){
-            const body = {
-                year: new Date(active).getFullYear(),
-                month: new Date(active).getMonth(),
-                date: new Date(active).getDate(),
-                todo: element,
-                token: tokenData
-            }
-            console.log(body)
-            const response = await dispatch(DeletePlan(body));
-            console.log(response)
-        } else{
-            
-        }
-    }
+    // const [planInput, setPlanInput] = useState("");
+    const [openModal, setOpenModal] = useState(false);
+    const [isAdd, setIsAdd] = useState(true);
+    const handleModal = (type) => {
+        !openModal ? setOpenModal(true) : setOpenModal(false);
+        type === "add" ? setIsAdd(true) : setIsAdd(false);
+    };    
     const getServerData = async(body) => {
         const response = await dispatch(getCalendar(body));
         const {isSuccess, ret} = response.payload;
@@ -58,32 +27,33 @@ const PlannerContainer = () => {
         return ret
     }
     const renderingCalendar = async() => {
-        const {renderYear, renderMonth} = await getRenderBase(dato);
         let body = {
-            year: renderYear,
-            month: renderMonth,
+            year: activeY,
+            month: activeM,
             token: tokenData
         }
         const serverData = await getServerData(body);
-        const dates = renderCalendar(renderYear, renderMonth, serverData, "planner");
+        const dates = renderCalendar(activeY, activeM, serverData, "planner");
         setDates(dates);
     }
     useEffect(() => {
         renderingCalendar();
-    }, [dato])
+    }, [states])
     return(
         <PlannerPresenter 
             dates={dates}
-            dato={dato}
-            setDato={setDato}
-            getServerData={getServerData}
-            planInput={planInput}
-            setPlanInput={setPlanInput}
-            onSubmitHandler={onSubmitHandler}
-            onClick={onClick}
-            handleCheck={handleCheck}
-            plans={plans}
+            activeDate={{activeD,activeM,activeY}}
+            handleModal={handleModal}
+            isAdd={isAdd}
+            openModal={openModal}
+            setOpenModal={setOpenModal}
         />
         )
 }
-export default PlannerContainer
+
+
+function mapStateToProps(state, ownProps){
+    return {states : state}
+}
+
+export default connect(mapStateToProps, null)(PlannerContainer);
