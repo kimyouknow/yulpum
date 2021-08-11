@@ -67,6 +67,18 @@ export const createTodo = async(req,res)=>{
     await User.findByToken(token, async(err,query,user)=>{
         if(err) throw err;
         let cal = await Calendar.findOne({c_user_id: user._id,c_date:Cdate});
+        if(!cal){ //캘린더 없으면 새로 추가
+            const now = new Date().toLocaleDateString();
+            const calendar = await Calendar.create({
+                c_user_id:user._id,
+                c_date:now
+            });
+            //어떻게 들어가나 확인
+            console.log(calendar);
+            user.myCalendar.push(calendar);
+            user.save();
+            cal = await Calendar.findOne({c_user_id: user._id,c_date:Cdate});
+        }
         cal.c_todo.push(todo);
         cal.save();
         res.status(200).json({
@@ -92,6 +104,8 @@ export const deleteTodo = async(req,res)=>{
 
     await User.findByToken(token, async(err,query,user)=>{
         if(err) throw err;
+
+        console.log(todo);
         let calendar;
         await query.populate("myCalendar").then(data=>{
             calendar = data.myCalendar;
