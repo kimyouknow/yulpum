@@ -45,7 +45,15 @@ const userSchema = mongoose.Schema({
     myTimeline:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Line"
-    }]
+    }],
+    nowStudy:{
+        type:Number,
+        default:0
+    },
+    studyStart:{
+        type:String,
+        default:0
+    }
     
 })
 

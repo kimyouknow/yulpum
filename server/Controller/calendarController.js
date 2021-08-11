@@ -96,16 +96,15 @@ export const deleteTodo = async(req,res)=>{
         await query.populate("myCalendar").then(data=>{
             calendar = data.myCalendar;
         });
-      
 
-        let time = new Date(year,month,date).getTime();
+        let time = new Date(year,month,date);
    
         let foundCal = calendar.find(e => {
             console.log(e.c_date.getTime());
             if(e.c_date.getTime() == time.getTime())return true;
         
         });
-
+        
 
         let cal =await Calendar.findById(foundCal._id);
         let flag = 0;
@@ -114,6 +113,7 @@ export const deleteTodo = async(req,res)=>{
                 cal.todo.splice(i,1);
                 i--;
                 flag = 1;
+                break;
             }
         }
         if(flag){
