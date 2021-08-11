@@ -111,26 +111,29 @@ export const deleteTodo = async(req,res)=>{
             calendar = data.myCalendar;
         });
 
-        let time = new Date(year,month,date);
-   
+        
+        let time = new Date(year,month,date).getTime();
+      
+
         let foundCal = calendar.find(e => {
             console.log(e.c_date.getTime());
-            if(e.c_date.getTime() == time.getTime())return true;
+            if(e.c_date.getTime() === time)return true;
         
         });
         
-
+        console.log(foundCal);
         let cal =await Calendar.findById(foundCal._id);
         let flag = 0;
-        for(let i = 0 ; i < cal.todo.length() ; i++){
-            if(cal.todo[i] === todo ){
-                cal.todo.splice(i,1);
+        for(let i = 0 ; i <  cal.c_todo.length ; i++){
+            if( cal.c_todo[i] === todo ){
+                cal.c_todo.splice(i,1);
                 i--;
                 flag = 1;
                 break;
             }
         }
         if(flag){
+            cal.save();
             return res.status(200).json({
                 isSuccess:true,
                 });
