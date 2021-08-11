@@ -103,7 +103,7 @@ const Calendar = ({activeDate, dates, onClick = null})  => {
                 timecolor={date.total_time}
                 onClick={() => {
                     dispatch(changeDate(date.date))
-                    onClick && onClick();
+                    onClick && onClick(date.date);
                 }}
                 isCur={date.isCur}
                 today={date.date.getDate() === new Date().getDate() && date.date.getMonth() === new Date().getMonth()}

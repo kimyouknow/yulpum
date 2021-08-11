@@ -7,16 +7,15 @@ import { getCalendar, getLine } from "../../_actions/calendar_actions";
 
 const StatContainer = ({states}) => {
     const {calendar: {activeD, activeM, activeY}} = states;
-    // const active = new Date(activeY, activeM, activeD);
     const [dates, setDates] = useState([]);
     const dispatch = useDispatch();
     const tokenData = document.cookie.split("=")[1];
-    const onClick = async() => {
-        // const {date:activeDate} = data;
+    const onClick = async(data) => {
+        const clicked = new Date(data)
         const body = {
-            year: activeY,
-            month: activeM,
-            date: activeD,
+            year: clicked.getFullYear(),
+            month: clicked.getMonth(),
+            date: clicked.getDate(),
             token: tokenData
         }
         const response = await dispatch(getLine(body));
