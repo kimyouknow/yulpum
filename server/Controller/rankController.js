@@ -8,8 +8,11 @@ export const getRank = async(req,res)=>{
     let today = new Date();
     const now = today.toLocaleDateString();
     let resultArr =[];
-    const ret = await Calendar.find({c_date:now}).sort({c_total_time:-1}).limit(50);
-    console.log(ret);
+    const calRet = await Calendar.find({c_date:now}).sort({c_total_time:-1}).limit(50);
+    const userRet = await User.find({c_date:now,isStudy:1});
+
+    console.log("calRet "+calRet);
+    console.log("userRet"+userRet);
     if(!ret){
     let studyStart;
     let nowStudy;
