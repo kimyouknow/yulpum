@@ -2,10 +2,11 @@ import React from "react";
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
-import AddSubject from "../../Components/AddSubject";
-import Subject from "../../Components/Subject";
-import Loader from "../../Components/Loader";
-import EditSubject from "../../Components/EditSubject";
+import AddSubject from "../AddSubject";
+import LoaderCotainer from "../../Loader";
+import EditSubject from "../EditSubject";
+import Subject from "../Subject";
+
 
 const Container = styled.div`
     width: 95%;
@@ -55,7 +56,7 @@ const SubjectsPresenter = ({
     clicked, clickhandler,subjectInput, setSubjectInput, onSubmitHandler, editInput, setEditInput, subjects, handleRemove}) => {
     return (
         <>
-        <AddSubject 
+        <AddSubject
             clicked={clicked}
             clickhandler={clickhandler}
             subjectInput={subjectInput} 
@@ -64,7 +65,7 @@ const SubjectsPresenter = ({
         <Container>
             <UList>
                 {!subjects ? 
-                <Loader /> :
+                <LoaderCotainer /> :
                 subjects.map(subject => 
                 <Line key={subject._id}>
                     <Subject text={subject.subject_name} id={subject._id} 
@@ -72,7 +73,7 @@ const SubjectsPresenter = ({
                     <EditButton onClick={() => clickhandler("edit")}>
                         <FontAwesomeIcon icon={faEllipsisV} />
                     </EditButton>
-                    <EditSubject 
+                    <EditSubject
                         id={subject._id}
                         clicked={clicked}
                         clickhandler={clickhandler}

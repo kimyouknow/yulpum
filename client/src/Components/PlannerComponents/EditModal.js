@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import {useDispatch, useSelector} from "react-redux";
 import styled from "styled-components";
-import { DeletePlan } from "../_actions/calendar_actions";
+import { DeletePlan } from "../../_actions/calendar_actions";
+
 
 const Container = styled.div`
     display: ${props => props.show ? "flex" : "none"};

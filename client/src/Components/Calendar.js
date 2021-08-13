@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import {useDispatch} from "react-redux";
 import { changeDate, nextMonth, prevMonth, setToday } from "../_actions/calendar_actions";
-import EditModal from "./EditModal";
+import EditModal from "./PlannerComponents/EditModal";
 
 const Header = styled.div`
     display: flex;

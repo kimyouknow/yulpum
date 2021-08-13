@@ -2,7 +2,8 @@ import React from "react";
 import styled from 'styled-components';
 import Calendar from "../../Components/Calendar";
 import LoaderCotainer from "../../Components/Loader";
-import AddModal from "../../Components/AddModal";
+import AddModal from "../../Components/PlannerComponents/AddModal";
+
 
 const Container = styled.div`
     max-width: 960px;

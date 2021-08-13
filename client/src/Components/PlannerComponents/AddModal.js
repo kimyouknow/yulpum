@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from 'react-redux';
-import Datepicker from "./DatePicker";
-import { AddPlan } from "../_actions/calendar_actions";
+import Datepicker from "../DatePicker";
+import { AddPlan } from "../../_actions/calendar_actions";
+
 
 const Container = styled.div`
     display: ${props => props.show ? "flex" : "none"};

@@ -1,9 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
-// import {withRouter, Link, Route} from "react-router-dom";
-import StatDaily from "../Routes/StatDaily";
-import StatWeekly from "../Routes/StatWeekly";
-import StatMonthly from "../Routes/StatMonthly";
+
 
 const InnerMenu = styled.div`
     border-top: 10px solid white;
@@ -43,9 +40,9 @@ const StatInnerMenu = () => {
                     월간
                 </Menu>
             </Menus>
-                <StatDaily />
+                {/* <StatDaily />
                 <StatWeekly />
-                <StatMonthly />
+                <StatMonthly /> */}
         </InnerMenu>
     )
 }

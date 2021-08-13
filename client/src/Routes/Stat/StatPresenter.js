@@ -1,6 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
-import StatInnerMenu from "../../Components/StatInnerMenu";
+import StatInnerMenu from "../../Components/StatComponents/StatInnerMenu";
 import LoaderCotainer from "../../Components/Loader";
 import Calendar from "../../Components/Calendar";
 
