@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import {useDispatch} from "react-redux";
 import { changeDate, nextMonth, prevMonth, setToday } from "../_actions/calendar_actions";
+import EditModal from "./EditModal";
 
 const Header = styled.div`
     display: flex;
@@ -74,6 +75,9 @@ const ToDoContainer = styled.div`
     width: 100%;
     padding-left: 10px;
     color: black;
+`;
+
+const ToDoComponent = styled.div`
     &:hover {
         background-color: rgba(223, 230, 233,1.0);
     }
@@ -83,6 +87,7 @@ const Calendar = ({activeDate, dates, onClick = null})  => {
     const dispatch = useDispatch();
     const weeks = ["SUN", "MON","TUE","WED","THU","FRI","SAT"];    
     const {activeM,activeY} = activeDate;
+    const [activeInfo, setActiveInfo] = useState(null);
     return (
         <>
         <Header>
@@ -111,14 +116,18 @@ const Calendar = ({activeDate, dates, onClick = null})  => {
                 {date.date.getDate()}
                 <ToDoContainer>
                     {date.todo ? date.todo.map((ele, idx) => 
-                        <ToDoContainer key={idx}>
+                        <ToDoComponent key={idx} onClick={()=> setActiveInfo(ele)}>
                             {ele}
-                        </ToDoContainer>
+                        </ToDoComponent>
                     ): null}
                 </ToDoContainer>
             </DateComponent>)
         }
         </DateContainer>
+        {activeInfo && <EditModal 
+            activeInfo={activeInfo}
+            setActiveInfo={setActiveInfo}
+        />}
     </>
     );
 }

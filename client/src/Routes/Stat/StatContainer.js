@@ -1,15 +1,15 @@
 import React, {useState, useEffect} from "react";
 import StatPresenter from "./StatPresenter";
-import {useDispatch} from "react-redux";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import { renderCalendar } from "../../hoc/renderCalendar";
 import { getCalendar, getLine } from "../../_actions/calendar_actions";
 
-const StatContainer = ({states}) => {
-    const {calendar: {activeD, activeM, activeY}} = states;
-    const [dates, setDates] = useState([]);
-    const dispatch = useDispatch();
+const StatContainer = () => {
     const tokenData = document.cookie.split("=")[1];
+    const dispatch = useDispatch();
+    const {calendar} = useSelector((state) => state);
+    const {activeD, activeM, activeY} = calendar;
+    const [dates, setDates] = useState([]);
     const onClick = async(data) => {
         const clicked = new Date(data)
         const body = {
@@ -43,7 +43,7 @@ const StatContainer = ({states}) => {
     }
     useEffect(() => {
         renderingCalendar();
-    }, [states])
+    }, [calendar])
     return(
         <StatPresenter 
             dates={dates}
@@ -52,8 +52,5 @@ const StatContainer = ({states}) => {
         />
         )
 }
-function mapStateToProps(state, ownProps){
-    return {states : state}
-}
 
-export default connect(mapStateToProps, null)(StatContainer);
+export default StatContainer;

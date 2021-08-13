@@ -1,23 +1,17 @@
 import React, {useState, useEffect} from "react";
 import PlannerPresenter from "./PlannerPresenter";
-import {useDispatch} from "react-redux";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import { renderCalendar } from "../../hoc/renderCalendar";
 import { getCalendar } from "../../_actions/calendar_actions";
 
-const PlannerContainer = ({states}) => {
-    const {calendar: {activeD, activeM, activeY}} = states;
-    // const active = new Date(activeY, activeM, activeD);
-    const [dates, setDates] = useState([]);
-    const dispatch = useDispatch();
+const PlannerContainer = () => {
     const tokenData = document.cookie.split("=")[1];
-    // const [planInput, setPlanInput] = useState("");
+    const dispatch = useDispatch();
+    const {calendar} = useSelector((state) => state);
+    const {activeD, activeM, activeY} = calendar;
+    const [dates, setDates] = useState([]);
     const [openModal, setOpenModal] = useState(false);
-    const [isAdd, setIsAdd] = useState(true);
-    const handleModal = (type) => {
-        !openModal ? setOpenModal(true) : setOpenModal(false);
-        type === "add" ? setIsAdd(true) : setIsAdd(false);
-    };    
+    const handleModal = () => !openModal ? setOpenModal(true) : setOpenModal(false);
     const getServerData = async(body) => {
         const response = await dispatch(getCalendar(body));
         const {isSuccess, ret} = response.payload;
@@ -38,22 +32,16 @@ const PlannerContainer = ({states}) => {
     }
     useEffect(() => {
         renderingCalendar();
-    }, [states])
+    }, [calendar])
     return(
         <PlannerPresenter 
             dates={dates}
             activeDate={{activeD,activeM,activeY}}
             handleModal={handleModal}
-            isAdd={isAdd}
             openModal={openModal}
             setOpenModal={setOpenModal}
         />
         )
 }
 
-
-function mapStateToProps(state, ownProps){
-    return {states : state}
-}
-
-export default connect(mapStateToProps, null)(PlannerContainer);
+export default PlannerContainer;
