@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import styled from 'styled-components';
+import StatDaily from "./StatDaily";
+import StatMonthly from "./StatMonthly";
+import StatWeekly from "./StatWeekly";
 
 
 const InnerMenu = styled.div`
@@ -23,26 +27,41 @@ const Menu = styled.li`
     border-bottom: 5px solid ${props => props.active ? "rgba(238, 90, 36,1.0)": "transparent"};
     color: ${props => props.active ? "rgba(238, 90, 36,1.0)" : "black"};
     margin-bottom: 10px;
+    :hover {
+        cursor: pointer;
+        background-color:rgba(238, 90, 36,1.0);
+        color: white;
+    }
 `;
 
 
 const StatInnerMenu = () => {
+    const [active, setActive] = useState("daily");
+    const {calendar} = useSelector((state) => state);
+    const {dayData, monthData} = calendar;
+    // console.log(dayData.payload.l_date)
     return (
         <InnerMenu>
             <Menus>
-                <Menu active={true}>
+                <Menu active={active === "daily"} onClick={() => setActive("daily")} >
                     일간
                 </Menu>
-                <Menu active={false}>
+                <Menu active={active === "weekly"} onClick={() => setActive("weekly")} >
                     주간
                 </Menu>
-                <Menu active={false}>
+                <Menu active={active === "monthly"} onClick={() => setActive("monthly")} >
                     월간
                 </Menu>
             </Menus>
-                {/* <StatDaily />
-                <StatWeekly />
-                <StatMonthly /> */}
+                {!dayData.payload.l_date? <span>표시할 자료가 없어요</span> :
+                    <StatDaily active={active === "daily"} data={dayData.payload} />}
+                {monthData && 
+                    <StatWeekly active={active === "weekly"} data={monthData} />}
+                {monthData && 
+                    <StatMonthly active={active === "monthly"} data={monthData} />}
+                {/* 일일총공부시간, 최대집중시간, 시작시간, 종료시간,과목별 공부량,  공부휴식비율, 타임라인 */}
+                {/* 주간총공부시간, 평균공부시간, 요일별 공부시간,  */}
+                {/* 월간총공부시간, 평균공부시간, 월간 날짜별 공부시간, 월간과목별공부량 */}
         </InnerMenu>
     )
 }

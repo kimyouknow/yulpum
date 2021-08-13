@@ -40,12 +40,12 @@ const TimeIndicatorColor = styled.div`
     margin-right: 10px;
 `;
 
-const StatPresenter =  ({dates, activeDate, onClick}) => {
+const StatPresenter =  ({dates, activeDate}) => {
     return (
         <>
         {dates.length === 0 ? <LoaderCotainer />:
         <Container>
-        <Calendar dates={dates} activeDate={activeDate} onClick={onClick} />
+        <Calendar dates={dates} activeDate={activeDate} />
             <TimeIndicatorContainer>
                 <TimeIndicator>
                     <TimeIndicatorColor /> 0~3 시간
