@@ -4,7 +4,7 @@ import {
     AUTH_USER
 } from '../_actions/types';
 
-export default function (state={}, action) {
+const userReducer = (state={}, action) => {
     // type마다 다른 것을 switch로 처리
     switch (action.type) {
         case LOGIN_USER:
@@ -14,9 +14,9 @@ export default function (state={}, action) {
             return {...state, register: action.payload}
         case AUTH_USER:
             return {...state, userData: action.payload}
-        case AUTH_USER:
-            return {...state, userData: action.payload}   
         default:
             return state;
     }
 }
+
+export default userReducer

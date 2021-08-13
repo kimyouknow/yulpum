@@ -83,7 +83,7 @@ const ToDoComponent = styled.div`
     }
 `;
 
-const Calendar = ({activeDate, dates, onClick = null})  => {
+const Calendar = ({activeDate, dates})  => {
     const dispatch = useDispatch();
     const weeks = ["SUN", "MON","TUE","WED","THU","FRI","SAT"];    
     const {activeM,activeY} = activeDate;
@@ -106,10 +106,7 @@ const Calendar = ({activeDate, dates, onClick = null})  => {
             dates.map(date =>
             <DateComponent key={date.date} 
                 timecolor={date.total_time}
-                onClick={() => {
-                    dispatch(changeDate(date.date))
-                    onClick && onClick(date.date);
-                }}
+                onClick={() => dispatch(changeDate(date.date))}
                 isCur={date.isCur}
                 today={date.date.getDate() === new Date().getDate() && date.date.getMonth() === new Date().getMonth()}
             >

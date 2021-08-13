@@ -1,9 +1,11 @@
-import { ADD_PLAN, CHANGE_DATE, DELETE_PLAN, GET_LINE, NEXT_MONTH, PREV_MONTH, SET_TODAY } from "../_actions/types";
+import { ADD_PLAN, CHANGE_DATE, DELETE_PLAN, GET_CALENDAR, GET_LINE, NEXT_MONTH, PREV_MONTH, SET_TODAY } from "../_actions/types";
 
 const initState = {
     activeD: new Date().getDate(),
     activeM: new Date().getMonth(),
-    activeY: new Date().getFullYear()
+    activeY: new Date().getFullYear(),
+    monthData: [],
+    dayData: []
 }
 
 const calendarReducer = (state = initState, action) => {
@@ -20,7 +22,7 @@ const calendarReducer = (state = initState, action) => {
             let newM = state.activeM -1;
             let newY = state.activeY;
             let newD = new Date(newY, newM, 1).getDate();
-            if(state.activeM === 1){
+            if(state.activeM === 0){
                 newM =  state.activeM+11;
                 newY = state.activeY-1;
                 newD = new Date(newY, newM, 1).getDate();
@@ -31,15 +33,18 @@ const calendarReducer = (state = initState, action) => {
             let newM = state.activeM +1;
             let newY = state.activeY;
             let newD = new Date(newY, newM, 1).getDate();
-            if(state.activeM===12){
+            if(state.activeM===11){
                 newM =  state.activeM-11;
                 newY = state.activeY+1;
                 newD = new Date(newY, newM, 1).getDate();
                 return {...state, activeD: newD,activeM: newM, activeY:newY }
             } return {...state,activeD: newD, activeM:newM}
         }
+        case GET_CALENDAR:
+            return {...state, monthData:action.payload, calendarData: action.payload} 
         case GET_LINE:
-            return{...state, calendarData: action.payload}
+            // console.log(action)
+            return{...state, dayData:action}
         case ADD_PLAN:
             return{...state, calendarData: action.payload}
         case DELETE_PLAN:

@@ -10,19 +10,6 @@ const StatContainer = () => {
     const {calendar} = useSelector((state) => state);
     const {activeD, activeM, activeY} = calendar;
     const [dates, setDates] = useState([]);
-    const onClick = async(data) => {
-        const clicked = new Date(data)
-        const body = {
-            year: clicked.getFullYear(),
-            month: clicked.getMonth(),
-            date: clicked.getDate(),
-            token: tokenData
-        }
-        const response = await dispatch(getLine(body));
-        const {payload} = response;
-        console.log(payload);
-        // history.push("/stat/daily");
-    }
     const getServerData = async(body) => {
         const response = await dispatch(getCalendar(body));
         const {isSuccess, ret} = response.payload;
@@ -38,17 +25,17 @@ const StatContainer = () => {
             token: tokenData
         }
         const serverData = await getServerData(body);
+        await dispatch(getLine({...body, date:activeD}));
         const dates = renderCalendar(activeY, activeM, serverData, "stat");
         setDates(dates);
     }
     useEffect(() => {
         renderingCalendar();
-    }, [calendar])
+    }, [activeD, activeM])
     return(
         <StatPresenter 
             dates={dates}
             activeDate={{activeD,activeM,activeY}}
-            onClick={onClick}
         />
         )
 }
