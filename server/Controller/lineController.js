@@ -20,27 +20,25 @@ export const getLine = async(req,res)=>{
         })
 
         let time = new Date(year,month,date).getTime();
-        const found =  timeLine.find(e=>{
-              console.log(e.l_date.getTime());
+        let found=[];
+        timeLine.find(e=>{
               if(e.l_date.getTime() == time){
-                  return true;}
+                  found.push(e)
+                }
           });//await 필요없음 
   
 
-
-        console.log(found);
-
         if(!found){
-           
             console.log("no timeLine");  
             return res.status(200).json({
                 IsTimeLine:false
             });
 
         }else{
-            res.send(found);
+            console.log(found);
             return res.status(200).json({
-                IsTimeLine:true
+                IsTimeLine:true,
+                found
             });
         }
       
