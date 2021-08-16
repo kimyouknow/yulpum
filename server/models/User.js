@@ -51,8 +51,7 @@ const userSchema = mongoose.Schema({
         default:0
     },
     studyStart:{
-        type:String,
-        default:0
+        type:Date
     }
     
 })

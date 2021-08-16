@@ -8,14 +8,17 @@ async function userUpdate(user){  //유저의 상태를 study 중인걸로 바�
     const now = new Date().toLocaleDateString();
     user.nowStudy = 1;
     user.studyStart = now;
-  
+
 
 }
 
+async function userAfterUpdate(user){ //유저의 study 상태를 0으로 바꾸고 공부 시작 시간을 reset
+    user.nowStudy = 0;
+    user.studyStart = new Date(0,0,0);
+
+}
 
 async function CalendarCheck (timeValue,user){ //캘린더 생성과 갱신 관련 함수
-
-
           //달력 객체 추가 혹은 업데이트 부분
    
     const now = new Date().toLocaleDateString();
@@ -28,7 +31,7 @@ async function CalendarCheck (timeValue,user){ //캘린더 생성과 갱신 관�
                 console.log("캘린더 객체 이미 존재");
                 const cal = await Calendar.findOne({c_user_id:user._id,c_date:now});
                 cal.c_total_time += timeValue;
-                cal.save();
+               await cal.save();
             }else{
                 console.log("캘린더 객체 새로 생성");
                 const calendar = await Calendar.create({
@@ -39,7 +42,7 @@ async function CalendarCheck (timeValue,user){ //캘린더 생성과 갱신 관�
                 //어떻게 들어가나 확인
                 console.log(calendar);
                 user.myCalendar.push(calendar);
-                user.save();
+     
             }
 
         
@@ -59,7 +62,7 @@ async function TimelineUpdate(timeVal,subject,user){ // 타임라인 생성과 �
     let line = await Line.findOne({l_user_id:user._id,l_date:now, l_subject_name: subject.subject_name});
     line.l_lapse += timeVal;
     line.l_end_time = String(hours+":"+minutes+":"+seconds);
-    line.save();
+    await line.save();
 
 
 
@@ -83,7 +86,7 @@ async function TimelineCreate(study,user){
     });
     
     user.myTimeline.push(line);
-    user.save();
+
 
 }
 
@@ -122,11 +125,11 @@ export const saveStudy =async(req,res)=>{
         }else{
             const subject = await Subject.findById(subject_id);
             subject.total_time += timeValue;
-            subject.save();
+            await subject.save();
             await CalendarCheck(timeValue,user);
             await TimelineUpdate(timeValue,found,user);//과목 모델, 쿼리
-
-
+            await userAfterUpdate(user);
+            await user.save();
             
             res.status(200).json({
                 isWell: true
@@ -214,6 +217,7 @@ export const subjectDetail = async(req,res)=>{
             console.log(found);
             await TimelineCreate(found,user);
             await userUpdate(user);
+            await user.save();
             res.send(found);
             res.status(200);
         }
