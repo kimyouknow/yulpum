@@ -35,7 +35,7 @@ const SideMenu = withRouter(({location: {pathname}, clickLogout, clickSignout}) 
     }
     return (
         <SideBar active={clicked} onClick={() =>clickHandler()}>
-            <Button  className={"subBtn logoutBtn"} onClick={() => clickLogout()}>
+            <Button  className={"subBtn logoutBtn"} onClick={() => clickSignout()}>
                 탈퇴
             </Button>
             <Button  className={"subBtn logoutBtn"} onClick={() => clickLogout()}>

@@ -18,8 +18,11 @@ const HomeContainer = () => {
     }
     const clickSignout = () => {
         const ok = window.confirm("Are you sure?");
+        let body ={
+            token
+        }
         if(ok){
-            axios.get('/api/out')
+            axios.post('/api/out', body)
             .then(response => {
                 if(response.data.outSuccess) {
                     history.push("/login")
