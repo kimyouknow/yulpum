@@ -5,7 +5,11 @@ import {
     GET_RANK
 } from '../_actions/types';
 
-const userReducer = (state={}, action) => {
+const initState = {
+    rankData: []
+}
+
+const userReducer = (state=initState, action) => {
     // type마다 다른 것을 switch로 처리
     switch (action.type) {
         case LOGIN_USER:
@@ -16,8 +20,7 @@ const userReducer = (state={}, action) => {
         case AUTH_USER:
             return {...state, userData: action.payload}
         case GET_RANK:
-            console.log(action);
-            return {...state}
+            return {...state, rankData: action.payload.resultArr}
         default:
             return state;
     }
