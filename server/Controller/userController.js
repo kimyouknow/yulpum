@@ -86,25 +86,29 @@ export const logout = async(req,res) =>{
 };
 
 
-// export const withdrawal = async(req,res)=>{
+export const withdrawal = async(req,res)=>{
     
-//     const{
-//         token
-//     } =req.body;
-
-//     await User.findByToken(token, async(err,query,user)=>{
+    const{
+        token
+    } =req.body;
+    let isOk;
+    await User.findByToken(token, async(err,query,user)=>{
     
-//         await User.deleteOne(user._id).then(()=>{
-//             return res.status(200);
-//         }
-//         ).catch(err=>{
-//             console.log(err);
-//             return res.status(400);
-//         }).save();
+        await User.deleteOne(user._id).then(()=>{
+           isOk = true;
+        }
+        ).catch(err=>{
+            console.log(err);
+           
+        }).save();
 
-//      }
-//     );
+     }
+    );
 
+    if(isOk){
+        return res.status(200);
+    }
+    else return res.status(400);
 
-// };
+};
 
