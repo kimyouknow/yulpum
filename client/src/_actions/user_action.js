@@ -35,7 +35,7 @@ export function auth() {
 }
 
 export function requestRank() {
-    const request = axios.post('/api/rank/get-rank')
+    const request = axios.get('/api/rank/get-rank')
     .then(response =>  response.data )
     return {
         type: GET_RANK,

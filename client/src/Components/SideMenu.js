@@ -4,49 +4,27 @@ import {withRouter, Link} from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
-const Container = styled.div`
-    width: 40%;
-    max-width: 300px;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding: 12px;
-    opacity: ${props => props.active ? "1": "0"};
-    padding-left: 48px;
-    background-color: white;
-    z-index: ${props => props.active ? "5": "-10"};
-`;
-
-const List = styled.ul`
-    display: flex;
-`;
-
-const Button = styled.div`
-    font-size: 24px;
-    text-transform: uppercase;
-    font-weight: 600;
-    border: 2px solid #34495e;
-    padding: 8px;
-    border-radius: 3px;
-    &:hover {
-        cursor: pointer;
-    }
-`;
 
 const SideBar = styled.div`
     position: absolute;
-    top: 0;
-    left: 0;
-    font-size: 24px;
-    padding: 8px;
-    &:hover {
-        cursor: pointer;
-    }
-    opacity: ${props => props.active ? "0": "1"};
+    bottom: 20px;
+    right: 20px;
+    height: 200px;
+    border: 1px solid;
 `;
 
-const SideMenu = withRouter(({location: {pathname}, clickLogout}) => {
+const Button = styled.div`
+    cursor: pointer;
+    box-sizing: content-box;
+    border-radius: 50%;
+    font-size: 30px;
+    padding: 10px;
+    color: white;
+    background-color: rgba(0,0,0,0.5);
+`;
+
+
+const SideMenu = withRouter(({location: {pathname}, clickLogout, clickSignout}) => {
     const [clicked, setClicked] = useState(false)
     const clickHandler = () => {
         if(clicked) {
@@ -56,29 +34,17 @@ const SideMenu = withRouter(({location: {pathname}, clickLogout}) => {
         }
     }
     return (
-    <> 
         <SideBar active={clicked} onClick={() =>clickHandler()}>
-            <FontAwesomeIcon icon={faBars} />
+            <Button  className={"subBtn logoutBtn"} onClick={() => clickLogout()}>
+                탈퇴
+            </Button>
+            <Button  className={"subBtn logoutBtn"} onClick={() => clickLogout()}>
+                로그아웃
+            </Button>
+            <Button className={"subBtn addBtn"} onClick={() => clickLogout()}>
+                <FontAwesomeIcon icon={faBars} />
+            </Button>
         </SideBar>
-        <Container active={clicked}>
-            <List>
-                <Button onClick={() => clickLogout()}>
-                    <Link to="/logout">logout</Link>
-                </Button>
-                {/* <Button>
-                    <Link to="/login">login</Link>
-                </Button>
-                <Button>
-                    <Link to="/register">register</Link>
-                </Button> */}
-                <SideBar onClick={() =>clickHandler()}>
-                    <FontAwesomeIcon icon={faArrowLeft} />
-                </SideBar>
-            </List>
-            
-        </Container>
-        
-    </>
     )
 })
 

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import LoaderCotainer from "../../Components/Loader";
+import { displayTime } from "../ActiveTimer/ActiveTimerPresenter";
 
 const Container = styled.div`
     display: flex;
@@ -10,9 +11,9 @@ const Container = styled.div`
 const Header = styled.div``;
 const Body = styled.div``;
 
-const RankPresenter = ({rankData ,calendar}) => {
+const RankPresenter = ({timeValue,rankData ,calendar}) => {
     const {activeD, activeM, activeY} = calendar;
-    console.log(rankData)
+    // console.log(rankData)
     return (
     <Container>
         <Header>
@@ -25,8 +26,13 @@ const RankPresenter = ({rankData ,calendar}) => {
         <Body>
             {!rankData ? <LoaderCotainer />: 
                 rankData.map((user) => 
-                <div key={user.totalTime}>
+                <div key={user.id}>
                     <span>{user.name}</span>
+                    {user.nowStudy ? 
+                    <span>{displayTime(Math.floor(user.totalTime)+timeValue)}</span> :
+                    <span>{displayTime(Math.floor(user.totalTime))}</span>
+                    }
+                    
                 </div>)
             }
         </Body>

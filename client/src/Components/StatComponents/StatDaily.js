@@ -36,9 +36,9 @@ function StatDaily({active, data}) {
     const S = new Date(l_date).getDay();
     const totalLapse = data.reduce((acc, cur) => cur.l_lapse + acc, 0)
     const totalMax = data.reduce((acc, cur) => acc > cur.l_lapse ? acc: cur.l_lapse)
-    // const startTime = data.reduce((acc, cur) => acc < cur.l_start_time ? acc: cur.l_start_time)
-    // const endTime = data.reduce((acc, cur) => acc > cur.l_end_time ? acc: cur.l_end_time)
-    // console.log(startTime, endTime);
+    const startTime = data[0].l_start_time
+    const filtered = data.filter((ele) => ele.l_lapse !== 0);
+    const endTime = filtered[filtered.length-1].l_end_time;
     return (
         <Container active={active}>
             {M+1}월 {D}일 ({weeks[S]})
@@ -53,11 +53,13 @@ function StatDaily({active, data}) {
                 </TopContainer>
                 <TopContainer>
                     <TopTitle>시작 시간</TopTitle>
-                    <TopContent></TopContent>
+                    <TopContent>
+                        {startTime}
+                    </TopContent>
                 </TopContainer>
                 <TopContainer>
                     <TopTitle>종료시간</TopTitle>
-                    <TopContent></TopContent>
+                    <TopContent>{endTime}</TopContent>
                 </TopContainer>
             </Top>
             <Middle></Middle>
