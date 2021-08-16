@@ -6,16 +6,24 @@ import { requestRank } from "../../_actions/user_action";
 const RankContainer = () => {
     const tokenData = document.cookie.split("=")[1];
     const dispatch = useDispatch();
-    const {user} = useSelector((state) => state);
+    const [timeValue, setTimeValue] = useState(0);
+    const {user: {rankData}, calendar} = useSelector((state) => state);
     const getRankData = async() => {
-        const serverData = await dispatch(requestRank());
-        console.log(serverData)
+        await dispatch(requestRank());
     }
     useEffect(() => {
         getRankData();
     }, [])
+    useEffect(() => {
+        const activeTime = setTimeout(() => setTimeValue(timeValue + 1), 1000);
+        return () => clearTimeout(activeTime);
+    },[timeValue])
     return(
-        <RankPresenter />
+        <RankPresenter 
+        rankData={rankData}
+        calendar={calendar}
+        timeValue={timeValue}
+        />
         )
 }
 export default RankContainer

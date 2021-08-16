@@ -16,6 +16,19 @@ const HomeContainer = () => {
             }
         })
     }
+    const clickSignout = () => {
+        const ok = window.confirm("Are you sure?");
+        if(ok){
+            axios.get('/api/out')
+            .then(response => {
+                if(response.data.outSuccess) {
+                    history.push("/login")
+                } else {
+                    alert('Failed to signout');
+                }
+            })
+        }
+    }
     const getToken = () => {
         const tokenData = document.cookie.split("=")[1];
         setToken(tokenData);
@@ -26,6 +39,7 @@ const HomeContainer = () => {
     return(
         <HomePresenter 
         clickLogout={clickLogout}
+        clickSignout={clickSignout}
         token={token}
         />
         )

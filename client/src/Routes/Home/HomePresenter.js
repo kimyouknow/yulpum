@@ -10,9 +10,9 @@ const Container = styled.div`
     margin-top:48px;
 `;
 
-const HomePresenter = ({clickLogout, token}) => (
+const HomePresenter = ({clickLogout,clickSignout, token}) => (
     <Container>
-        <SideMenu clickLogout={clickLogout}/>
+        <SideMenu clickLogout={clickLogout} clickSignout={clickSignout} />
         <h1>Timer</h1>
         {!token ? <Loader /> : <Subjects tokenData={token}/>}
     </Container>
