@@ -6,6 +6,7 @@ import homeRoutes from "./Routes/homeRoutes";
 import staticRoutes from "./Routes/staticRoutes";
 import plannerRoutes from "./Routes/plannerRoutes";
 import rankRoutes from "./Routes/rankRoutes";
+import groupRoutes from "./Routes/groupRoutes";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 
@@ -30,6 +31,7 @@ app.use(routes.api,staticRoutes);
 app.use(routes.api,plannerRoutes);
 app.use(routes.api,rankRoutes);
 app.use(routes.api,groupRoutes);
+
 const handleListenning = () =>{ 
     console.log(`✅ Listening on: http://localhost:${PORT}`);
 };

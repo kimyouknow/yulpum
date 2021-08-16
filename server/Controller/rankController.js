@@ -12,9 +12,6 @@ export const getRank = async(req,res)=>{
 
     const userRet = await User.find({nowStudy:1}).select('_id name studyStart'); //현재 공부 중인 유저들 id 반환
 
-    console.log("calRet = "+calRet);
-    console.log("userRet = "+userRet);
-  
     //1. 공부중인 유저들
      
         for(let i = 0 ; i < userRet.length; i++){
@@ -26,8 +23,10 @@ export const getRank = async(req,res)=>{
                 timeRet += (today.getTime()- userRet[i].studyStart.getTime() )/1000;
                 console.log("시간??"+ timeRet);
                 resultArr.push({
+                    id:userRet[i]._id,
                     name : userRet[i].name,
-                    totalTime : timeRet
+                    totalTime : timeRet,
+                    nowStudy:true
                 });
                 
             }else{//2) 최초 공부하는 유저, 달력 객체가 없음
@@ -35,9 +34,10 @@ export const getRank = async(req,res)=>{
                 let timeRet =(today.getTime()- userRet[i].studyStart.getTime() )/1000;
                 console.log("시간??"+ timeRet);
                 resultArr.push({
-    
+                    id:userRet[i]._id,
                     name : userRet[i].name,
-                    totalTime : timeRet
+                    totalTime : timeRet,
+                    nowStudy:true
                 });
             }   
 
@@ -53,9 +53,10 @@ export const getRank = async(req,res)=>{
             let userFound= await User.findOne({_id:calRet[i].c_user_id }).exec();
             console.log(userFound);
             resultArr.push({
-    
+                id : calRet[i].c_user_id,
                 name : userFound.name,
-                totalTime : calRet[i].c_total_time
+                totalTime : calRet[i].c_total_time,
+                nowStudy:false
             })
         }
 
