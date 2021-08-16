@@ -3,7 +3,7 @@ const HOME = "/";
 const REGISTER = "/register";
 const LOGIN = "/login";
 const LOGOUT ="/logout";
-
+const WITHDRAWAL ="/out";
 
 //middleware
 const AUTH = "/auth";
@@ -34,13 +34,22 @@ const GETCALENDAR = "/get-calendar";
 const GETLINE = "/get-line";
 const GETRANK = "/get-rank";
 const GETMYGROUP = "/get-myGroup";
+const FINDGROUP = "/get-group";
+
+//group
+
+const ADDGROUP = "/add-group";
+const DELETEGROUP = "/delete-group";
+
+
+
 const routes = {
     //home
     home:HOME,
     register:REGISTER,
     login:LOGIN,
     logout:LOGOUT,
-
+    withdrawal:WITHDRAWAL,
     //middle 
     auth:AUTH,
     api:API,
@@ -66,7 +75,12 @@ const routes = {
  
     //todo
     addTodo:ADDTODO,
-    deleteTodo:DELETETODO
+    deleteTodo:DELETETODO,
+
+    //group
+    addGroup:ADDGROUP,
+    deleteGroup:DELETEGROUP,
+    findGroup:FINDGROUP
 }
 
 export default routes;
