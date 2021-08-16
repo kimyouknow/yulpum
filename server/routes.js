@@ -33,7 +33,7 @@ const DELETETODO = "/delete-todo";
 const GETCALENDAR = "/get-calendar";
 const GETLINE = "/get-line";
 const GETRANK = "/get-rank";
-
+const GETMYGROUP = "/get-myGroup";
 const routes = {
     //home
     home:HOME,
@@ -56,8 +56,8 @@ const routes = {
     getCalendar:GETCALENDAR,
     getLine:GETLINE,
     getRank:GETRANK,
-
-    //subject
+    getMyGroup:GETMYGROUP,
+    //subjec
     saveStudy:SAVE,
     addSubject:ADDSUBJECT,
     subjectDetail:SUBJECTDETAIL,
