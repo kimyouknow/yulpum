@@ -41,10 +41,9 @@ const calendarReducer = (state = initState, action) => {
             } return {...state,activeD: newD, activeM:newM}
         }
         case GET_CALENDAR:
-            return {...state, monthData:action.payload, calendarData: action.payload} 
+            return {...state, monthData:action.payload.ret, calendarData: action.payload} 
         case GET_LINE:
-            // console.log(action)
-            return{...state, dayData:action}
+            return{...state, dayData:action.payload.found}
         case ADD_PLAN:
             return{...state, calendarData: action.payload}
         case DELETE_PLAN:

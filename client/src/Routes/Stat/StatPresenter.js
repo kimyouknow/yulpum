@@ -45,7 +45,7 @@ const StatPresenter =  ({dates, activeDate}) => {
         <>
         {dates.length === 0 ? <LoaderCotainer />:
         <Container>
-        <Calendar dates={dates} activeDate={activeDate} />
+            <Calendar dates={dates} activeDate={activeDate} />
             <TimeIndicatorContainer>
                 <TimeIndicator>
                     <TimeIndicatorColor /> 0~3 시간

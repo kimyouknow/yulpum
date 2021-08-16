@@ -39,7 +39,6 @@ const StatInnerMenu = () => {
     const [active, setActive] = useState("daily");
     const {calendar} = useSelector((state) => state);
     const {dayData, monthData} = calendar;
-    // console.log(dayData.payload.l_date)
     return (
         <InnerMenu>
             <Menus>
@@ -53,11 +52,11 @@ const StatInnerMenu = () => {
                     월간
                 </Menu>
             </Menus>
-                {!dayData.payload.l_date? <span>표시할 자료가 없어요</span> :
-                    <StatDaily active={active === "daily"} data={dayData.payload} />}
-                {monthData && 
+                {dayData.length === 0 && active==="daily"? <span>표시할 자료가 없어요</span> :
+                    <StatDaily active={active === "daily"} data={dayData} />}
+                {!monthData &&  active==="weekly" ? <span>표시할 자료가 없어요</span> :
                     <StatWeekly active={active === "weekly"} data={monthData} />}
-                {monthData && 
+                {!monthData &&  active==="monthly" ?  <span>표시할 자료가 없어요</span> :
                     <StatMonthly active={active === "monthly"} data={monthData} />}
                 {/* 일일총공부시간, 최대집중시간, 시작시간, 종료시간,과목별 공부량,  공부휴식비율, 타임라인 */}
                 {/* 주간총공부시간, 평균공부시간, 요일별 공부시간,  */}

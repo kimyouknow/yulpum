@@ -1,7 +1,8 @@
 import {
     LOGIN_USER,
     REGISTER_USER,
-    AUTH_USER
+    AUTH_USER,
+    GET_RANK
 } from '../_actions/types';
 
 const userReducer = (state={}, action) => {
@@ -14,6 +15,9 @@ const userReducer = (state={}, action) => {
             return {...state, register: action.payload}
         case AUTH_USER:
             return {...state, userData: action.payload}
+        case GET_RANK:
+            console.log(action);
+            return {...state}
         default:
             return state;
     }

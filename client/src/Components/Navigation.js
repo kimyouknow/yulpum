@@ -9,11 +9,11 @@ const Navigation = styled.nav`
     width: 100%;
     height: 100px;
     position: fixed;
-    bottom: 0;
+    top: 0;
     left: 0;
     display: flex;
     align-items: center;
-    border-top: 2px solid #dcdde1;
+    border-bottom: 2px solid #dcdde1;
     z-index: 10;
 `;  
 

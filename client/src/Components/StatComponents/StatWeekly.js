@@ -6,6 +6,7 @@ const Container = styled.div`
 `;
 
 function StatWeekly({active, data}) {
+    // console.log(data);
     return (
         <Container active={active}>
             StatWeekly
