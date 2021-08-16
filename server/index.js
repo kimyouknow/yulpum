@@ -29,7 +29,7 @@ app.use(routes.api,homeRoutes);
 app.use(routes.api,staticRoutes);
 app.use(routes.api,plannerRoutes);
 app.use(routes.api,rankRoutes);
-
+app.use(routes.api,groupRoutes);
 const handleListenning = () =>{ 
     console.log(`✅ Listening on: http://localhost:${PORT}`);
 };
