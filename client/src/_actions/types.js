@@ -2,6 +2,7 @@
 export const LOGIN_USER = 'login_user';
 export const REGISTER_USER = 'register_user';
 export const AUTH_USER = 'auth_user';
+export const GET_RANK = "getRank";
 
 export const ADD_SUBJECT = 'add_subject';
 export const GET_SUBJECTS = 'get_subjects';
@@ -20,3 +21,4 @@ export const SET_TODAY = "setToday";
 export const PREV_MONTH = "prevMonth";
 export const NEXT_MONTH = "nextMonth";
 export const CHANGE_DATE = "changeDate";
+

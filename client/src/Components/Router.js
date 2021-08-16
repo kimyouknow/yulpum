@@ -14,7 +14,8 @@ import Register from "../Routes/Register";
 
 const Container = styled.div`
     width: 100vw;
-    height: 100vh;
+    margin-top: 100px;
+    /* height: 100vh; */
 `;
 
 const AppRouter = () => (
