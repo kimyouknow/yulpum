@@ -1,8 +1,8 @@
 import React from "react";
 import styled from 'styled-components';
 import SideMenu from "../../Components/SideMenu";
-import Subjects from "../Subjects";
 import Loader from "../../Components/Loader";
+import Subjects from "../../Components/HomeComponents/Subjects";
 
 const Container = styled.div`
     max-width: 960px;

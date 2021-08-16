@@ -1,6 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
-import StatInnerMenu from "../../Components/StatInnerMenu";
+import StatInnerMenu from "../../Components/StatComponents/StatInnerMenu";
 import LoaderCotainer from "../../Components/Loader";
 import Calendar from "../../Components/Calendar";
 
@@ -40,12 +40,12 @@ const TimeIndicatorColor = styled.div`
     margin-right: 10px;
 `;
 
-const StatPresenter =  ({dates, activeDate, onClick}) => {
+const StatPresenter =  ({dates, activeDate}) => {
     return (
         <>
         {dates.length === 0 ? <LoaderCotainer />:
         <Container>
-        <Calendar dates={dates} activeDate={activeDate} onClick={onClick} />
+            <Calendar dates={dates} activeDate={activeDate} />
             <TimeIndicatorContainer>
                 <TimeIndicator>
                     <TimeIndicatorColor /> 0~3 시간

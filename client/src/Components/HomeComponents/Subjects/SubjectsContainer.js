@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from "react";
 import SubjectsPresenter from "./SubjectsPresenter";
 import {useDispatch} from "react-redux";
-import {addSubject, deleteSubject, editSubject, getSubject} from "../../_actions/subject_actions";
+import { addSubject, deleteSubject, editSubject, getSubject } from "../../../_actions/subject_actions";
+
 
 const SubjectsContainer = ({tokenData}) => {
     const dispatch = useDispatch();
@@ -47,6 +48,10 @@ const SubjectsContainer = ({tokenData}) => {
 
     const onSubmitHandler = (e, element) => {
         e.preventDefault();
+        if(subjectInput === ""){
+            alert("뭐라도 입력하세요")
+            return 
+        }
         if (element === "add"){
         const addedName = subjectInput;
         setSubjectInput("");
