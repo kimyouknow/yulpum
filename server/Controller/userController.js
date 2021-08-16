@@ -94,13 +94,13 @@ export const withdrawal = async(req,res)=>{
     let isOk;
     await User.findByToken(token, async(err,query,user)=>{
     
-        await User.deleteOne(user._id).then(()=>{
+        await User.deleteOne({_id:user._id}).then(()=>{
            isOk = true;
         }
         ).catch(err=>{
             console.log(err);
            
-        }).save();
+        });
 
      }
     );
