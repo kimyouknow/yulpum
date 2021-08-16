@@ -106,9 +106,13 @@ export const withdrawal = async(req,res)=>{
     );
 
     if(isOk){
-        return res.status(200);
+        return res.status(200).json({
+            isSuccess:true
+        });
     }
-    else return res.status(400);
+    else return res.status(400).json({
+        isSuccess:false
+    });
 
 };
 
