@@ -8,7 +8,7 @@ const PlannerContainer = () => {
     const tokenData = document.cookie.split("=")[1];
     const dispatch = useDispatch();
     const {calendar} = useSelector((state) => state);
-    const {activeD, activeM, activeY} = calendar;
+    const {activeD, activeM, activeY, monthData} = calendar;
     const [dates, setDates] = useState([]);
     const [openModal, setOpenModal] = useState(false);
     const handleModal = () => !openModal ? setOpenModal(true) : setOpenModal(false);
@@ -32,7 +32,7 @@ const PlannerContainer = () => {
     }
     useEffect(() => {
         renderingCalendar();
-    }, [calendar])
+    }, [activeD, activeM])
     return(
         <PlannerPresenter 
             dates={dates}

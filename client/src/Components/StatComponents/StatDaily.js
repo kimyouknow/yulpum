@@ -35,7 +35,8 @@ function StatDaily({active, data}) {
     const D = new Date(l_date).getDate();
     const S = new Date(l_date).getDay();
     const totalLapse = data.reduce((acc, cur) => cur.l_lapse + acc, 0)
-    const totalMax = data.reduce((acc, cur) => acc > cur.l_lapse ? acc: cur.l_lapse)
+    const totalMax = data.length === 0 ? data.length.l_lapse :
+        data.reduce((acc, cur) => acc > cur.l_lapse ? acc: cur.l_lapse)
     const startTime = data[0].l_start_time
     const filtered = data.filter((ele) => ele.l_lapse !== 0);
     const endTime = filtered[filtered.length-1].l_end_time;
@@ -44,22 +45,22 @@ function StatDaily({active, data}) {
             {M+1}월 {D}일 ({weeks[S]})
             <Top>
                 <TopContainer>
-                    <TopTitle>총 공부시간</TopTitle>
-                    <TopContent>{displayTime(totalLapse)}</TopContent>
+                    <h3>총 공부시간</h3>
+                    <span>{displayTime(totalLapse)}</span>
                 </TopContainer>
                 <TopContainer>
-                    <TopTitle>최대 집중 시간</TopTitle>
-                    <TopContent>{displayTime(totalMax)}</TopContent>
+                    <h3>최대 집중 시간</h3>
+                    <span>{displayTime(totalMax)}</span>
                 </TopContainer>
                 <TopContainer>
-                    <TopTitle>시작 시간</TopTitle>
-                    <TopContent>
+                    <h3>시작 시간</h3>
+                    <span>
                         {startTime}
-                    </TopContent>
+                    </span>
                 </TopContainer>
                 <TopContainer>
-                    <TopTitle>종료시간</TopTitle>
-                    <TopContent>{endTime}</TopContent>
+                    <h3>종료시간</h3>
+                    <span>{endTime}</span>
                 </TopContainer>
             </Top>
             <Middle></Middle>

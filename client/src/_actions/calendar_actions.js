@@ -34,13 +34,10 @@ export function getLine(dataTosubmit) {
     }
 }
 
-export function AddPlan(dataTosubmit) {
-    const request = axios.post("api/planner/add-todo", dataTosubmit)
-        .then(response => response.data)
-    
+export function addPlan(data) {
     return {
         type: ADD_PLAN,
-        payload: request
+        payload: data
     }
 }
 
@@ -51,5 +48,12 @@ export function DeletePlan(dataTosubmit) {
     return {
         type: DELETE_PLAN,
         payload: request
+    }
+}
+
+export const addPlanServer = (dataTosubmit) => {
+    return async function (dispatch) {
+        axios.post("api/planner/add-todo", dataTosubmit)
+            .then(response => dispatch(addPlan(dataTosubmit)))
     }
 }

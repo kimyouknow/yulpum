@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from 'react-redux';
-import Datepicker from "../DatePicker";
-import { AddPlan } from "../../_actions/calendar_actions";
+import { AddPlan, addPlanServer } from "../../_actions/calendar_actions";
 
 
 const Container = styled.div`
@@ -28,35 +27,40 @@ const ModalWindow = styled.div`
 
 const AddModal = ({openModal ,setOpenModal}) => {
     const dispatch = useDispatch();
-    const {calendar} = useSelector((state) => state);
-    const {activeD, activeM, activeY} = calendar;
+    const {calendar: {monthData}} = useSelector((state) => state);
     const tokenData = document.cookie.split("=")[1];
     const [planInput, setPlanInput] = useState("");
     const closeModal = () => setOpenModal(false);
+    const [activeDate, setActiveDate] = useState(new Date());
+    const onChangeHandler = (value) => {
+        const Y = Number(value.slice(0,4))
+        const M = Number(value.slice(5,7))-1
+        const D = Number(value.slice(8,10))+1
+        setActiveDate(new Date(Y,M,D));
+    }
     const onSubmitHandler = async(e) => {
         e.preventDefault();
         setPlanInput("");
         const body = {
-            year: activeY,
-            month: activeM,
-            date: activeD,
+            year: activeDate.getFullYear(),
+            month: activeDate.getMonth(),
+            date: activeDate.getDate()-1,
             todo: planInput,
             token: tokenData
         }
         console.log(body);
-        const response = await dispatch(AddPlan(body));
-        const {payload} = response;
-        console.log(payload);
+        await dispatch(addPlanServer(body));
         closeModal()
     }
     if (openModal){
         window.addEventListener("keydown", (e) => e.keyCode === 27 ? closeModal(): null);
     }
+
     return (
         <Container show={openModal}>
             <ModalWindow>
                 <button onClick={() =>closeModal()}>x</button>
-                <Datepicker />
+                <input type="date" value={activeDate.toISOString().substring(0, 10)} onChange={(e) => onChangeHandler(e.target.value)} />
                 <form onSubmit={(e => onSubmitHandler(e))}>
                     <label>Add to do</label>
                     <input type="text" value={planInput} onChange={(e => setPlanInput(e.target.value))} />

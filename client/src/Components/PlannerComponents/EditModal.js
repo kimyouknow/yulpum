@@ -60,7 +60,7 @@ const EditModal = ({activeInfo ,setActiveInfo}) => {
             <span>{activeY}</span>
             <span>{activeM+1}</span>
             <span>{activeD}</span>
-            <h3>activeInfo</h3>
+            <h3>{activeInfo}</h3>
             <ToDoElement onClick={() => handleDel()}>❌</ToDoElement>
         </ModalWindow>
         </Container>

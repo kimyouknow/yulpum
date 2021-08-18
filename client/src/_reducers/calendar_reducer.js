@@ -9,6 +9,10 @@ const initState = {
 }
 
 const calendarReducer = (state = initState, action) => {
+    const found = (date) => state.monthData.find(element => {
+        const eleData = new Date(element.date);
+        return (eleData.toISOString().substring(0, 10)) === date.toISOString().substring(0, 10)
+    });
     switch(action.type) {
         case CHANGE_DATE:{
             const newDate = new Date(action.date);
@@ -41,13 +45,18 @@ const calendarReducer = (state = initState, action) => {
             } return {...state,activeD: newD, activeM:newM}
         }
         case GET_CALENDAR:
-            return {...state, monthData:action.payload.ret, calendarData: action.payload} 
+            let temp = []
+            action.payload.ret.map((ele) => temp.push({todo: ele.c_todo, date: ele.c_date}))
+            return {...state, monthData:temp, calendarData: action.payload} 
+        case ADD_PLAN:
+            const {date, month, year, todo} = action.payload;
+            const tempDate = new Date(year, month, date);
+            return{...state, monthData: [...state.monthData,{...found(tempDate)}]}
+        case DELETE_PLAN:
+            console.log(action)
+            return{...state, calendarData: action.payload}
         case GET_LINE:
             return{...state, dayData:action.payload.found}
-        case ADD_PLAN:
-            return{...state, calendarData: action.payload}
-        case DELETE_PLAN:
-            return{...state, calendarData: action.payload}
         default:
             return state;
     }
