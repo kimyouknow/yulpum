@@ -69,6 +69,7 @@ export const postLogin = async(req,res) =>{
     }
     else{
         console.log("일치하는 아이디 없음: 로그인 실패");
+        return res.json({success: false, message:"유저 정보 없음"});
     }
 
 };
@@ -94,14 +95,12 @@ export const withdrawal = async(req,res)=>{
     let isOk = true;
     await User.findByToken(token, async(err,query,user)=>{
     
-        await User.deleteOne({_id:user._id}).then(()=>{
-           isOk = true;
-        }
-        ).catch(err=>{
-            console.log(err);
+        user.deleteOne().then(next=>{
+            
+        }).catch(err=>{
             isOk = false;
         });
-
+    
      }
     );
 

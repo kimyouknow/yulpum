@@ -52,6 +52,7 @@ async function CalendarCheck (timeValue,user){ //캘린더 생성과 갱신 관�
 
 }
 
+
 async function TimelineUpdate(timeVal,subject,user){ // 타임라인 생성과 갱신 관련 함수
 
     let today = new Date();
@@ -153,7 +154,7 @@ export const addSubject = async(req,res)=>{
     }=req.body;
 
     
-    await User.findByToken(token, (err,query,user)=>{
+    await User.findByToken(token, async(err,query,user)=>{
         if(err) throw err;
 
         const Study = await Subject.create({
@@ -188,7 +189,7 @@ export const getSubject = async(req,res)=>{
             res.status(200).send(data.studySubject);
         })
  
-      
+     
     });
 
 
@@ -281,20 +282,14 @@ export const subjectDelete = async(req,res)=>{
         });//await 필요없음 
 
         if(found){
-           
+           console.log("지우다 "+ subject_id);
             //db에서 해당 subject 정보 삭제
-            await Subject.deleteOne({_id:subject_id},err=>{ //여기서 삭제되면 자동으로 parents에서도 삭제됨
-                if(err){
-                    console.log("삭제 에러");
-                    res.send(err);
-                }else{
-                    console.log("deleted");
-                    res.status(200).json({
-                        isSuccess:true
-                    });
-                }
+            const subject =  await Subject.findOne({_id:subject_id});
+            subject.deleteOne();
+
+            return res.status(200).json({
+                isSuccess:true
             });
-            
         }
         else{
             console.log("못찾음");

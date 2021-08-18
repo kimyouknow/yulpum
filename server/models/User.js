@@ -1,10 +1,10 @@
 import mongoose, { Schema } from 'mongoose';
 import bcrypt, { hash } from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import Calendar from "./models/User";
-import Line from "./models/Line";
-import Subject from "./models/Subject";
-import Group from "./models/Group";
+import Calendar from "./Calendar";
+import Line from "./Line";
+import Subject from "./Subject";
+import Group from "./Group";
 
 
 
@@ -82,11 +82,12 @@ userSchema.pre('save',function(next){
 
 })
 
-userSchema.pre('remove',function(next){
-    Calendar.remove({c_user_id: this._id}).exec();
-    Line.remove({l_user_id:this._id }).exec();
-    Subject.remove({s_user_id:this._id}).exec();
-    Group.remove({g_user_id:this._id}).exec();
+userSchema.pre('deleteOne',{document:true},async function(next){
+    console.log("유저 삭제 on cascade");
+    await Calendar.deleteOne({c_user_id: this._id});
+    await Line.deleteOne({l_user_id:this._id });
+    await Subject.deleteOne({s_user_id:this._id});
+    await Group.deleteOne({g_user_id:this._id});
 
     next();
 
