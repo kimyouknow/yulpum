@@ -99,7 +99,7 @@ export const withdrawal = async(req,res)=>{
         }
         ).catch(err=>{
             console.log(err);
-           
+            isOk = false;
         });
 
      }
