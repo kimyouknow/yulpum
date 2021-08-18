@@ -22,7 +22,6 @@ subjectSchema.pre('deleteOne',{document:true},async function(next){
     let subject = this.subject_name;
     console.log("삭제된 과목 : " +subject );
     await Line.deleteOne({l_subject_name:subject});
-
     next();
 })
 
