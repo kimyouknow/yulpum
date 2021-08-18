@@ -24,7 +24,7 @@ const HomeContainer = () => {
         if(ok){
             axios.post('/api/out', body)
             .then(response => {
-                if(response.data.outSuccess) {
+                if(response.data.isSuccess) {
                     history.push("/login")
                 } else {
                     alert('Failed to signout');
