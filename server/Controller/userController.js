@@ -91,7 +91,7 @@ export const withdrawal = async(req,res)=>{
     const{
         token
     } =req.body;
-    let isOk;
+    let isOk = true;
     await User.findByToken(token, async(err,query,user)=>{
     
         await User.deleteOne({_id:user._id}).then(()=>{

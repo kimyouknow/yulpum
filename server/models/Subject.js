@@ -2,6 +2,9 @@ import mongoose from 'mongoose';
 
 const subjectSchema = mongoose.Schema({
 
+    s_user_id:{
+        type:String
+    },
     subject_name:{
         type:String,
         required:true,
@@ -14,6 +17,12 @@ const subjectSchema = mongoose.Schema({
 
 })
 
+
+subjectSchema.pre('delete',function(next){
+
+    Line.remove({l_subject_name:this.subject_name}).exec();
+    next();
+})
 
 const model = mongoose.model("Subject",subjectSchema);
 export default model;

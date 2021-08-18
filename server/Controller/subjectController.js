@@ -151,13 +151,17 @@ export const addSubject = async(req,res)=>{
         token
       
     }=req.body;
-    const Study = await Subject.create({
-        subject_name:subject_title,
-        time:timeValue
-    });
+
     
     await User.findByToken(token, (err,query,user)=>{
         if(err) throw err;
+
+        const Study = await Subject.create({
+            s_user_id:user._id,
+            subject_name:subject_title,
+            time:timeValue
+        });
+
         user.studySubject.push(Study);
         user.save();
         console.log(Study);
