@@ -10,7 +10,7 @@ const HomeContainer = () => {
         axios.get('/api/logout')
         .then(response => {
             if(response.data.logoutSuccess) {
-                history.push("/login")
+                
             } else {
                 alert('Failed to logout');
             }
@@ -26,6 +26,7 @@ const HomeContainer = () => {
             .then(response => {
                 if(response.data.isSuccess) {
                     history.push("/login")
+                    alert('success');
                 } else {
                     alert('Failed to signout');
                 }
