@@ -16,6 +16,7 @@ const Container = styled.div`
     left: 0;
     top: 0;
     font-size: 50px;
+    z-index: 100;
 `;
 
 const ModalWindow = styled.div`
@@ -33,34 +34,35 @@ const ToDoElement = styled.div`
 const EditModal = ({activeInfo ,setActiveInfo}) => {
     const dispatch = useDispatch();
     const tokenData = document.cookie.split("=")[1];
-    const {calendar} = useSelector((state) => state);
-    const {activeD, activeM, activeY} = calendar;
+    const {c_date, ele} = activeInfo;
+    const year = new Date(c_date).getFullYear();
+    const month = new Date(c_date).getMonth();
+    const date = new Date(c_date).getDate();
     const closeModal = () => setActiveInfo(false);
     const handleDel = async() => {
         const body = {
-            year: activeY,
-            month: activeM,
-            date: activeD,
-            todo: activeInfo,
+            year,
+            month,
+            date,
+            todo: ele,
             token: tokenData
         }
-        console.log(body);
-        const response = await dispatch(DeletePlan(body));
-        const {payload} = response;
-        console.log(payload);
+        console.log(body)
+        await dispatch(DeletePlan(body));
         closeModal()
     }
     if (activeInfo){
         window.addEventListener("keydown", (e) => e.keyCode === 27 ? closeModal(): null);
     }
+    console.log(activeInfo)
     return (
         <Container show={activeInfo}>
         <ModalWindow>
             <button onClick={() => closeModal()}>x</button>
-            <span>{activeY}</span>
-            <span>{activeM+1}</span>
-            <span>{activeD}</span>
-            <h3>{activeInfo}</h3>
+            <span>{year}</span>
+            <span>{month+1}</span>
+            <span>{date}</span>
+            <h3>{ele}</h3>
             <ToDoElement onClick={() => handleDel()}>❌</ToDoElement>
         </ModalWindow>
         </Container>

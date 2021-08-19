@@ -8,35 +8,33 @@ const PlannerContainer = () => {
     const tokenData = document.cookie.split("=")[1];
     const dispatch = useDispatch();
     const {calendar} = useSelector((state) => state);
-    const {activeD, activeM, activeY, monthData} = calendar;
+    const {activeD, activeM, activeY, monthData, refresh} = calendar;
     const [dates, setDates] = useState([]);
     const [openModal, setOpenModal] = useState(false);
     const handleModal = () => !openModal ? setOpenModal(true) : setOpenModal(false);
-    const getServerData = async(body) => {
-        const response = await dispatch(getCalendar(body));
-        const {isSuccess, ret} = response.payload;
-        if (!isSuccess) {
-            alert("Error!");
-        }
-        return ret
-    }
     const renderingCalendar = async() => {
         let body = {
             year: activeY,
             month: activeM,
             token: tokenData
         }
-        const serverData = await getServerData(body);
-        const dates = renderCalendar(activeY, activeM, serverData, "planner");
+        const response = await dispatch(getCalendar(body));
+        const {isSuccess, } = response.payload;
+        if (!isSuccess) {
+            alert("Error!");
+        }
+        const dates = renderCalendar(activeY, activeM);
         setDates(dates);
     }
     useEffect(() => {
         renderingCalendar();
-    }, [activeD, activeM])
+    }, [activeM, activeD, refresh])
+    // console.log(monthData)
     return(
         <PlannerPresenter 
             dates={dates}
             activeDate={{activeD,activeM,activeY}}
+            monthData={monthData}
             handleModal={handleModal}
             openModal={openModal}
             setOpenModal={setOpenModal}

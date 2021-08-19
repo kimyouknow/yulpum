@@ -16,6 +16,7 @@ const Container = styled.div`
     left: 0;
     top: 0;
     font-size: 25px;
+    z-index: 100;
 `;
 
 const ModalWindow = styled.div`
@@ -27,7 +28,6 @@ const ModalWindow = styled.div`
 
 const AddModal = ({openModal ,setOpenModal}) => {
     const dispatch = useDispatch();
-    const {calendar: {monthData}} = useSelector((state) => state);
     const tokenData = document.cookie.split("=")[1];
     const [planInput, setPlanInput] = useState("");
     const closeModal = () => setOpenModal(false);
@@ -35,7 +35,7 @@ const AddModal = ({openModal ,setOpenModal}) => {
     const onChangeHandler = (value) => {
         const Y = Number(value.slice(0,4))
         const M = Number(value.slice(5,7))-1
-        const D = Number(value.slice(8,10))+1
+        const D = Number(value.slice(8,10))
         setActiveDate(new Date(Y,M,D));
     }
     const onSubmitHandler = async(e) => {
@@ -44,11 +44,10 @@ const AddModal = ({openModal ,setOpenModal}) => {
         const body = {
             year: activeDate.getFullYear(),
             month: activeDate.getMonth(),
-            date: activeDate.getDate()-1,
+            date: activeDate.getDate(),
             todo: planInput,
             token: tokenData
         }
-        console.log(body);
         await dispatch(addPlanServer(body));
         closeModal()
     }

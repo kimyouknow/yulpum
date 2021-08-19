@@ -6,7 +6,7 @@ export const compareDate = (input) => {
     return inputY+inputM+inputD
 }
 
-export const renderCalendar = (renderYear, renderMonth, serverData, pathname) => {
+export const renderCalendar = (renderYear, renderMonth) => {
     const preLast = new Date(renderYear, renderMonth, 0);
         const currentLast = new Date(renderYear, renderMonth+1, 0);
         const PLDate = preLast.getDate();
@@ -17,35 +17,19 @@ export const renderCalendar = (renderYear, renderMonth, serverData, pathname) =>
         const CDates = [];
         const NDates = [];
         for(let i = 1; i < CLDate+1; i++ ){
-            const i_date = new Date(renderYear, renderMonth, i);
-            let i_total_time  = 0;
-            let i_todo = null;
-            const matchDate = serverData.find(obj => compareDate(obj.c_date) === compareDate(i_date));
-            if(matchDate) {
-                i_total_time = matchDate.c_total_time
-                i_todo = matchDate.c_todo
-            }
-            if(pathname === "planner"){
-                CDates.push({
-                    date: i_date,
-                    todo:i_todo,
-                    total_time: 0,
-                    isCur: true
-                })
-            } else if (pathname === "stat"){
-                CDates.push({
-                    date: i_date,
-                    total_time: i_total_time,
-                    isCur: true
-                })
-            }
+            // const i_date = new Date(activeY, activeM, i);
+            CDates.push({
+                date: new Date(renderYear, renderMonth, i),
+                totalTime: 0,
+                isCur: true
+            });
         }
         // Sunday - Saturday : 0 - 6
         if (PLDay !== 6){
             for (let i = PLDay; i >= 0; i--){
                 PDates.push({
                     date: new Date(renderYear, renderMonth-1, PLDate-i),
-                    total_time: -1,
+                    totalTime: -1,
                     isCur: false
                 });
             }
@@ -54,7 +38,7 @@ export const renderCalendar = (renderYear, renderMonth, serverData, pathname) =>
             for (let i = 1; i <= 6-CLDay; i++){
                 NDates.push({
                     date: new Date(renderYear, renderMonth+1, i),
-                    total_time: -1,
+                    totalTime: -1,
                     isCur: false
                 });
             }
