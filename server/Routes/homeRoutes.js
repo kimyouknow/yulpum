@@ -14,7 +14,8 @@ import {
 import {
     postRegister,
     postLogin,
-    logout
+    logout,
+    withdrawal
 } from "../Controller/userController";
 
 import{
@@ -34,6 +35,7 @@ homeRoutes.get(routes.auth, auth,(req, res)=>{
 homeRoutes.post(routes.register,postRegister);
 homeRoutes.post(routes.login,postLogin);
 homeRoutes.get(routes.logout,auth,logout);
+homeRoutes.post(routes.withdrawal,withdrawal);
 
 homeRoutes.post(routes.saveStudy,saveStudy);
 homeRoutes.post(routes.addSubject,addSubject);

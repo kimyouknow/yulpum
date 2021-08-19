@@ -69,6 +69,7 @@ export const postLogin = async(req,res) =>{
     }
     else{
         console.log("일치하는 아이디 없음: 로그인 실패");
+        return res.json({success: false, message:"유저 정보 없음"});
     }
 
 };
@@ -85,4 +86,32 @@ export const logout = async(req,res) =>{
     })
 };
 
+
+export const withdrawal = async(req,res)=>{
+    
+    const{
+        token
+    } =req.body;
+    let isOk = true;
+    await User.findByToken(token, async(err,query,user)=>{
+    
+        user.deleteOne().then(next=>{
+            
+        }).catch(err=>{
+            isOk = false;
+        });
+    
+     }
+    );
+
+    if(isOk){
+        return res.status(200).json({
+            isSuccess:true
+        });
+    }
+    else return res.status(400).json({
+        isSuccess:false
+    });
+
+};
 

@@ -10,7 +10,7 @@ const HomeContainer = () => {
         axios.get('/api/logout')
         .then(response => {
             if(response.data.logoutSuccess) {
-                history.push("/login")
+                
             } else {
                 alert('Failed to logout');
             }
@@ -18,11 +18,15 @@ const HomeContainer = () => {
     }
     const clickSignout = () => {
         const ok = window.confirm("Are you sure?");
+        let body ={
+            token
+        }
         if(ok){
-            axios.get('/api/out')
+            axios.post('/api/out', body)
             .then(response => {
-                if(response.data.outSuccess) {
+                if(response.data.isSuccess) {
                     history.push("/login")
+                    alert('success');
                 } else {
                     alert('Failed to signout');
                 }

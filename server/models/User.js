@@ -1,6 +1,10 @@
 import mongoose, { Schema } from 'mongoose';
 import bcrypt, { hash } from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import Calendar from "./Calendar";
+import Line from "./Line";
+import Subject from "./Subject";
+import Group from "./Group";
 
 
 
@@ -77,6 +81,18 @@ userSchema.pre('save',function(next){
     }
 
 })
+
+userSchema.pre('deleteOne',{document:true},async function(next){
+    console.log("유저 삭제 on cascade");
+    await Calendar.deleteOne({c_user_id: this._id});
+    await Line.deleteOne({l_user_id:this._id });
+    await Subject.deleteOne({s_user_id:this._id});
+    await Group.deleteOne({g_user_id:this._id});
+
+    next();
+
+})
+
 
 //스키마 메소드 추가
 userSchema.methods.comparePassword= function(plainPassword,cb){

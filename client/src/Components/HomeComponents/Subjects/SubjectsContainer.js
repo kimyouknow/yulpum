@@ -21,15 +21,18 @@ const SubjectsContainer = ({tokenData}) => {
         }
     }
     const displaySubject = () => {
-        let body = {
-            token: tokenData
+        if(tokenData){
+            let body = {
+                token: tokenData
+            }
+            console.log(body);
+            dispatch(getSubject(body))
+                .then(response => {
+                    const {payload} = response;
+                    // console.log(payload);
+                    setSubjects(payload);
+                })
         }
-        dispatch(getSubject(body))
-            .then(response => {
-                const {payload} = response;
-                // console.log(payload);
-                setSubjects(payload);
-            })
     }
     const handleRemove = (id) => {
         let body = {
