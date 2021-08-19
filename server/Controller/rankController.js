@@ -21,7 +21,7 @@ export const getRank = async(req,res)=>{
                 console.log(tmp);
                 let timeRet = tmp.c_total_time;
                 timeRet += (today.getTime()- userRet[i].studyStart.getTime() )/1000;
-                console.log("시간??"+ timeRet);
+               
                 resultArr.push({
                     id:userRet[i]._id,
                     name : userRet[i].name,
@@ -32,7 +32,7 @@ export const getRank = async(req,res)=>{
             }else{//2) 최초 공부하는 유저, 달력 객체가 없음
            
                 let timeRet =(today.getTime()- userRet[i].studyStart.getTime() )/1000;
-                console.log("시간??"+ timeRet);
+    
                 resultArr.push({
                     id:userRet[i]._id,
                     name : userRet[i].name,
