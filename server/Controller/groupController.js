@@ -65,7 +65,7 @@ export const deleteGroup = async (req,res)=>{
         _id:group_id
     }).then(()=>{
         console.log("delete completed");
-        return res.status(200);
+        //return res.status(200);
 
     }).catch(err =>{
         console.log("error! :"+err);

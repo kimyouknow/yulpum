@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Line from "./Line";
+
 
 const lineSchema = mongoose.Schema({
     l_user_id:{
