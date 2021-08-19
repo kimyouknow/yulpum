@@ -65,20 +65,20 @@ export const createGroup = async(req,res)=>{
     let foundUser;
     await User.findByToken(token, async(err,query,user)=>{
         if(err)throw err;
-        foundUser = user;
+      
+        const n_group = await Group.create({
+            g_name : groupName,
+            g_goal : groupGoal,
+            g_max : groupMax,
+            g_leader:user.name,
+            g_start_date:now
+        });
+        
+        user.groupID.push(n_group);
+        user.save();
+    });
 
-    });
-    
-    const n_group = await Group.create({
-        g_name : groupName,
-        g_goal : groupGoal,
-        g_max : groupMax,
-        g_leader:foundUser.name,
-        g_start_date:now
-    });
-    
-    foundUser.groupID.push(n_group);
-    foundUser.save();
+
     
 
 };
