@@ -1,6 +1,6 @@
 import { UPDATE_TIMER, GET_SUBJECT_TIME } from "../_actions/types";
 
-export default function (state={}, action) {
+const timerReducer = (state={}, action) => {
     switch(action.type) {
         case UPDATE_TIMER:
             return{...state, timerData: action.payload}
@@ -10,3 +10,4 @@ export default function (state={}, action) {
             return state;
     }
 }
+export default timerReducer;
