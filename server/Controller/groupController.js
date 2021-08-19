@@ -136,6 +136,32 @@ export const exitGroup = async(req,res)=>{
         group_id // 삭제할 그룹 아이디
     } = req.body;
     let isComplete;
+    let foundUser;
+    await User.findByToken(token, async(err,query,user)=>{
+        if(err)throw err;
+        foundUser = user;
 
+    });
+
+    //가입된 그룹에서 삭제
+    for(let i = 0; i < foundUser.groupID.length; i++) {
+        if(foundUser.groupID[i] === group_id)  {
+            foundUser.groupID.splice(i, 1);
+            isComplete = true;
+            break;
+        }
+    }
+    if(isComplete){
+        return res.status(400).json({
+            isSuccess : false
+        })
+
+    }else{
+        console.log("그룹 나가기 실패");
+        return res.status(400).json({
+            isSuccess : false
+        })
+    }
+      
 
 }
