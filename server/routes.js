@@ -41,7 +41,7 @@ const FINDGROUP = "/get-group";
 const ADDGROUP = "/add-group";
 const DELETEGROUP = "/delete-group";
 const CREATEGROUP = "/create-group";
-
+const EXITGROUP = "/exit-group";
 
 const routes = {
     //home
@@ -81,7 +81,8 @@ const routes = {
     addGroup:ADDGROUP,
     deleteGroup:DELETEGROUP,
     findGroup:FINDGROUP,
-    createGroup:CREATEGROUP
+    createGroup:CREATEGROUP,
+    exitGroup:EXITGROUP
 }
 
 export default routes;

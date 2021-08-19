@@ -5,7 +5,6 @@ const groupSchema = mongoose.Schema({
     g_name:{
         type:String
     },
-    
     g_goal:{
         type:Number,
         default:0

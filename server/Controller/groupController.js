@@ -90,26 +90,52 @@ export const deleteGroup = async (req,res)=>{
         group_id // 삭제할 그룹 아이디
     } = req.body;
     let isComplete;
-    //테스트 요망, 유저에도 자동으로 ref 삭제 되나?
-    await Group.deleteOne({
-        _id:group_id
-    }).then(()=>{
-        console.log("delete completed");
-        isComplete = true;
-       
+    let foundUser;
+    await User.findByToken(token, async(err,query,user)=>{
+        if(err)throw err;
+        foundUser = user;
 
-    }).catch(err =>{
-        console.log("error! :"+err);
-    })
+    });
+    const group = await Group.find({_id:group_id, g_leader: foundUser.name});
+    if(group){
+        //테스트 요망, 유저에도 자동으로 ref 삭제 되나?
+        await Group.deleteOne({
+            _id:group_id
+        }).then(()=>{
+            console.log("delete completed");
+            isComplete = true;
+        
 
-    if(isComplete){
-        return res.status(200).json({
-            isSuccess : true
-        });
+        }).catch(err =>{
+            console.log("error! :"+err);
+        })
+
+        if(isComplete){
+            return res.status(200).json({
+                isSuccess : true
+            });
+        }
+        else{
+            return res.status(400).json({
+                isSuccess : false
+            })
+        }
     }
     else{
+        console.log("해당 그룹장만 그룹 삭제 가능");
         return res.status(400).json({
             isSuccess : false
         })
     }
+
+}
+
+export const exitGroup = async(req,res)=>{
+    const{
+        token,
+        group_id // 삭제할 그룹 아이디
+    } = req.body;
+    let isComplete;
+
+
 }
