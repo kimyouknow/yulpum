@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from 'react-redux';
-import { AddPlan, addPlanServer } from "../../_actions/calendar_actions";
+import { useDispatch } from 'react-redux';
+import { addPlanServer } from "../../_actions/calendar_actions";
 
 
 const Container = styled.div`
@@ -54,12 +54,17 @@ const AddModal = ({openModal ,setOpenModal}) => {
     if (openModal){
         window.addEventListener("keydown", (e) => e.keyCode === 27 ? closeModal(): null);
     }
-
+    const diplayDate = (activeDate) => {
+        let year = activeDate.getFullYear();
+        let month = activeDate.getMonth()+1;
+        let date = activeDate.getDate();
+        return `${year}-${month < 10 ? `0${month}` : month}-${date < 10 ? `0${date}`: date}`;
+    }
     return (
         <Container show={openModal}>
             <ModalWindow>
                 <button onClick={() =>closeModal()}>x</button>
-                <input type="date" value={activeDate.toISOString().substring(0, 10)} onChange={(e) => onChangeHandler(e.target.value)} />
+                <input type="date" value={diplayDate(activeDate)} onChange={(e) => onChangeHandler(e.target.value)} />
                 <form onSubmit={(e => onSubmitHandler(e))}>
                     <label>Add to do</label>
                     <input type="text" value={planInput} onChange={(e => setPlanInput(e.target.value))} />
