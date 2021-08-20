@@ -54,7 +54,6 @@ const EditModal = ({activeInfo ,setActiveInfo}) => {
     if (activeInfo){
         window.addEventListener("keydown", (e) => e.keyCode === 27 ? closeModal(): null);
     }
-    console.log(activeInfo)
     return (
         <Container show={activeInfo}>
         <ModalWindow>

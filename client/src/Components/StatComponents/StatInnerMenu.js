@@ -39,6 +39,7 @@ const StatInnerMenu = () => {
     const [active, setActive] = useState("daily");
     const {calendar} = useSelector((state) => state);
     const {dayData, monthData} = calendar;
+    console.log(dayData, monthData)
     return (
         <InnerMenu>
             <Menus>
