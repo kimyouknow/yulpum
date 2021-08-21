@@ -9,14 +9,16 @@ const Container = styled.div`
     flex-direction:column;
     align-items: center;
     width: 100%;
+    padding-top: 10px;
 `;
 
 const Title = styled.div`
-    margin-bottom: 16px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 22px;
 `;
 
 const Top = styled.div`
-    margin-top: 20px;
     display: grid;
     width: 100%;
     grid-template-columns: repeat(2, 1fr);
@@ -27,9 +29,15 @@ const TopContainer = styled.div`
     flex-direction:column;
     align-items: center;
     justify-content: center;
+    > h4{
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: rgba(238, 90, 36,1.0);
+    }
+    > span{
+        font-size: 24px;
+    }
 `;
-
-const TopContent = styled.div``;
 
 const Middle = styled.div``;
 const Bot = styled.ul`
@@ -76,7 +84,7 @@ const Bot = styled.ul`
 
 
 function StatDaily({active, data}) {
-    console.log(data)
+    // console.log(data)
     const weeks = ["일", "월","화","수","목","금","토"];    
     const {l_date} = data[0];
     const M = new Date(l_date).getMonth();
@@ -101,21 +109,21 @@ function StatDaily({active, data}) {
             <Title>{M+1}월 {D}일 ({weeks[S]})</Title>
             <Top>
                 <TopContainer>
-                    <h3>총 공부시간</h3>
+                    <h4>총 공부시간</h4>
                     <span>{displayTime(totalLapse)}</span>
                 </TopContainer>
                 <TopContainer>
-                    <h3>최대 집중 시간</h3>
+                    <h4>최대 집중 시간</h4>
                     <span>{displayTime(totalMax)}</span>
                 </TopContainer>
                 <TopContainer>
-                    <h3>시작 시간</h3>
+                    <h4>시작 시간</h4>
                     <span>
                         {displayClock(startTime)}
                     </span>
                 </TopContainer>
                 <TopContainer>
-                    <h3>종료시간</h3>
+                    <h4>종료시간</h4>
                     <span>{displayClock(endTime)}</span>
                 </TopContainer>
             </Top>

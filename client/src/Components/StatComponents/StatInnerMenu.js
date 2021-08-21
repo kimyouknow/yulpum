@@ -38,8 +38,10 @@ const Menu = styled.li`
 const StatInnerMenu = () => {
     const [active, setActive] = useState("daily");
     const {calendar} = useSelector((state) => state);
-    const {dayData, monthData} = calendar;
-    console.log(dayData, monthData)
+    const {dayData, monthData,activeD, activeM, activeY} = calendar;
+    const actveDay = new Date(activeY, activeM, activeD).getDay();
+    const actveDate = new Date(activeY, activeM, activeD);
+    // console.log(actveDate)
     return (
         <InnerMenu>
             <Menus>
@@ -56,9 +58,9 @@ const StatInnerMenu = () => {
                 {dayData.length !== 0 && active ==="daily" && 
                     <StatDaily active={active === "daily"} data={dayData} />}
                 {monthData.length !== 0 &&  active==="weekly"  && 
-                    <StatWeekly active={active === "weekly"} data={monthData} /> }
+                    <StatWeekly active={active === "weekly"} data={{monthData,actveDay, actveDate , activeD, activeM, activeY}} /> }
                 {monthData.length !== 0 &&  active==="monthly"  && 
-                    <StatMonthly active={active === "monthly"} data={monthData} /> }
+                    <StatMonthly active={active === "monthly"} data={{monthData, activeM, activeY}} /> }
                 {/* 일일총공부시간, 최대집중시간, 시작시간, 종료시간,과목별 공부량,  공부휴식비율, 타임라인 */}
                 {/* 주간총공부시간, 평균공부시간, 요일별 공부시간,  */}
                 {/* 월간총공부시간, 평균공부시간, 월간 날짜별 공부시간, 월간과목별공부량 */}

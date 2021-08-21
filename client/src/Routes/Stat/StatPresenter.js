@@ -75,7 +75,7 @@ const DateComponent = styled.div`
     :nth-child(7n){
         color: #396ee2;
     };
-    cursor: pointer;
+    cursor: ${props => props.isCur && "pointer"};
 `;
 
 const DateEle = styled.div`
@@ -135,10 +135,11 @@ const StatPresenter =  ({dates, activeDate, monthData}) => {
                 {weeks.map(week => <WeekComponent key={week}>{week}</WeekComponent>)}
             </WeekContainer>
             <DateContainer>
+                {/* {console.log(dates)} */}
                 {!dates ? <h1>Loading</h1> : 
                 dates.map(date =>
                 <DateComponent key={date.date} 
-                    onClick={() => dispatch(changeDate(date.date))}
+                    onClick={() => date.isCur && dispatch(changeDate(date.date))}
                     timecolor={filtered(date) ? filtered(date).c_total_time : date.totalTime}
                     isCur={date.isCur}>
                         <DateEle today={date.date.getDate() === new Date().getDate() && date.date.getMonth() === new Date().getMonth()}>{date.date.getDate()}</DateEle>
