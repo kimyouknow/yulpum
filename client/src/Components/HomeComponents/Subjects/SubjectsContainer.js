@@ -28,7 +28,7 @@ const SubjectsContainer = ({tokenData}) => {
             dispatch(getSubject(body))
                 .then(response => {
                     const {payload} = response;
-                    // console.log(payload);
+                    console.log(payload);
                     setSubjects(payload);
                 })
         }

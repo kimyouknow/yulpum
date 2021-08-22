@@ -6,8 +6,8 @@ import { faBars, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 const SideBar = styled.nav`
     position: absolute;
-    right: 20px;
-    bottom: 100px;
+    right: 10px;
+    bottom: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;

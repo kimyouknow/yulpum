@@ -68,7 +68,7 @@ const Body = styled.div`
     align-items:center;
 `;
 
-const GroupPresenter = ({handleModal ,openModal ,setOpenModal}) => {
+const GroupPresenter = ({handleModal ,openModal ,setOpenModal, found}) => {
     return(
         <Container>
             <Header>Group</Header>

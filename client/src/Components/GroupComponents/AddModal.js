@@ -30,8 +30,9 @@ const AddModal = ({openModal ,setOpenModal}) => {
     const tokenData = document.cookie.split("=")[1];
     const closeModal = () => setOpenModal(false);
     const [groupName, setGroupName] = useState("");
-    const [groupGoal, setGroupGoal] = useState("")
-    const [groupMax, setGroupMax] = useState("")
+    const [groupGoal, setGroupGoal] = useState("");
+    const [groupMax, setGroupMax] = useState("");
+    const [groupDesc, setGroupDesc] = useState("");
     const onSubmitHandler = async(e) => {
         e.preventDefault();
         let body = {
@@ -39,11 +40,14 @@ const AddModal = ({openModal ,setOpenModal}) => {
             groupName,
             groupMax,
             groupGoal,
+            groupDesc,
         }
-        const server = await dispatch(createGroup(body));
-        console.log(server);
-        // await dispatch(addPlanServer(body));
-        closeModal()
+        const {server: {payload: {isSuccess}}} = await dispatch(createGroup(body));
+        if(isSuccess){
+            closeModal();
+        } else{
+            alert("Error");
+        }
     }
     if (openModal){
         window.addEventListener("keydown", (e) => e.keyCode === 27 ? closeModal(): null);
@@ -56,11 +60,12 @@ const AddModal = ({openModal ,setOpenModal}) => {
                 <form onSubmit={(e => onSubmitHandler(e))}
                 style={{display: "flex", flexDirection:"column"}}>
                     <label>그룹명</label>
-                    <input type="text" value={groupName} onChange={(e) => setGroupName(e.target.value)} />
+                    <input type="text" value={groupName} onChange={(e) => setGroupName(e.target.value)} placeholder="그룹명" />
                     <label>그룹목표</label>
-                    <input type="number" value={groupGoal} onChange={(e) => setGroupGoal(e.target.value)} />
+                    <input type="number" value={groupGoal} onChange={(e) => setGroupGoal(e.target.value)} placeholder="시간" />
                     <label>최대인원</label>
-                    <input type="number" value={groupMax} onChange={(e) => setGroupMax(e.target.value)} />
+                    <input type="number" value={groupMax} onChange={(e) => setGroupMax(e.target.value)} placeholder="명" />
+                    <textarea type="number" value={groupDesc} onChange={(e) => setGroupDesc(e.target.value)} placeholder="그룹소개" />
                     <input type="submit" value="추가" />
                 </form>
             </ModalWindow>

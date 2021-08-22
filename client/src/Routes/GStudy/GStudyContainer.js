@@ -6,20 +6,24 @@ import { findGroup } from "../../_actions/group_actions";
 const GStudyContainer = () => {
     const tokenData = document.cookie.split("=")[1];
     const {user, group} = useSelector((state) => state);
+    const [founds, setFounds] = useState([]);
+    const [activeInfo, setActiveInfo] = useState(null);
     const dispatch = useDispatch();
     const getGroupData = async() => {
         let body = {
             token: tokenData
         }
-        const server = await dispatch(findGroup(body));
-        console.log(server);
+        const {payload: {foundGroup}} =  await dispatch(findGroup(body));
+        setFounds(foundGroup);
     }
     useEffect(() => {      
         getGroupData();
     }, [])
     return (
         <GStudyPresenter 
-
+            founds={founds}
+activeInfo={activeInfo}
+            setActiveInfo={setActiveInfo}
         />
     )
 }

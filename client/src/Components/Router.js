@@ -14,9 +14,8 @@ import Rank from "../Routes/Rank";
 import Register from "../Routes/Register";
 
 const Container = styled.div`
-    width: 100vw;
+    width: 100%;
     margin-top: 100px;
-    /* height: 100vh; */
 `;
 
 const AppRouter = () => (
