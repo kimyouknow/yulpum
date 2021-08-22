@@ -11,7 +11,7 @@ const lineSchema = mongoose.Schema({
     },
     l_date:{
         type:Date,
-        required:true,
+        required:true
     },
     l_start_time:{
         type:String
