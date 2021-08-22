@@ -14,7 +14,6 @@ var group = routes.group;
 groupRoutes.post(group+routes.getMyGroup,getMyGroup);
 groupRoutes.post(group+routes.addGroup,addGroup);
 groupRoutes.post(group+routes.deleteGroup,deleteGroup);
-groupRoutes.post(group+routes.createGroup,createGroup);
 groupRoutes.get(group+routes.findGroup,findGroup);
 
 
