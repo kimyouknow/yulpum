@@ -5,7 +5,8 @@ import {
     deleteGroup,
     findGroup,
     getMyGroup,
-    createGroup
+    createGroup,
+    exitGroup
 }from  "../Controller/groupController";
 
 
@@ -17,6 +18,6 @@ groupRoutes.post(group+routes.addGroup,addGroup);
 groupRoutes.post(group+routes.deleteGroup,deleteGroup);
 groupRoutes.post(group+routes.createGroup,createGroup);
 groupRoutes.get(group+routes.findGroup,findGroup);
-
+groupRoutes.post(group+routes.exitGroup,exitGroup);
 
 export default groupRoutes;

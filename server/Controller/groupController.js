@@ -62,12 +62,8 @@ export const createGroup = async(req,res)=>{
     }= req.body;
 
     const now = new Date().toLocaleDateString();
-    let foundUser;
     await User.findByToken(token, async(err,query,user)=>{
         if(err)throw err;
-        foundUser = user;
-
-
         const n_group = await Group.create({
             g_name : groupName,
             g_goal : groupGoal,
@@ -76,14 +72,10 @@ export const createGroup = async(req,res)=>{
             g_start_date:now
         });
         
-        foundUser.groupID.push(n_group);
-        foundUser.save();
+        user.groupID.push(n_group);
+        user.save();
 
     });
-    
-
-
-    
 
 };
 
@@ -94,6 +86,8 @@ export const deleteGroup = async (req,res)=>{
         group_id // 삭제할 그룹 아이디
     } = req.body;
     let isComplete;
+
+    await User.findByToken(token, async(err,query,user)=>{
     //테스트 요망, 유저에도 자동으로 ref 삭제 되나?
     await Group.deleteOne({
         _id:group_id
@@ -116,4 +110,48 @@ export const deleteGroup = async (req,res)=>{
             isSuccess : false
         })
     }
+
+
+    })
+
+}
+
+export const exitGroup = async (req,res)=>{
+    const{
+        token,
+        group_id
+    } = req.body;
+
+    await User.findByToken(token, async(err,query,user)=>{
+
+        const group = await Group.find({_id:group_id});
+
+        //그룹 리더는 나갈 수 없음
+        if(group.g_leader === user.name){
+            console.log("그룹 리더는 그룹을 나갈 수 없다");
+            return res.status(400).json({
+                isSuccess:false
+            });
+        }
+        else{
+            const del=await Group.deleteOne({_id:group_id});
+            if(del){
+                console.log("나가기 성공");
+                return res.status(200).json({
+                    isSuccess:true
+                })
+            }else{
+                console.log("나가기 실패");
+                return res.status(400).json({
+                    isSuccess:false
+                })
+            }
+
+        }
+        
+    
+    });
+
+
+
 }
