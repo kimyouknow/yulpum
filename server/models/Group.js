@@ -5,6 +5,11 @@ const groupSchema = mongoose.Schema({
     g_name:{
         type:String
     },
+    g_description:{
+        type:String,
+        maxlength: 200,
+        default:"설명이 없습니다."
+    },
     g_goal:{
         type:Number,
         default:0
