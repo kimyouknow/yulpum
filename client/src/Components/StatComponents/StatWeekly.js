@@ -57,24 +57,24 @@ function StatWeekly({active, data}) {
         if(thisWeek > 0 && thisWeek < 32) {
         barData.push({
             date: thisWeek,
-            time: thisData ? thisData.c_total_time : 0
+            time: thisData ? thisData.c_total_time / (60*60) : 0
         })
         barXaxis.push(thisWeek)
         }
     }
-    const totalLapse = monthData.reduce((acc, cur) => cur.c_total_time + acc, 0)
-    const meanLapse = Math.floor(totalLapse / monthData.filter(ele => ele.c_total_time > 0).length);
+    const totalLapse = barData.reduce((acc, cur) => cur.c_total_time + acc, 0)
+    const meanLapse = Math.floor(totalLapse / barData.filter(ele => ele.c_total_time > 0).length);
     return (
         <Container active={active}>
             <Title>{activeM+1}월 {barXaxis[0]}일~ {activeM+1}월 {barXaxis[barXaxis.length-1]}일</Title>
             <Top>
                 <TopContainer>
                     <h4>총 공부시간</h4>
-                    <span>{displayTime(totalLapse)}</span>
+                    <span>{totalLapse ? displayTime(totalLapse): "데이터가 없네요" }</span>
                 </TopContainer>
                 <TopContainer>
                     <h4>평균 공부 시간</h4>
-                    <span>{displayTime(meanLapse)}</span>
+                    <span>{meanLapse ? displayTime(meanLapse): "데이터가 없네요" }</span>
                 </TopContainer>
             </Top>
             <Middle>

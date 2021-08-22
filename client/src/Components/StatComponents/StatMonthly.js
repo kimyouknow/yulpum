@@ -55,6 +55,7 @@ function StatMonthly({active, data}) {
     }
     const totalLapse = monthData.reduce((acc, cur) => cur.c_total_time + acc, 0)
     const meanLapse = Math.floor(totalLapse / monthData.filter(ele => ele.c_total_time > 0).length);
+    console.log(monthData);
     return (
         <Container active={active}>
             <Title>{activeM+1}월</Title>
