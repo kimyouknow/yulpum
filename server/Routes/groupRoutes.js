@@ -19,6 +19,6 @@ groupRoutes.post(group+routes.deleteGroup,deleteGroup);
 groupRoutes.post(group+routes.createGroup,createGroup);
 groupRoutes.post(group+routes.exitGroup,exitGroup);
 groupRoutes.get(group+routes.findGroup,findGroup);
-
+groupRoutes.post(group+routes.exitGroup,exitGroup);
 
 export default groupRoutes;

@@ -41,7 +41,7 @@ const FINDGROUP = "/get-group";
 const ADDGROUP = "/add-group";
 const DELETEGROUP = "/delete-group";
 const CREATEGROUP = "/create-group";
-const EXITGROUP = "/exit-group";
+const EXITGROUP = "/exit-group"; //그룹멤버가 그룹 나가기
 
 const routes = {
     //home
