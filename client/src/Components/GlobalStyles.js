@@ -8,17 +8,24 @@ const GlobalStyles = createGlobalStyle`
         text-decoration: none;
         color: inherit;
     }
+    input, button, textarea {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        resize: none;
+    }
     *{
         box-sizing:border-box;
+        font-size: 100%;
     }
     body{
         font-family:--apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        font-size: 18px;
-        background-color: #f5f6fa;
-        color: black;
-        padding: 12px;
-        width: 940px;
-        height: 740px;
+        padding-top: 50px;
+        margin: 0 auto;
+        position: relative;
+        width: 90vw;
+        height: 100vh;
+        max-width: 990px;
     }
 `;
 

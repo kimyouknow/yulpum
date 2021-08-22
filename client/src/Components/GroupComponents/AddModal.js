@@ -30,8 +30,9 @@ const AddModal = ({openModal ,setOpenModal}) => {
     const tokenData = document.cookie.split("=")[1];
     const closeModal = () => setOpenModal(false);
     const [groupName, setGroupName] = useState("");
-    const [groupGoal, setGroupGoal] = useState("")
-    const [groupMax, setGroupMax] = useState("")
+    const [groupGoal, setGroupGoal] = useState("");
+    const [groupMax, setGroupMax] = useState("");
+    const [groupDesc, setGroupDesc] = useState("");
     const onSubmitHandler = async(e) => {
         e.preventDefault();
         let body = {
@@ -39,6 +40,7 @@ const AddModal = ({openModal ,setOpenModal}) => {
             groupName,
             groupMax,
             groupGoal,
+            groupDesc,
         }
         const {server: {payload: {isSuccess}}} = await dispatch(createGroup(body));
         if(isSuccess){
@@ -63,6 +65,7 @@ const AddModal = ({openModal ,setOpenModal}) => {
                     <input type="number" value={groupGoal} onChange={(e) => setGroupGoal(e.target.value)} placeholder="시간" />
                     <label>최대인원</label>
                     <input type="number" value={groupMax} onChange={(e) => setGroupMax(e.target.value)} placeholder="명" />
+                    <textarea type="number" value={groupDesc} onChange={(e) => setGroupDesc(e.target.value)} placeholder="그룹소개" />
                     <input type="submit" value="추가" />
                 </form>
             </ModalWindow>

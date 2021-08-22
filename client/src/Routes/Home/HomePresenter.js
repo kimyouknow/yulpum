@@ -5,9 +5,9 @@ import Loader from "../../Components/Loader";
 import Subjects from "../../Components/HomeComponents/Subjects";
 
 const Container = styled.div`
-    max-width: 960px;
-    margin: 0 auto;
-    margin-top:48px;
+    width: 100%;
+    height: 50vh;
+    border: 1px solid black;
 `;
 
 const HomePresenter = ({clickLogout,clickSignout, token}) => (
