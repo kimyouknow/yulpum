@@ -40,7 +40,7 @@ const FINDGROUP = "/get-group";
 
 const ADDGROUP = "/add-group";
 const DELETEGROUP = "/delete-group";
-
+const CREATEGROUP = "/create-group";
 
 
 const routes = {
@@ -80,7 +80,8 @@ const routes = {
     //group
     addGroup:ADDGROUP,
     deleteGroup:DELETEGROUP,
-    findGroup:FINDGROUP
+    findGroup:FINDGROUP,
+    createGroup:CREATEGROUP
 }
 
 export default routes;
