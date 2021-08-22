@@ -103,7 +103,7 @@ function StatDaily({active, data}) {
         // const seconds = Number(splited[2]); ${seconds < 10 ? `0${seconds}`: seconds}초
         return `${hours}시 ${minutes < 10 ? `0${minutes}` : minutes}분`;
     }
-    
+    console.log(data);
     return (
         <Container active={active}>
             <Title>{M+1}월 {D}일 ({weeks[S]})</Title>
@@ -129,11 +129,6 @@ function StatDaily({active, data}) {
             </Top>
             <Middle>
                 <Title>과목별 공부량</Title>
-                <ul>
-                    <li>
-
-                    </li>
-                </ul>
             </Middle>
             <Bot>
                 <Title>타임라인</Title>

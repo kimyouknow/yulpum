@@ -6,6 +6,7 @@ import Auth from "../hoc/auth";
 import Navigation from "./Navigation";
 import Home from "../Routes/Home";
 import Group from "../Routes/Group";
+import GStudy from "../Routes/GStudy";
 import Login from "../Routes/Login";
 import Planner from "../Routes/Planner";
 import Stat from "../Routes/Stat";
@@ -28,7 +29,8 @@ const AppRouter = () => (
                     <Route path="/active" exact component={Auth(ActiveTimer, true)}/>
                     <Route path="/login" component={Auth(Login, false)}/>
                     <Route path="/register" component={Auth(Register, false)}/>
-                    <Route path="/group" component={Auth(Group, true)}/>
+                    <Route path="/group" exact component={Auth(Group, true)}/>
+                    <Route path="/group/study" component={Auth(GStudy, true)}/>
                     <Route path="/planner" component={Auth(Planner, true)}/>
                     <Route path="/stat" component={Auth(Stat, true)}/>
                     <Route path="/rank" component={Auth(Rank, true)}/>

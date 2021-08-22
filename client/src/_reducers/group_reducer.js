@@ -1,4 +1,4 @@
-import { ADD_GROUP, CREATE_GROUP, DELETE_GROUP, EXIT_GROUP, GET_GROUP, GET_MY_GROUP } from "../_actions/types";
+import { ADD_GROUP, CREATE_GROUP, DELETE_GROUP, EXIT_GROUP, FINDGROUP, GET_MY_GROUP } from "../_actions/types";
 
 const initState = {
 
@@ -16,7 +16,7 @@ const groupReducer = (state=initState, action) => {
             return {...state, groupData: action.payload}
         case EXIT_GROUP:
                 return {...state, groupData: action.payload}
-        case GET_GROUP:
+        case FINDGROUP:
             return {...state, groupData: action.payload}
         default:
             return state;

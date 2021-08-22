@@ -62,8 +62,8 @@ function StatWeekly({active, data}) {
         barXaxis.push(thisWeek)
         }
     }
-    const totalLapse = barData.reduce((acc, cur) => cur.c_total_time + acc, 0)
-    const meanLapse = Math.floor(totalLapse / barData.filter(ele => ele.c_total_time > 0).length);
+    const totalLapse = Math.floor(barData.reduce((acc, cur) => cur.time * 3600 + acc, 0))
+    const meanLapse = Math.floor(totalLapse / barData.filter(ele => ele.time > 0).length);
     return (
         <Container active={active}>
             <Title>{activeM+1}월 {barXaxis[0]}일~ {activeM+1}월 {barXaxis[barXaxis.length-1]}일</Title>

@@ -31,7 +31,7 @@ export const DELETE_GROUP = "deleteGroup";
 //     group_id // 삭제할 그룹 아이디
 // } = req.body;
 export const GET_MY_GROUP = "getMyGroup";
-export const GET_GROUP = "getGroup";
+export const FINDGROUP = "findGroup";
 // 그룹생성: "/create-group" 
 // (유저의)그룹추가(가입): "/add-group";
 // (유저의)그룹삭제 "/delete-group";

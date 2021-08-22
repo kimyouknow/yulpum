@@ -17,7 +17,6 @@ export const nextMonth = (thisMonth) =>{
 export function getCalendar(dataTosubmit) {
     const request = axios.post("api/statics/get-calendar", dataTosubmit)
         .then(response => response.data)
-    
     return {
         type: GET_CALENDAR,
         payload: request
@@ -27,7 +26,6 @@ export function getCalendar(dataTosubmit) {
 export function getLine(dataTosubmit) {
     const request = axios.post("api/statics/get-line", dataTosubmit)
         .then(response => response.data)
-    
     return {
         type: GET_LINE,
         payload: request
@@ -44,7 +42,6 @@ export function addPlan(data) {
 export function DeletePlan(dataTosubmit) {
     const request = axios.post("api/planner/delete-todo", dataTosubmit)
         .then(response => response.data)
-    
     return {
         type: DELETE_PLAN,
         payload: request
