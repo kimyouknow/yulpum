@@ -63,7 +63,7 @@ async function TimelineUpdate(timeVal,subject,user){ // 타임라인 생성과 �
     let line = await Line.findOne({l_user_id:user._id,l_date:now, l_subject_name: subject.subject_name});
     line.l_lapse += timeVal;
     line.l_end_time = String(hours+":"+minutes+":"+seconds);
-    await line.save();
+    line.save();
 
 
 
@@ -126,11 +126,11 @@ export const saveStudy =async(req,res)=>{
         }else{
             const subject = await Subject.findById(subject_id);
             subject.total_time += timeValue;
-            await subject.save();
-            await CalendarCheck(timeValue,user);
-            await TimelineUpdate(timeValue,found,user);//과목 모델, 쿼리
-            await userAfterUpdate(user);
-            await user.save();
+            subject.save();
+            CalendarCheck(timeValue,user);
+            TimelineUpdate(timeValue,found,user);//과목 모델, 쿼리
+            userAfterUpdate(user);
+            user.save();
             
             res.status(200).json({
                 isWell: true
@@ -184,11 +184,15 @@ export const getSubject = async(req,res)=>{
 
     await User.findByToken(token, (err,query,user)=>{
         if(err) throw err;
-      
-        query.populate("studySubject").then(data =>{
-            res.status(200).send(data.studySubject);
-        })
- 
+        
+        let today = new Date();
+        const now = today.toLocaleDateString();
+        
+        const line = await Line.findById({l_user_id:user._id,l_date:now}); //유저에 대한 당일 공부 정보들.
+        res.status(200).json({
+            line
+        });
+        
      
     });
 
