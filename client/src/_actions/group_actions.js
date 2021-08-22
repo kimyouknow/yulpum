@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FINDGROUP, GET_MY_GROUP } from './types';
+import { ADD_GROUP, FINDGROUP, GET_MY_GROUP } from './types';
 
 export function getMyGroup(dataTosubmit) {
     const request = axios.post('/api/group/get-myGroup', dataTosubmit)
@@ -24,6 +24,15 @@ export function findGroup(dataTosubmit) {
             .then(response => response.data)
     return {
         type: FINDGROUP,
+        payload: request
+    }
+}
+
+export function signInGroup(dataTosubmit) {
+    const request = axios.post('/api/group/add-group', dataTosubmit)
+            .then(response => response.data)
+    return {
+        type: ADD_GROUP,
         payload: request
     }
 }

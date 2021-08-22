@@ -40,10 +40,12 @@ const AddModal = ({openModal ,setOpenModal}) => {
             groupMax,
             groupGoal,
         }
-        const server = await dispatch(createGroup(body));
-        console.log(server);
-        // await dispatch(addPlanServer(body));
-        closeModal()
+        const {server: {payload: {isSuccess}}} = await dispatch(createGroup(body));
+        if(isSuccess){
+            closeModal();
+        } else{
+            alert("Error");
+        }
     }
     if (openModal){
         window.addEventListener("keydown", (e) => e.keyCode === 27 ? closeModal(): null);
@@ -56,11 +58,11 @@ const AddModal = ({openModal ,setOpenModal}) => {
                 <form onSubmit={(e => onSubmitHandler(e))}
                 style={{display: "flex", flexDirection:"column"}}>
                     <label>그룹명</label>
-                    <input type="text" value={groupName} onChange={(e) => setGroupName(e.target.value)} />
+                    <input type="text" value={groupName} onChange={(e) => setGroupName(e.target.value)} placeholder="그룹명" />
                     <label>그룹목표</label>
-                    <input type="number" value={groupGoal} onChange={(e) => setGroupGoal(e.target.value)} />
+                    <input type="number" value={groupGoal} onChange={(e) => setGroupGoal(e.target.value)} placeholder="시간" />
                     <label>최대인원</label>
-                    <input type="number" value={groupMax} onChange={(e) => setGroupMax(e.target.value)} />
+                    <input type="number" value={groupMax} onChange={(e) => setGroupMax(e.target.value)} placeholder="명" />
                     <input type="submit" value="추가" />
                 </form>
             </ModalWindow>
