@@ -22,7 +22,7 @@ async function CalendarCheck (timeValue,user){ //캘린더 생성과 갱신 관�
           //달력 객체 추가 혹은 업데이트 부분
    
     const now = new Date().toLocaleDateString();
-    Calendar.exists({c_user_id:user._id,c_date:now},async(err,ret)=>{
+    await Calendar.exists({c_user_id:user._id,c_date:now},async(err,ret)=>{
         if(err){
             console.log(err);
         }else{
@@ -63,7 +63,7 @@ async function TimelineUpdate(timeVal,subject,user){ // 타임라인 생성과 �
     let line = await Line.findOne({l_user_id:user._id,l_date:now, l_subject_name: subject.subject_name});
     line.l_lapse += timeVal;
     line.l_end_time = String(hours+":"+minutes+":"+seconds);
-    await line.save();
+    line.save();
 
 
 
@@ -78,19 +78,15 @@ async function TimelineCreate(study,user){
     let minutes = today.getMinutes();  // 분
     let seconds = today.getSeconds(); // 초
 
-    //라인이 이미 있는지 확인 
-    const isExist = await Line.exists({l_subject_name:study.subject_name});
-    if(!isExist){ //없을때만 새로 만듦
-        const line = await Line.create({
-            l_user_id:user._id,
-            l_subject_name: study.subject_name,
-            l_date:now,
-            l_start_time:String(hours+":"+minutes+":"+seconds)
-             
-         });
-         
-         user.myTimeline.push(line);
-    }
+    const line = await Line.create({
+       l_user_id:user._id,
+       l_subject_name: study.subject_name,
+       l_date:now,
+       l_start_time:String(hours+":"+minutes+":"+seconds)
+        
+    });
+    
+    user.myTimeline.push(line);
 
 
 }
@@ -130,7 +126,7 @@ export const saveStudy =async(req,res)=>{
         }else{
             const subject = await Subject.findById(subject_id);
             subject.total_time += timeValue;
-            await subject.save();
+            subject.save();
             CalendarCheck(timeValue,user);
             TimelineUpdate(timeValue,found,user);//과목 모델, 쿼리
             userAfterUpdate(user);
@@ -188,11 +184,14 @@ export const getSubject = async(req,res)=>{
 
     await User.findByToken(token, (err,query,user)=>{
         if(err) throw err;
-      
-        query.populate("studySubject").then(data =>{
-            res.status(200).send(data.studySubject);
-        })
- 
+        
+        let today = new Date();
+        const now = today.toLocaleDateString();
+        const line = await Line.findById({l_user_id:user._id,l_date:now}); //유저에 대한 당일 공부 정보들.
+        res.status(200).json({
+            line
+        });
+        
      
     });
 
@@ -224,9 +223,9 @@ export const subjectDetail = async(req,res)=>{
 
         }else{
             console.log(found);
-            TimelineCreate(found,user);
-            userUpdate(user);
-            user.save();
+            await TimelineCreate(found,user);
+            await userUpdate(user);
+            await user.save();
             res.send(found);
             res.status(200);
         }
