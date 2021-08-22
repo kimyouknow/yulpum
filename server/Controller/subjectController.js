@@ -182,7 +182,7 @@ export const getSubject = async(req,res)=>{
       
     }=req.body;
 
-    await User.findByToken(token, (err,query,user)=>{
+    await User.findByToken(token, async(err,query,user)=>{
         if(err) throw err;
         
         let today = new Date();
