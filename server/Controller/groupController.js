@@ -58,7 +58,8 @@ export const createGroup = async(req,res)=>{
         token,
         groupName,
         groupMax,
-        groupGoal
+        groupGoal,
+        groupDesc
     }= req.body;
 
     const now = new Date().toLocaleDateString();
@@ -69,7 +70,8 @@ export const createGroup = async(req,res)=>{
             g_goal : groupGoal,
             g_max : groupMax,
             g_leader:foundUser.name,
-            g_start_date:now
+            g_start_date:now,
+            g_description:groupDesc
         });
         
         user.groupID.push(n_group);

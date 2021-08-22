@@ -22,7 +22,7 @@ async function CalendarCheck (timeValue,user){ //캘린더 생성과 갱신 관�
           //달력 객체 추가 혹은 업데이트 부분
    
     const now = new Date().toLocaleDateString();
-    await Calendar.exists({c_user_id:user._id,c_date:now},async(err,ret)=>{
+    Calendar.exists({c_user_id:user._id,c_date:now},async(err,ret)=>{
         if(err){
             console.log(err);
         }else{
@@ -78,15 +78,19 @@ async function TimelineCreate(study,user){
     let minutes = today.getMinutes();  // 분
     let seconds = today.getSeconds(); // 초
 
-    const line = await Line.create({
-       l_user_id:user._id,
-       l_subject_name: study.subject_name,
-       l_date:now,
-       l_start_time:String(hours+":"+minutes+":"+seconds)
-        
-    });
-    
-    user.myTimeline.push(line);
+    //라인이 이미 있는지 확인 
+    const isExist = await Line.exists({l_subject_name:study.subject_name});
+    if(!isExist){ //없을때만 새로 만듦
+        const line = await Line.create({
+            l_user_id:user._id,
+            l_subject_name: study.subject_name,
+            l_date:now,
+            l_start_time:String(hours+":"+minutes+":"+seconds)
+             
+         });
+         
+         user.myTimeline.push(line);
+    }
 
 
 }
@@ -127,10 +131,10 @@ export const saveStudy =async(req,res)=>{
             const subject = await Subject.findById(subject_id);
             subject.total_time += timeValue;
             await subject.save();
-            await CalendarCheck(timeValue,user);
-            await TimelineUpdate(timeValue,found,user);//과목 모델, 쿼리
-            await userAfterUpdate(user);
-            await user.save();
+            CalendarCheck(timeValue,user);
+            TimelineUpdate(timeValue,found,user);//과목 모델, 쿼리
+            userAfterUpdate(user);
+            user.save();
             
             res.status(200).json({
                 isWell: true
@@ -220,9 +224,9 @@ export const subjectDetail = async(req,res)=>{
 
         }else{
             console.log(found);
-            await TimelineCreate(found,user);
-            await userUpdate(user);
-            await user.save();
+            TimelineCreate(found,user);
+            userUpdate(user);
+            user.save();
             res.send(found);
             res.status(200);
         }
