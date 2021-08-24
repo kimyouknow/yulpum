@@ -157,19 +157,29 @@ export const addSubject = async(req,res)=>{
     await User.findByToken(token, async(err,query,user)=>{
         if(err) throw err;
 
-        const Study = await Subject.create({
-            s_user_id:user._id,
-            subject_name:subject_title,
-            time:timeValue
-        });
-
-        user.studySubject.push(Study);
-        user.save();
-        console.log(Study);
-        res.status(200).json({
-            isSuccess:true,
-            Study
-        });
+        const duplicate = await Subject.exists({subject_name:subject_title});
+        if(duplicate){ //이미 해당 과목 이름이 있으면 추가하지 않음
+            console.log("이미 있는 과목 중복 추가 못함");
+            return res.send(400).json({
+                isDuplicate:true,
+                isSuccess:false
+            })
+        }
+        else{
+            const Study = await Subject.create({
+                s_user_id:user._id,
+                subject_name:subject_title,
+                time:timeValue
+            });
+            user.studySubject.push(Study);
+            user.save();
+            console.log(Study);
+            res.status(200).json({
+                isSuccess:true,
+                Study
+            });
+        }
+   
     });
 
 }
