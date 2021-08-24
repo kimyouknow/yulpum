@@ -27,9 +27,14 @@ const SubjectsContainer = ({tokenData}) => {
             }
             dispatch(getSubject(body))
                 .then(response => {
-                    const {payload} = response;
-                    console.log(payload);
-                    setSubjects(payload);
+                    const {payload: {line, subject}} = response;
+                    console.log(line, subject);
+                    for(let i = 0; i < subject.length; i++){
+                        const newTime = line.reduce((acc, cur) => cur.l_subject_name === subject[i].subject_name ? acc+cur.l_lapse : acc, 0);
+                        subject[i].total_time = newTime;
+                    }
+                    console.log(subject);
+                    setSubjects(subject);
                 })
         }
     }
@@ -44,7 +49,7 @@ const SubjectsContainer = ({tokenData}) => {
                 if (!isSuccess) {
                     alert("Error!");
                 } 
-                // setSubjects(subjects.filter(element => element._id !== id));
+                setSubjects(subjects.filter(element => element._id !== id));
             })
     }
 
@@ -67,7 +72,7 @@ const SubjectsContainer = ({tokenData}) => {
                 const {isSuccess, Study} = response.payload;
                 if(isSuccess) {
                     console.log(response.payload)
-                    // setSubjects(subject => [...subject, Study]);
+                    setSubjects(subject => [...subject, Study]);
                 } else {
                     alert("Error!");
                 }
@@ -85,7 +90,7 @@ const SubjectsContainer = ({tokenData}) => {
                 if (!isSuccess) {
                     alert("Error!");
                 } 
-                // setSubjects(subjects.map(item => item._id === element ? {...item, subject_name: editInput} : item));
+                setSubjects(subjects.map(item => item._id === element ? {...item, subject_name: editInput} : item));
                 })
         }
     }

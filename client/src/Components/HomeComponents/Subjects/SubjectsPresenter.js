@@ -64,7 +64,7 @@ const SubjectsPresenter = ({
             onSubmitHandler={onSubmitHandler}/>
         <Container>
             <UList>
-                {/* {!subjects ? 
+                {!subjects ? 
                 <LoaderCotainer /> :
                 subjects.map(subject => 
                 <Line key={subject._id}>
@@ -82,7 +82,7 @@ const SubjectsPresenter = ({
                         setEditInput={setEditInput}
                         handleRemove={handleRemove}
                     />
-                </Line>)} */}
+                </Line>)}
                 <Line>
                         <Button onClick={() => clickhandler("add")}>
                             <FontAwesomeIcon icon={faPlus} />
