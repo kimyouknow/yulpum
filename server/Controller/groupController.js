@@ -13,12 +13,11 @@ export const getMyGroup = async(req,res)=>{
         await query.populate("groupID").then(data =>{
             myGroup= data.groupID;
          });
+         return res.status(200).json({
+            myGroup
+        });
+    });
 
-    
-    });
-    return res.status(200).json({
-        myGroup
-    });
     
 
 }
@@ -97,62 +96,62 @@ export const createGroup = async(req,res)=>{
 };
 
 
-export const deleteGroup = async (req,res)=>{
-    const{
-        token,
-        group_id // 삭제할 그룹 아이디
-    } = req.body;
-    let isComplete;
+// export const deleteGroup = async (req,res)=>{
+//     const{
+//         token,
+//         group_id // 삭제할 그룹 아이디
+//     } = req.body;
+//     let isComplete;
 
-    await User.findByToken(token, async(err,query,user)=>{
-    //테스트 요망, 유저에도 자동으로 ref 삭제 되나?
-    await Group.deleteOne({
-        _id:group_id
-    }).then(()=>{
-        console.log("delete completed");
-        isComplete = true;
+//     await User.findByToken(token, async(err,query,user)=>{
+//     //테스트 요망, 유저에도 자동으로 ref 삭제 되나?
+//     await Group.deleteOne({
+//         _id:group_id
+//     }).then(()=>{
+//         console.log("delete completed");
+//         isComplete = true;
        
 
-    }).catch(err =>{
-        console.log("error! :"+err);
-    })
+//     }).catch(err =>{
+//         console.log("error! :"+err);
+//     })
 
-    });
-    const group = await Group.find({_id:group_id, g_leader: foundUser.name});
-    if(group){
-        //테스트 요망, 유저에도 자동으로 ref 삭제 되나?
-        await Group.deleteOne({
-            _id:group_id
-        }).then(()=>{
-            console.log("delete completed");
-            isComplete = true;
+//     });
+//     const group = await Group.find({_id:group_id, g_leader: foundUser.name});
+//     if(group){
+//         //테스트 요망, 유저에도 자동으로 ref 삭제 되나?
+//         await Group.deleteOne({
+//             _id:group_id
+//         }).then(()=>{
+//             console.log("delete completed");
+//             isComplete = true;
         
 
-        }).catch(err =>{
-            console.log("error! :"+err);
-        })
+//         }).catch(err =>{
+//             console.log("error! :"+err);
+//         })
 
-        if(isComplete){
-            return res.status(200).json({
-                isSuccess : true
-            });
-        }
-        else{
-            return res.status(400).json({
-                isSuccess : false
-            })
-        }
-    }
-    else{
-        console.log("해당 그룹장만 그룹 삭제 가능");
-        return res.status(400).json({
-            isSuccess : false
-        })
-    }
+//         if(isComplete){
+//             return res.status(200).json({
+//                 isSuccess : true
+//             });
+//         }
+//         else{
+//             return res.status(400).json({
+//                 isSuccess : false
+//             })
+//         }
+//     }
+//     else{
+//         console.log("해당 그룹장만 그룹 삭제 가능");
+//         return res.status(400).json({
+//             isSuccess : false
+//         })
+//     }
 
 
 
-}
+// }
 
 export const exitGroup = async (req,res)=>{
     const{
@@ -164,26 +163,68 @@ export const exitGroup = async (req,res)=>{
 
         const group = await Group.find({_id:group_id});
 
-        //그룹 리더는 나갈 수 없음
+        //그룹 리더는 방을 삭제함
         if(group.g_leader === user.name){
-            console.log("그룹 리더는 그룹을 나갈 수 없다");
-            return res.status(400).json({
-                isSuccess:false
-            });
-        }
+            console.log("그룹 리더는 방을 삭제함");
+            const group = await Group.find({_id:group_id, g_leader: foundUser.name});
+            if(group){
+                //테스트 요망, 유저에도 자동으로 ref 삭제 되나?
+                await Group.deleteOne({
+                    _id:group_id
+                }).then(()=>{
+                    console.log("delete completed");
+                    isComplete = true;
+                
+        
+                }).catch(err =>{
+                    console.log("error! :"+err);
+                })
+        
+                if(isComplete){
+                    return res.status(200).json({
+                        isSuccess : true
+                    });
+                }
+                else{
+                    return res.status(400).json({
+                        isSuccess : false
+                    })
+                }
+
+            }
+        } //그룹 리더가 아니면 방을 나감
         else{
-            const del=await Group.deleteOne({_id:group_id});
-            if(del){
+            let flag = 0;
+            //그룹 나가기
+            for(let i = 0 ; i <  user.groupID.length ; i++){
+                if( user.groupID[i] === group_id){
+                    user.groupID.splice(i,1);
+                    flag=1;
+                    break;
+                }
+            }
+            //그룹 유저 목록에서 삭제
+            for(let i = 0 ; i< group.g_user.length ;i++){
+                if(group.g_user[i] == user_id){
+                    user.g_user.splice(i,1);
+                    flag = 1;
+                    break;
+                }
+            }
+
+            if(flag){
                 console.log("나가기 성공");
                 return res.status(200).json({
-                    isSuccess:true
-                })
-            }else{
-                console.log("나가기 실패");
-                return res.status(400).json({
-                    isSuccess:false
-                })
+                            isSuccess:true
+                        })
             }
+            else{
+                console.log("나가기 실패");
+                    return res.status(400).json({
+                        isSuccess:false
+                    })
+            }
+    
 
         }
         
