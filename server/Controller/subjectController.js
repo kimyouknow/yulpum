@@ -184,12 +184,17 @@ export const getSubject = async(req,res)=>{
 
     await User.findByToken(token, async(err,query,user)=>{
         if(err) throw err;
-        
+           
+        const subject = await query.populate("studySubject").then(data =>{
+            return data.studySubject;
+        });
+ 
         let today = new Date();
         const now = today.toLocaleDateString();
         const line = await Line.find({l_user_id:user._id,l_date:now}); //유저에 대한 당일 공부 정보들.
         res.status(200).json({
-            line
+            line,
+            subject
         });
         
      
