@@ -28,12 +28,10 @@ const SubjectsContainer = ({tokenData}) => {
             dispatch(getSubject(body))
                 .then(response => {
                     const {payload: {line, subject}} = response;
-                    console.log(line, subject);
                     for(let i = 0; i < subject.length; i++){
                         const newTime = line.reduce((acc, cur) => cur.l_subject_name === subject[i].subject_name ? acc+cur.l_lapse : acc, 0);
                         subject[i].total_time = newTime;
                     }
-                    console.log(subject);
                     setSubjects(subject);
                 })
         }
@@ -71,7 +69,6 @@ const SubjectsContainer = ({tokenData}) => {
             .then(response => {
                 const {isSuccess, Study} = response.payload;
                 if(isSuccess) {
-                    console.log(response.payload)
                     setSubjects(subject => [...subject, Study]);
                 } else {
                     alert("Error!");
@@ -86,7 +83,6 @@ const SubjectsContainer = ({tokenData}) => {
             dispatch(editSubject(body))
                 .then(response => {
                 const {isSuccess} = response.payload;
-                console.log(response.payload)
                 if (!isSuccess) {
                     alert("Error!");
                 } 

@@ -13,7 +13,6 @@ const Container = styled.div`
 const HomePresenter = ({clickLogout,clickSignout, token}) => (
     <Container>
         <SideMenu clickLogout={clickLogout} clickSignout={clickSignout} />
-        <h1>Timer</h1>
         {!token ? <Loader /> : <Subjects tokenData={token}/>}
     </Container>
 )
