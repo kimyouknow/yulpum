@@ -44,7 +44,7 @@ const SubjectsContainer = ({tokenData}) => {
                 if (!isSuccess) {
                     alert("Error!");
                 } 
-                setSubjects(subjects.filter(element => element._id !== id));
+                // setSubjects(subjects.filter(element => element._id !== id));
             })
     }
 
@@ -66,7 +66,8 @@ const SubjectsContainer = ({tokenData}) => {
             .then(response => {
                 const {isSuccess, Study} = response.payload;
                 if(isSuccess) {
-                    setSubjects(subject => [...subject, Study]);
+                    console.log(response.payload)
+                    // setSubjects(subject => [...subject, Study]);
                 } else {
                     alert("Error!");
                 }
@@ -80,10 +81,11 @@ const SubjectsContainer = ({tokenData}) => {
             dispatch(editSubject(body))
                 .then(response => {
                 const {isSuccess} = response.payload;
+                console.log(response.payload)
                 if (!isSuccess) {
                     alert("Error!");
                 } 
-                setSubjects(subjects.map(item => item._id === element ? {...item, subject_name: editInput} : item));
+                // setSubjects(subjects.map(item => item._id === element ? {...item, subject_name: editInput} : item));
                 })
         }
     }

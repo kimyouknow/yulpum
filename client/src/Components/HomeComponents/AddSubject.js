@@ -39,9 +39,26 @@ const Form = styled.form`
     flex-direction: column;
 `;
 
-// const Input = styled.input``;
+const Input = styled.input`
+    border-bottom: 2px solid rgba(0,0,0,0.3); 
+    margin-bottom: 10px;
+    width: 100%;
+    ::placeholder{
+        color: rgba(0,0,0,0.3);
+    }
+`;
 
-const Button = styled.button``;
+const Button = styled.button`
+    width: 100%;
+    margin-bottom: 10px;
+    cursor: pointer;
+    padding: 0.5rem;
+    border: 1px solid black;
+    border-radius: 10px;
+    :hover {
+        background-color: rgba(0,0,0,0.3);
+    }
+`;
 
 const AddSubject = ({clicked, clickhandler, subjectInput ,setSubjectInput, onSubmitHandler}) => {
 
@@ -53,8 +70,7 @@ const AddSubject = ({clicked, clickhandler, subjectInput ,setSubjectInput, onSub
                     <FontAwesomeIcon icon={faArrowLeft} />
                 </BackButton>
                 <Form onSubmit={(e => onSubmitHandler(e, "add"))}>
-                    <label>subject</label>
-                    <input type="text" value={subjectInput} onChange={(e => setSubjectInput(e.target.value))} />
+                    <Input type="text" value={subjectInput} onChange={(e => setSubjectInput(e.target.value))} />
                     <Button onClick={() => clickhandler("add")}>ADD</Button>
                 </Form>
             </Section>
