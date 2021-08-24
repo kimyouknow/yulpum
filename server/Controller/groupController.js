@@ -38,19 +38,34 @@ export const addGroup = async(req,res)=>{
         token,
         group_id // 들어가고자 하는 group의 id
     } = req.body;
-    let isComplete;
     await User.findByToken(token, async(err,query,user)=>{
         if(err)throw err;
-        isComplete =await User.findById(user._id).groupID.push(group_id).save();
 
+        const duplicate = user.groupID.find(e=>{
+            if(e == group_id)return true;
+        });
+        if(duplicate){
+            console.log("그룹 중복");
+            return res.status(400).json({
+                isDuplicate:true,
+                isSuccess:false
+            });
+
+            
+        }
+        else{
+            user.groupID.push(group_id);
+            user.save();
+            console.log("그룹 추가 완료");
+            return res.status(400).json({
+                isDuplicate:false,
+                isSuccess:true
+            });
+        }
+     
     });
     
-    if(isComplete){
-        return res.status(200);
-    }
-    else{
-        return res.status(400);
-    }
+  
 }
 
 export const createGroup = async(req,res)=>{
