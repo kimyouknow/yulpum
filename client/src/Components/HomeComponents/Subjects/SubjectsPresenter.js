@@ -6,6 +6,7 @@ import AddSubject from "../AddSubject";
 import LoaderCotainer from "../../Loader";
 import EditSubject from "../EditSubject";
 import Subject from "../Subject";
+import { displayTime } from "../../../Routes/ActiveTimer/ActiveTimerPresenter";
 
 
 const Container = styled.div`
@@ -54,6 +55,7 @@ const EditButton = styled.div`
 
 const SubjectsPresenter = ({
     clicked, clickhandler,subjectInput, setSubjectInput, onSubmitHandler, editInput, setEditInput, subjects, handleRemove}) => {
+    const totalLapse = subjects ? subjects.reduce((acc, cur) => cur.total_time + acc, 0): 0;
     return (
         <>
         <AddSubject
@@ -63,8 +65,12 @@ const SubjectsPresenter = ({
             setSubjectInput={setSubjectInput} 
             onSubmitHandler={onSubmitHandler}/>
         <Container>
+            <div>
+                <span>{new Date().toISOString().slice(0,10)}</span>
+                <span>{displayTime(totalLapse)}</span>
+            </div>
             <UList>
-                {/* {!subjects ? 
+                {!subjects ? 
                 <LoaderCotainer /> :
                 subjects.map(subject => 
                 <Line key={subject._id}>
@@ -82,7 +88,7 @@ const SubjectsPresenter = ({
                         setEditInput={setEditInput}
                         handleRemove={handleRemove}
                     />
-                </Line>)} */}
+                </Line>)}
                 <Line>
                         <Button onClick={() => clickhandler("add")}>
                             <FontAwesomeIcon icon={faPlus} />

@@ -42,7 +42,7 @@ const AddModal = ({openModal ,setOpenModal}) => {
             groupGoal,
             groupDesc,
         }
-        const {server: {payload: {isSuccess}}} = await dispatch(createGroup(body));
+        const {server: {payload: {isSuccess, isDuplicate}}} = await dispatch(createGroup(body));
         if(isSuccess){
             closeModal();
         } else{
