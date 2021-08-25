@@ -61,10 +61,11 @@ async function TimelineUpdate(timeVal,subject,user){ // 타임라인 생성과 �
     let minutes = today.getMinutes();  // 분
     let seconds = today.getSeconds(); // 초
     let line = await Line.find({l_user_id:user._id,l_date:now, l_subject_name: subject.subject_name});
-    console.log("가장 마지막 timeLine을 업데이트 함:" + line[-1]);
-    // line.l_lapse += timeVal;
-    // line.l_end_time = String(hours+":"+minutes+":"+seconds);
-    // line.save();
+    console.log("가장 마지막 timeLine을 업데이트 함:" + line[line.length-1]);
+
+    line[line.length-1].l_lapse += timeVal;
+    line[line.length-1].l_end_time = String(hours+":"+minutes+":"+seconds);
+    line[line.length-1].save();
 
 
 
@@ -128,9 +129,9 @@ export const saveStudy =async(req,res)=>{
             const subject = await Subject.findById(subject_id);
             subject.total_time += timeValue;
             subject.save();
-            CalendarCheck(timeValue,user);
-            TimelineUpdate(timeValue,found,user);//과목 모델, 쿼리
-            userAfterUpdate(user);
+            await CalendarCheck(timeValue,user);
+            await TimelineUpdate(timeValue,found,user);//과목 모델, 쿼리
+            await userAfterUpdate(user);
             user.save();
             
             res.status(200).json({
@@ -239,9 +240,9 @@ export const subjectDetail = async(req,res)=>{
 
         }else{
             console.log(found);
-            TimelineCreate(found,user);
-            userUpdate(user);
-            user.save();
+            await TimelineCreate(found,user);
+            await userUpdate(user);
+            await user.save();
             res.send(found);
             res.status(200);
         }
@@ -271,7 +272,7 @@ export const subjectRevise = async(req,res)=>{
         if(found){
             const subject = await Subject.findById(subject_id);
             subject.subject_name = editSubject_title;
-            subject.save();
+            await subject.save();
             res.status(200).json({
                 isSuccess:true
             });

@@ -83,7 +83,7 @@ export const createGroup = async(req,res)=>{
             g_name : groupName,
             g_goal : groupGoal,
             g_max : groupMax,
-            g_leader:foundUser.name,
+            g_leader:user.name,
             g_start_date:now,
             g_description:groupDesc
         });

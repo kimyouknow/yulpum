@@ -13,34 +13,40 @@ export const getLine = async(req,res)=>{
 
     await User.findByToken(token, async(err,query,user)=>{
         if(err) throw err;
-        let timeLine;
+       
         await query.populate("myTimeline").then(data =>{
-            timeLine=data.myTimeline
+
+            let timeLine;
+            let found=[];
+            timeLine=data.myTimeline;
+            console.log("myTime line is : "+timeLine);
+            let time = new Date(year,month,date).getTime();
+            timeLine.find(e=>{
+                  if(e.l_date.getTime() == time){
+                      found.push(e)
+                    }
+              });//await 필요없음 
+
+
+
+            if(!found){
+                console.log("no timeLine");  
+                return res.status(200).json({
+                    IsTimeLine:false
+                });
+    
+            }else{
+                console.log(found);
+                return res.status(200).json({
+                    IsTimeLine:true,
+                    found
+                });
+            }
             
         })
 
-        let time = new Date(year,month,date).getTime();
-        let found=[];
-        timeLine.find(e=>{
-              if(e.l_date.getTime() == time){
-                  found.push(e)
-                }
-          });//await 필요없음 
-  
 
-        if(!found){
-            console.log("no timeLine");  
-            return res.status(200).json({
-                IsTimeLine:false
-            });
-
-        }else{
-            console.log(found);
-            return res.status(200).json({
-                IsTimeLine:true,
-                found
-            });
-        }
+ 
       
     });
 
