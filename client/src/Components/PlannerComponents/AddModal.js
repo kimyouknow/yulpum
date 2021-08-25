@@ -1,30 +1,10 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import { useDispatch } from 'react-redux';
 import { addPlanServer } from "../../_actions/calendar_actions";
-
-
-const Container = styled.div`
-    display: ${props => props.show ? "flex" : "none"};
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    left: 0;
-    top: 0;
-    font-size: 25px;
-    z-index: 100;
-`;
-
-const ModalWindow = styled.div`
-    width: 500px;
-    height: 500px;
-    border-radius: 10px;
-    background-color: #fff;
-`;
+import Modal, { ModalHeader } from "../../Styled/Modal";
+import Input from "../../Styled/Input";
+import {BackBtn, Button} from "../../Styled/Button";
+import Form from "../../Styled/Form";
 
 const AddModal = ({openModal ,setOpenModal}) => {
     const dispatch = useDispatch();
@@ -61,17 +41,19 @@ const AddModal = ({openModal ,setOpenModal}) => {
         return `${year}-${month < 10 ? `0${month}` : month}-${date < 10 ? `0${date}`: date}`;
     }
     return (
-        <Container show={openModal}>
-            <ModalWindow>
-                <button onClick={() =>closeModal()}>x</button>
-                <input type="date" value={diplayDate(activeDate)} onChange={(e) => onChangeHandler(e.target.value)} />
-                <form onSubmit={(e => onSubmitHandler(e))}>
-                    <label>Add to do</label>
-                    <input type="text" value={planInput} onChange={(e => setPlanInput(e.target.value))} />
-                    <button type="submit">submit</button>
-                </form>
-            </ModalWindow>
-        </Container>
+        <Modal show={openModal}>
+            <ModalHeader>
+                <BackBtn className={"bbtn"} onClick={() =>closeModal()}>x</BackBtn>
+                <span>계획 추가</span>
+            </ModalHeader>
+            <Form onSubmit={(e => onSubmitHandler(e))}>
+                <span className={"input__name"}>날짜</span>
+                <Input type="date" value={diplayDate(activeDate)} onChange={(e) => onChangeHandler(e.target.value)} />
+                <span className={"input__name"}>추가할 계획 이름</span>
+                <Input type="text" value={planInput} placeholder="To Do" onChange={(e => setPlanInput(e.target.value))} />
+                <Button className={"input__submit"} type="submit">submit</Button>
+            </Form>
+        </Modal>
     )
 }
 

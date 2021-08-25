@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import User from "./User";
 
 const groupSchema = mongoose.Schema({
 
@@ -10,6 +11,10 @@ const groupSchema = mongoose.Schema({
         maxlength: 200,
         default:"설명이 없습니다."
     },
+    g_user:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User"
+    }],
     g_goal:{
         type:Number,
         default:0

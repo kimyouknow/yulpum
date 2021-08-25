@@ -1,29 +1,10 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import { useDispatch } from 'react-redux';
 import { createGroup } from "../../_actions/group_actions";
-
-const Container = styled.div`
-    display: ${props => props.show ? "flex" : "none"};
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    left: 0;
-    top: 0;
-    font-size: 25px;
-    z-index: 100;
-`;
-
-const ModalWindow = styled.div`
-    width: 500px;
-    height: 500px;
-    border-radius: 10px;
-    background-color: #fff;
-`;
+import Modal, { ModalHeader } from "../../Styled/Modal";
+import Input from "../../Styled/Input";
+import {BackBtn, Button} from "../../Styled/Button";
+import Form from "../../Styled/Form";
 
 const AddModal = ({openModal ,setOpenModal}) => {
     const dispatch = useDispatch();
@@ -42,7 +23,7 @@ const AddModal = ({openModal ,setOpenModal}) => {
             groupGoal,
             groupDesc,
         }
-        const {server: {payload: {isSuccess}}} = await dispatch(createGroup(body));
+        const {server: {payload: {isSuccess, isDuplicate}}} = await dispatch(createGroup(body));
         if(isSuccess){
             closeModal();
         } else{
@@ -53,23 +34,23 @@ const AddModal = ({openModal ,setOpenModal}) => {
         window.addEventListener("keydown", (e) => e.keyCode === 27 ? closeModal(): null);
     }
     return (
-        <Container show={openModal}>
-            <ModalWindow>
-                <button onClick={() =>closeModal()}>x</button>
-                <h3>그룹 만들기</h3>
-                <form onSubmit={(e => onSubmitHandler(e))}
-                style={{display: "flex", flexDirection:"column"}}>
-                    <label>그룹명</label>
-                    <input type="text" value={groupName} onChange={(e) => setGroupName(e.target.value)} placeholder="그룹명" />
-                    <label>그룹목표</label>
-                    <input type="number" value={groupGoal} onChange={(e) => setGroupGoal(e.target.value)} placeholder="시간" />
-                    <label>최대인원</label>
-                    <input type="number" value={groupMax} onChange={(e) => setGroupMax(e.target.value)} placeholder="명" />
-                    <textarea type="number" value={groupDesc} onChange={(e) => setGroupDesc(e.target.value)} placeholder="그룹소개" />
-                    <input type="submit" value="추가" />
-                </form>
-            </ModalWindow>
-        </Container>
+        <Modal show={openModal}>
+            <ModalHeader>
+                <BackBtn onClick={() =>closeModal()}>x</BackBtn>
+                <span>그룹 추가</span>
+            </ModalHeader>
+            <Form onSubmit={(e => onSubmitHandler(e))}>
+                <span className={"input__name"}>그룹이름</span>
+                <Input type="text" value={groupName} onChange={(e) => setGroupName(e.target.value)} placeholder="e.g. 대학생모임, 수능준비.." />
+                <span className={"input__name"}>목표시간</span>
+                <Input type="number" value={groupGoal} onChange={(e) => setGroupGoal(e.target.value)} placeholder="e.g. 6시간" />
+                <span className={"input__name"}>최대 인원수</span>
+                <Input type="number" value={groupMax} onChange={(e) => setGroupMax(e.target.value)} placeholder="e.g. 5명"  />
+                <span className={"input__name"}>그룹 설명</span>
+                <Input type="text" value={groupDesc} onChange={(e) => setGroupDesc(e.target.value)}/>
+                <Button type="submit">추가</Button>
+            </Form>
+        </Modal>
     )
 }
 

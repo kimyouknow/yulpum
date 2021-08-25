@@ -5,13 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faBars, faUserFriends } from '@fortawesome/free-solid-svg-icons'
 import AddModal from "../../Components/GroupComponents/AddModal";
 import LoaderCotainer from "../../Components/Loader";
+import Container from "../../Styled/Container";
 
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items:center;
-    margin-bottom: 50px;
-`;
 const Header = styled.div`
     margin-bottom: 50px;
 `;
@@ -73,10 +68,7 @@ const GroupPresenter = ({handleModal ,openModal ,setOpenModal, found}) => {
         <Container>
             <Header>Group</Header>
             <Body>
-                <Container>
-                    <h3>내가 가입한 그룹</h3>
-                    {/* 내 그룹표시 */}
-                </Container>
+                <h3>내가 가입한 그룹</h3>
             </Body>
             <Nav>
                 <Link to="/group/study">

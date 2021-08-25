@@ -8,7 +8,7 @@ const ActiveTimerContainer = () => {
     const token = document.cookie.split("=")[1];
     const dispatch = useDispatch();
     const history = useHistory();
-    const {state: {id: subject_id}} = useLocation();
+    const {state: {id: subject_id, text, time}} = useLocation();
     const [timeValue, setTimeValue] = useState(0);
     const [activedSubject, setActivedSubject] = useState(null);
     const [intialTime, setIntialTime] = useState(null);
@@ -36,8 +36,8 @@ const ActiveTimerContainer = () => {
         dispatch(getSubjectTime(body))
             .then(response => {
                 const {subject_name, total_time} = response.payload;
-                setActivedSubject(subject_name);
-                setIntialTime(total_time);
+                setActivedSubject(text);
+                setIntialTime(time);
             })
     }
     useEffect(() => {
