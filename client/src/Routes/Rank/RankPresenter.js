@@ -1,14 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import LoaderCotainer from "../../Components/Loader";
+import Container from "../../Styled/Container";
 import { displayTime } from "../ActiveTimer/ActiveTimerPresenter";
-
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items:center;
-    width: 100%;
-`;
 
 const Title = styled.div`
     margin-bottom: 24px;
@@ -88,6 +82,7 @@ const Info = styled.div`
 
 const RankPresenter = ({timeValue,rankData ,top3,nowStudy, calendar}) => {
     const {activeD, activeM, activeY} = calendar;
+    console.log(rankData);
     return (
     <Container>
         <Title>

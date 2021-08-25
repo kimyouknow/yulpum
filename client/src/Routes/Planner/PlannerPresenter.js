@@ -4,83 +4,11 @@ import styled from 'styled-components';
 import LoaderCotainer from "../../Components/Loader";
 import AddModal from "../../Components/PlannerComponents/AddModal";
 import EditModal from "../../Components/PlannerComponents/EditModal";
-import { compareDate } from "../../hoc/renderCalendar";
 import { nextMonth, prevMonth, setToday } from "../../_actions/calendar_actions";
-
-
-const Container = styled.div`
-    max-width: 960px;
-    margin: 0 auto;
-    margin-top:48px;
-`;
-
-const Header = styled.div`
-    display: flex;
-    justify-content:center;
-    margin-bottom: 20px;
-`;
-
-const WeekContainer =styled.div`
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-`;
-
-const WeekComponent = styled.div`
-    display: flex;
-    justify-content:center;
-    align-items: center;
-    height: 70px;
-    :nth-child(7n+1){
-        color: #d13e3e;
-    }
-    :nth-child(7n){
-        color: #396ee2;
-    }
-`;
-
-const DisplayMonth = styled.div`
-    &:hover{
-        cursor: pointer;
-    }
-`;
-
-const Button = styled.div`
-    &:hover{
-        cursor: pointer;
-    }
-`;
-
-const DateContainer = styled.div`
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    margin-bottom: 20px;
-`;
-
-const DateComponent = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 120px;
-    min-width: 62px;
-    padding: 8px;
-    position: relative;
-    border: none;
-    :nth-child(7n+1){
-        color: #d13e3e;
-    };
-    :nth-child(7n){
-        color: #396ee2;
-    };
-    cursor: pointer;
-`;
-
-const DateEle = styled.div`
-    padding: 6px;
-    margin-bottom: 4px;
-    color: ${props => (props.today ? "#fff" : "#000")};
-    background-color: ${props => (props.today ? "rgba(255, 107, 129,1.0)" : "none")};
-    border-radius: ${props => (props.today ? "50%" : "none")};
-`;
+import { compareDate } from "../../hoc/renderCalendar";
+import { DateComponent, DateContainer, DateEle, WeekComponent, WeekContainer } from "../../Styled/Calendar";
+import Container from "../../Styled/Container";
+import Header from "../../Styled/Header";
 
 const ToDoContainer = styled.div`
     display: flex;
@@ -127,11 +55,11 @@ const PlannerPresenter = ({dates, activeDate, monthData, handleModal, openModal,
         {dates.length === 0 ? <LoaderCotainer /> :
             <Container>
                 <Header>
-            <Button onClick={() => dispatch(prevMonth(activeM))}>◀</Button>
-                <DisplayMonth onClick={()=> dispatch(setToday(new Date()))}>
-                    {activeY}년 {activeM+1}월
-                </DisplayMonth>
-            <Button onClick={() => dispatch(nextMonth(activeM))}>▶</Button>
+                    <span onClick={() => dispatch(prevMonth(activeM))}>◀</span>
+                    <span onClick={()=> dispatch(setToday(new Date()))}>
+                        {activeY}년 {activeM+1}월
+                    </span>
+                    <span onClick={() => dispatch(nextMonth(activeM))}>▶</span>
                 </Header>
                 <WeekContainer>
                     {weeks.map(week => <WeekComponent key={week}>{week}</WeekComponent>)}
@@ -140,7 +68,7 @@ const PlannerPresenter = ({dates, activeDate, monthData, handleModal, openModal,
                     {!dates ? <h1>Loading</h1> : 
                     dates.map(date =>
                     <DateComponent key={date.date} 
-                        timecolor={date.total_time}
+                        timecolor={1}
                         isCur={date.isCur}>
                             <DateEle today={date.date.getDate() === new Date().getDate() && date.date.getMonth() === new Date().getMonth()}>{date.date.getDate()}</DateEle>
                             {filtered(date) &&
