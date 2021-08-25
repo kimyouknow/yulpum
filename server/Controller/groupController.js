@@ -157,6 +157,59 @@ export const createGroup = async(req,res)=>{
 
 // }
 
+export const getGroupDetail = async(req, res)=>{
+    const{
+        group_id,
+        year,
+        month
+    }=req.body;
+    let userArr=[];
+    //현재 공부 중인 멤버
+    const group = await Group.findOne({_id:group_id});
+    const users = await group.populate("g_user").then(data=>{
+        return data.g_user;
+    });
+
+
+    console.log("그룹의 멤버들    "+ users);
+    
+    users.forEach(async function(e){
+        //출석부, 캘린더 객체를 통해 해당월 일별로 해당 유저 공부시간 계산
+        const calendar = await Calendar.find({c_user_id:e._id,c_date:{
+            $gt : new Date(year,month,1),
+            $lt : new Date(year,month,31)
+            }
+        });
+        
+    
+        if(e.nowStudy == 1){
+            userArr.push({
+             nowStudy : 1,
+
+            })
+    
+        }
+        else{
+            userArr.push({
+             nowStudy : 0,
+             
+            })
+    
+        }
+
+
+
+
+    });
+    
+    
+
+
+    
+
+
+}
+
 export const exitGroup = async (req,res)=>{
     const{
         token,
