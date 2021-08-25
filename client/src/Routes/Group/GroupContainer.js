@@ -8,19 +8,21 @@ const GroupContainer = () => {
     const dispatch = useDispatch();
     const {user, group} = useSelector((state) => state);
     const [openModal, setOpenModal] = useState(false);
+    const [groups, setGroups] = useState([]);
     const handleModal = () => !openModal ? setOpenModal(true) : setOpenModal(false);
     const getGroupData = async() => {
         let body = {
             token: tokenData
         }
-        const server = await dispatch(getMyGroup(body));
-        console.log(server);
+        const {payload: {myGroup}} = await dispatch(getMyGroup(body));
+        setGroups(myGroup);
     }
     useEffect(() => {
         getGroupData();
     }, [])
     return(
         <GroupPresenter 
+            groups={groups}
             handleModal={handleModal}
             openModal={openModal}
             setOpenModal={setOpenModal}

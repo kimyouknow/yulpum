@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faBars, faUserFriends } from '@fortawesome/free-solid-svg-icons'
 import AddModal from "../../Components/GroupComponents/AddModal";
-import LoaderCotainer from "../../Components/Loader";
+import Loader from "../../Components/Loader";
 import Container from "../../Styled/Container";
 
 const Header = styled.div`
@@ -63,17 +63,29 @@ const Body = styled.div`
     align-items:center;
 `;
 
-const GroupPresenter = ({handleModal ,openModal ,setOpenModal, found}) => {
+const SLink = styled(Link)`
+    :hover {
+        cursor: pointer;
+    }
+`;
+
+const GroupPresenter = ({groups, handleModal ,openModal ,setOpenModal, found}) => {
     return(
         <Container>
             <Header>Group</Header>
             <Body>
                 <h3>내가 가입한 그룹</h3>
+                {!groups ? <Loader /> : groups.map(ele=> 
+                    <SLink key={ele._id} 
+                    to={{pathname: "/group/detail", state: {id: ele._id, title: ele.g_name, goal: ele.g_goal }}}>
+                        {ele.g_name}
+                    </SLink>
+                )}
             </Body>
             <Nav>
-                <Link to="/group/study">
+                <SLink to="/group/study">
                     <FontAwesomeIcon icon={faUserFriends} className={"subBtn GStudyBtn"} />
-                </Link>
+                </SLink>
                 <FontAwesomeIcon icon={faPlus} className={"subBtn addBtn"} onClick={()=> handleModal()} />
                 <FontAwesomeIcon icon={faBars} className={"menuBtn"} />
                 {/* <MdAdd  onClick={() => dispatch(setModal("add"))} /> */}

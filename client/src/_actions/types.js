@@ -25,15 +25,6 @@ export const CHANGE_DATE = "changeDate";
 export const CREATE_GROUP = "createGroup";
 export const ADD_GROUP = "addGroup"; 
 export const EXIT_GROUP = "exitGroup";
-export const DELETE_GROUP = "deleteGroup";
-// const{
-//     token,
-//     group_id // 삭제할 그룹 아이디
-// } = req.body;
 export const GET_MY_GROUP = "getMyGroup";
 export const FINDGROUP = "findGroup";
-// 그룹생성: "/create-group" 
-// (유저의)그룹추가(가입): "/add-group";
-// (유저의)그룹삭제 "/delete-group";
-// (유저의)그룹 보기 = "/get-myGroup";
-// 그룹 검색 = "/get-group";
+export const GET_GROUP_DETAIL = "groupDetail";

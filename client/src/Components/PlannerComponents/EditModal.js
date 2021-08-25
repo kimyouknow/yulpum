@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import {useDispatch, useSelector} from "react-redux";
 import styled from "styled-components";
+import { BackBtn, Button } from "../../Styled/Button";
+import Modal, { ModalBody, ModalHeader } from "../../Styled/Modal";
 import { DeletePlan } from "../../_actions/calendar_actions";
 
 
@@ -55,16 +57,25 @@ const EditModal = ({activeInfo ,setActiveInfo}) => {
         window.addEventListener("keydown", (e) => e.keyCode === 27 ? closeModal(): null);
     }
     return (
-        <Container show={activeInfo}>
-        <ModalWindow>
-            <button onClick={() => closeModal()}>x</button>
-            <span>{year}</span>
-            <span>{month+1}</span>
-            <span>{date}</span>
-            <h3>{ele}</h3>
-            <ToDoElement onClick={() => handleDel()}>❌</ToDoElement>
-        </ModalWindow>
-        </Container>
+        <Modal show={activeInfo}>
+            <ModalHeader>
+                <BackBtn onClick={() => closeModal()}>x</BackBtn>
+                <span>플래너 수정</span>
+            </ModalHeader>
+            <ModalBody>
+                <ModalBody>
+                <span className={"input__name"}>날짜</span>
+                <div style={{marginBottom: "2rem"}}>
+                    <span>{year} 년 </span> 
+                    <span>{month+1} 월 </span> 
+                    <span>{date} 일 </span>
+                </div>
+                <span className={"input__name"}>할 일</span>
+                <span>{ele}</span>
+                </ModalBody>
+                <Button onClick={() => handleDel()}>삭제</Button>
+            </ModalBody>
+        </Modal>
     )
 }
 

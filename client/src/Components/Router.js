@@ -12,6 +12,7 @@ import Planner from "../Routes/Planner";
 import Stat from "../Routes/Stat";
 import Rank from "../Routes/Rank";
 import Register from "../Routes/Register";
+import GDetail from "../Routes/GDetail/GDetailContainer";
 
 const Container = styled.div`
     width: 100%;
@@ -30,6 +31,7 @@ const AppRouter = () => (
                     <Route path="/register" component={Auth(Register, false)}/>
                     <Route path="/group" exact component={Auth(Group, true)}/>
                     <Route path="/group/study" component={Auth(GStudy, true)}/>
+                    <Route path="/group/detail" component={Auth(GDetail, true)}/>
                     <Route path="/planner" component={Auth(Planner, true)}/>
                     <Route path="/stat" component={Auth(Stat, true)}/>
                     <Route path="/rank" component={Auth(Rank, true)}/>

@@ -19,9 +19,6 @@ const StyledForm = styled.form`
     margin-bottom: 0.5rem;
     color: orange;
   }
-  > .input__submit{
-    
-  }
 `;
 
 export default function Form({ children, ...rest }) {

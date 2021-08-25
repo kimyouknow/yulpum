@@ -43,6 +43,7 @@ const StatPresenter =  ({dates, activeDate, monthData}) => {
     const weeks = ["SUN", "MON","TUE","WED","THU","FRI","SAT"];    
     const {activeM,activeY} = activeDate;
     const filtered = (date) => monthData.find(obj => compareDate(obj.c_date) === compareDate(date.date));
+    console.log(dates)
     return (
         <>
         {dates.length === 0 ? <LoaderCotainer />:

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { addPlanServer } from "../../_actions/calendar_actions";
-import Modal, { ModalHeader } from "../../Styled/Modal";
+import Modal, { ModalBody, ModalHeader } from "../../Styled/Modal";
 import Input from "../../Styled/Input";
 import {BackBtn, Button} from "../../Styled/Button";
 import Form from "../../Styled/Form";
@@ -46,13 +46,15 @@ const AddModal = ({openModal ,setOpenModal}) => {
                 <BackBtn className={"bbtn"} onClick={() =>closeModal()}>x</BackBtn>
                 <span>계획 추가</span>
             </ModalHeader>
+            <ModalBody>
             <Form onSubmit={(e => onSubmitHandler(e))}>
                 <span className={"input__name"}>날짜</span>
                 <Input type="date" value={diplayDate(activeDate)} onChange={(e) => onChangeHandler(e.target.value)} />
                 <span className={"input__name"}>추가할 계획 이름</span>
                 <Input type="text" value={planInput} placeholder="To Do" onChange={(e => setPlanInput(e.target.value))} />
-                <Button className={"input__submit"} type="submit">submit</Button>
             </Form>
+            <Button className={"input__submit"} type="submit">submit</Button>
+            </ModalBody>
         </Modal>
     )
 }

@@ -1,68 +1,32 @@
 import React from "react";
-import styled from 'styled-components';
-
-const Container = styled.div`
-    display: ${props => props.active ? "flex": "none"};
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: transparent;
-    opacity: 0.5;
-    z-index: 50;
-`;
-
-const Section = styled.div`
-    width: 80%;
-    height: 40%;
-    margin: 0 auto;
-    border-radius: 4px;
-    background-color: white;
-    animation: modal-show .3s;
-    overflow: hidden;
-    padding: 12px;
-    -webkit-box-shadow: 5px 5px 15px -3px rgba(0,0,0,0.65); 
-    box-shadow: 5px 5px 15px -3px rgba(0,0,0,0.65);
-    border: 1px solid;
-`;
-
-const BackButton = styled.div`
-    font-size: 24px;
-    &:hover {
-        cursor: pointer;
-    }
-`;
-
-const Form = styled.form`
-    display: flex;
-    flex-direction: column;
-`;
-
-const Button = styled.button``;
+import { BackBtn, Button } from "../../Styled/Button";
+import Form from "../../Styled/Form";
+import Input from "../../Styled/Input";
+import Modal, { ModalBody, ModalHeader } from "../../Styled/Modal";
 
 const EditSubject = ({id, clicked, clickhandler, onSubmitHandler, editInput ,setEditInput, handleRemove}) => {
-
+    const closeModal = () =>clickhandler("edit");
+    if (clicked.editButton){
+        window.addEventListener("keydown", (e) => e.keyCode === 27 ? closeModal(): null);
+    }
     return (
-        <>
-        <Container active={clicked.editButton}>
-            <Section>
-                <BackButton active={clicked.editButton} onClick={() => clickhandler("edit")}>
-                    X
-                </BackButton>
+        <Modal show={clicked.editButton}>
+            <ModalHeader>
+                <BackBtn onClick={() => closeModal()}>X</BackBtn>
+                <span>플래너 수정</span>
+            </ModalHeader>
+            <ModalBody>
                 <Form onSubmit={(e => onSubmitHandler(e, id))}>
-                <input type="text" value={editInput} onChange={(e => setEditInput(e.target.value))} />
-                    <Button onClick={() => clickhandler("edit")}>EDIT</Button>
+                    <span className={"input__name"}>목표/과목 이름</span>
+                    <Input type="text" value={editInput} onChange={(e => setEditInput(e.target.value))} />
                 </Form>
+                <Button onClick={() => closeModal()}>EDIT</Button>
                 <Button onClick={() => {
                     handleRemove(id);
-                    clickhandler("edit");
+                    closeModal();
                 }}>DELETE</Button>
-            </Section>
-        </Container>
-        </>
+            </ModalBody>
+        </Modal>
     );
 }
 

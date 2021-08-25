@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, {css} from 'styled-components';
+import styled from 'styled-components';
 
 const StyledModal = styled.div`
   /* 공통 스타일 */
@@ -29,6 +29,8 @@ const StlyedModalWindow = styled.div`
     font-weight: 600;
     border-radius: 10px;
     background-color: #fff;
+    -webkit-box-shadow: 5px 5px 15px -3px rgba(0,0,0,0.65); 
+    box-shadow: 5px 5px 15px -3px rgba(0,0,0,0.65);
 `;
 
 const StyledMHeader = styled.header`
@@ -43,6 +45,28 @@ const StyledMHeader = styled.header`
   color: #ffffff;
   position: relative;
 `;
+
+const StyledMBody = styled.div`
+  width: 100%;
+  height: 90%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+
+  >span{
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  > .input__name{
+    align-self: flex-start;
+    color: orange;
+  }
+`;
+
+
+export function ModalBody({children, ...rest}){
+  return <StyledMBody {...rest}>{children}</StyledMBody>
+};
 
 export function ModalHeader({children, ...rest}){
   return <StyledMHeader {...rest}>{children}</StyledMHeader>
