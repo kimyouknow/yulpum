@@ -89,8 +89,12 @@ export const createGroup = async(req,res)=>{
         });
         
         user.groupID.push(n_group);
-        user.save();
+        await user.save();
 
+        return res.status(400).json({
+            isDuplicate:false,
+            isSuccess:true
+        });
     });
 
 };

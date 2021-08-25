@@ -52,12 +52,15 @@ export const getRank = async(req,res)=>{
         for(let i = 0 ; i < calRet.length; i++){
             let userFound= await User.findOne({_id:calRet[i].c_user_id }).exec();
             console.log(userFound);
-            resultArr.push({
-                id : calRet[i].c_user_id,
-                name : userFound.name,
-                totalTime : calRet[i].c_total_time,
-                nowStudy:false
-            })
+            if(userFound){
+                resultArr.push({
+                    id : calRet[i].c_user_id,
+                    name : userFound.name,
+                    totalTime : calRet[i].c_total_time,
+                    nowStudy:false
+                })
+            }
+        
         }
 
 
