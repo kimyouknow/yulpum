@@ -166,7 +166,7 @@ export const exitGroup = async (req,res)=>{
         //그룹 리더는 방을 삭제함
         if(group.g_leader === user.name){
             console.log("그룹 리더는 방을 삭제함");
-            const group = await Group.find({_id:group_id, g_leader: foundUser.name});
+            const group = await Group.find({_id:group_id, g_leader: user.name});
             if(group){
                 //테스트 요망, 유저에도 자동으로 ref 삭제 되나?
                 await Group.deleteOne({
