@@ -1,6 +1,6 @@
 import Group from "../models/Group";
 import User from "../models/User";
-
+import Calendar from "../models/Calendar";
 
 export const getMyGroup = async(req,res)=>{
 
@@ -40,10 +40,14 @@ export const addGroup = async(req,res)=>{
     console.log("group_id : "+ group_id)
     await User.findByToken(token, async(err,query,user)=>{
         if(err)throw err;
-       
-        const duplicate = user.groupID.find(e=>{
-            if(e === group_id)return true;
+        console.log(group_id);
+    
+       const duplicate = user.groupID.find(e=>{
+            console.log(e);
+            if(e == group_id)return true;
+           
         });
+       
         if(duplicate){
             console.log("그룹 중복");
             return res.status(400).json({
@@ -54,7 +58,12 @@ export const addGroup = async(req,res)=>{
             
         }
         else{
-            user.groupID.push(group_id);
+            const group = await Group.findOne({_id:group_id});
+            console.log("그룹이 찾아졌나?"+group);
+            group.g_user.push(user);
+            group.save();
+
+            user.groupID.push(group);
             user.save();
             console.log("그룹 추가 완료");
             return res.status(400).json({
@@ -77,7 +86,7 @@ export const createGroup = async(req,res)=>{
         groupDesc
     }= req.body;
 
-    const now = new Date().toLocaleDateString();
+    const now = new Date();
     await User.findByToken(token, async(err,query,user)=>{
         if(err)throw err;
         const n_group = await Group.create({
@@ -158,21 +167,15 @@ export const createGroup = async(req,res)=>{
 
 // }
 
-function calSum(calendar){
-    return calendar.c_total_time;
-}
-
 export const getGroupDetail = async(req, res)=>{
     const{
         group_id,
         year,
         month
     }=req.body;
-    let retArr= new Array(31); //일별로 유저 들어감
-    for( let i = 0; i< retArr.length ; i++){
-        retArr[i] = new Array();
-    }
-    
+    console.log(year);
+    console.log(month);
+
     
     //현재 공부 중인 멤버
     
@@ -184,44 +187,50 @@ export const getGroupDetail = async(req, res)=>{
 
 
     console.log("그룹의 멤버들    "+ users);
+    let retArr = [];
 
-    users.forEach(async function(user){
-        for(let i = 1; i <= 31 ; i++){
-            //출석부, 캘린더 객체를 통해 해당월 일별로 해당 유저 공부시간 계산
-            const calendar = await Calendar.find({c_user_id:user._id,c_date: new Date(year,month,i)});
-            if(calendar){
-                let sum = 0;
-                calendar.forEach(async function(cal){
-                    
-                    sum += await calSum(cal);
-                  
-                })
-                console.log(user.name+"의 "+ i+ "일  총 공부시간 ==="+sum);
-                retArr[i].push({
-                    userName:user.name,
-                    nowStudy:user.nowStudy,
+
+    for(let k = 0 ; k < users.length ; k++){
+    
+         for(let i = 0; i < 31 ; i++){
+                //출석부, 캘린더 객체를 통해 해당월 일별로 해당 유저 공부시간 계산
+            const isExist = await Calendar.exists({c_user_id:users[k]._id, c_date: new Date(year,month,i)});
+            if(isExist){
+            const calendar = await Calendar.find({c_user_id:users[k]._id, c_date: new Date(year,month,i)});
+            let sum = 0;
+            console.log("이 유저의 캘린더 " + calendar + "날짜는 ?? " + new Date(year,month,i));
+            calendar.forEach(async function(cal){   
+            sum += cal.c_total_time;  
+            })
+                console.log(users[k].name+"의 "+ i+ "일  총 공부시간 ==="+sum);
+                retArr.push([i,{
+                    userName:users[k].name,
+                    nowStudy:users[k].nowStudy,
                     totalTime:sum
-                })
+                }])
+                
+    
+            
             }
-        
         }
 
-
-    });
-
     
     
+      
+    }
+   
 
+    console.log("retArr "+ retArr);
     return res.status(200).json({
         isSuccess:true,
         retArr
-    })
-
-
-    
+    });
 
 
 }
+
+    
+
 
 export const exitGroup = async (req,res)=>{
     const{

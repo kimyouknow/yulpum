@@ -37,8 +37,7 @@ const groupSchema = mongoose.Schema({
         default:0
     },
     g_start_date:{
-        type:Date,
-        default:'0000-00-00'
+        type:Date
     }
     
     
