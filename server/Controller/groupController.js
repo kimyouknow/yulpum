@@ -37,11 +37,12 @@ export const addGroup = async(req,res)=>{
         token,
         group_id // 들어가고자 하는 group의 id
     } = req.body;
+    console.log("group_id : "+ group_id)
     await User.findByToken(token, async(err,query,user)=>{
         if(err)throw err;
-
+       
         const duplicate = user.groupID.find(e=>{
-            if(e == group_id)return true;
+            if(e === group_id)return true;
         });
         if(duplicate){
             console.log("그룹 중복");
@@ -91,7 +92,7 @@ export const createGroup = async(req,res)=>{
         user.groupID.push(n_group);
         await user.save();
 
-        return res.status(400).json({
+        return res.status(200).json({
             isDuplicate:false,
             isSuccess:true
         });
@@ -176,6 +177,8 @@ export const getGroupDetail = async(req, res)=>{
     //현재 공부 중인 멤버
     
     const users = await Group.findOne({_id:group_id}).populate("g_user").then(data=>{
+    
+        console.log("그룹의 멤버들 ininin  "+ data.g_user);
         return data.g_user;
     });
 
