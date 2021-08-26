@@ -8,12 +8,12 @@ const DetailModal = ({activeInfo ,setActiveInfo}) => {
     console.log(activeInfo)
     const dispatch = useDispatch();
     const tokenData = document.cookie.split("=")[1];
-    const {g_id, g_name, g_description} = activeInfo;
+    const {_id, g_name, g_description} = activeInfo;
     const closeModal = () => setActiveInfo(false);
     const handleSignIn = async() => {
         const body = {
             token: tokenData,
-            group_id: g_id
+            group_id: _id
         }
         console.log(body)
         await dispatch(signInGroup(body));

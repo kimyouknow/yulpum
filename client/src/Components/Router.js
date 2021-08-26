@@ -16,7 +16,9 @@ import GDetail from "../Routes/GDetail/GDetailContainer";
 
 const Container = styled.div`
     width: 100%;
-    margin-top: 100px;
+    @media screen and (max-width: 480px) {
+        margin-top: 100px;
+    }
 `;
 
 const AppRouter = () => (
