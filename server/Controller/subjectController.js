@@ -159,7 +159,7 @@ export const addSubject = async(req,res)=>{
     await User.findByToken(token, async(err,query,user)=>{
         if(err) throw err;
 
-        const duplicate = await Subject.exists({ s_user_id:user_id,subject_name:subject_title});
+        const duplicate = await Subject.exists({ s_user_id:user._id,subject_name:subject_title});
         if(duplicate){ //이미 해당 과목 이름이 있으면 추가하지 않음
             console.log("이미 있는 과목 중복 추가 못함");
             return res.send(400).json({
