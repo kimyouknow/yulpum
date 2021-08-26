@@ -6,7 +6,8 @@ import {
     findGroup,
     getMyGroup,
     createGroup,
-    exitGroup
+    exitGroup,
+    getGroupDetail
 }from  "../Controller/groupController";
 
 
@@ -19,6 +20,6 @@ groupRoutes.post(group+routes.addGroup,addGroup);
 groupRoutes.post(group+routes.createGroup,createGroup);
 groupRoutes.post(group+routes.exitGroup,exitGroup);
 groupRoutes.get(group+routes.findGroup,findGroup);
-groupRoutes.post(group+routes.exitGroup,exitGroup);
+groupRoutes.post(group+routes.getGroupDetail,getGroupDetail);
 
 export default groupRoutes;
