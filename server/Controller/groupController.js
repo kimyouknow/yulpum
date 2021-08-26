@@ -174,8 +174,8 @@ export const getGroupDetail = async(req, res)=>{
     
     
     //현재 공부 중인 멤버
-    const group = await Group.findOne({_id:group_id});
-    const users = await group.populate("g_user").then(data=>{
+    
+    const users = await Group.findOne({_id:group_id}).populate("g_user").then(data=>{
         return data.g_user;
     });
 
