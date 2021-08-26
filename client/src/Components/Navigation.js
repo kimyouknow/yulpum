@@ -6,21 +6,38 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 const Navigation = styled.nav`
     background-color: #f5f6fa;
-    width: 100%;
-    height: 100px;
     position: fixed;
-    top: 0;
-    left: 0;
     display: flex;
     align-items: center;
-    border-bottom: 2px solid #dcdde1;
     z-index: 10;
+
+    width: 100px;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-bottom: 2px solid #dcdde1;
+    @media all and (min-width:768px) and (max-width:1023px) {
+        width: 50px;
+    }
+    @media screen and (max-width: 480px) {
+        width: 100%;
+        height: 100px;
+    }
+
+
 `;  
 
 const List = styled.ul`
     display: flex;
+    flex-direction: column;
     height: 100%;
     width: 100%;
+    @media all and (min-width:768px) and (max-width:1023px) {
+        
+    }
+    @media screen and (max-width: 480px) {
+        flex-direction: row;
+    }
 `;
 
 const Item = styled.li`

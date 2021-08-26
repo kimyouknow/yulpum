@@ -18,6 +18,7 @@ function GDetailContainer() {
       month: groupM
     }
     const server = await dispatch(getGroupDetail(body));
+    console.log(server);
   }
   useEffect(() => {
     getDetailData();
