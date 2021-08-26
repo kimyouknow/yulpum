@@ -4,10 +4,8 @@ import DetailModal from '../../Components/GroupComponents/DetailModal';
 import LoaderCotainer from "../../Components/Loader";
 import Container from '../../Styled/Container';
 import { GroupElement } from '../../Styled/Group';
+import Header from '../../Styled/Header';
 
-const Header = styled.div`
-    margin-bottom: 50px;
-`;
 const Body = styled.ul`
     display: flex;
     flex-direction: column;

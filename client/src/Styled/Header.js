@@ -12,11 +12,10 @@ const StyledHeader = styled.header`
   font-size: 1.6rem;
   > span {
     cursor: pointer;
+    margin: 0 0.5rem;
   }
-  > span:nth-child(2){
-    margin: 0 1rem;
-  }
-  > span:not(:nth-child(2)){
+  > span:first-child, >span:last-child{
+    margin: 0;
     :hover {
       transform: scale(1.4);
     }

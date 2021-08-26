@@ -2,13 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import LoaderCotainer from "../../Components/Loader";
 import Container from "../../Styled/Container";
+import Header from "../../Styled/Header";
 import { displayTime } from "../ActiveTimer/ActiveTimerPresenter";
-
-const Title = styled.div`
-    margin-bottom: 24px;
-    font-weight: 600;
-    font-size: 22px;
-`;
 
 const Body = styled.div`
     display: flex;
@@ -16,11 +11,7 @@ const Body = styled.div`
     align-items: center;
     width: 100%;
 `;
-const Top = styled.div`
-    display: grid;
-    width: 100%;
-    grid-template-columns: repeat(3, 1fr);
-`;
+
 const Middle = styled.div`
     width: 95%;
     margin: 0 auto;
@@ -85,14 +76,15 @@ const RankPresenter = ({timeValue,rankData ,top3,nowStudy, calendar}) => {
     console.log(rankData);
     return (
     <Container>
-        <Title>
-            ◀
+        <Header>
+            <span>◀</span>
             <span>{activeY}년</span>
             <span>{activeM+1}월</span>
             <span>{activeD}일</span>
-            ▶
-        </Title>
+            <span>▶</span>
+        </Header>
         <Body>
+            {!rankData ? <LoaderCotainer />: 
             <Middle>
                 <Indicator>
                     <div>공부중 <span>{nowStudy}</span>명 </div>
@@ -100,8 +92,7 @@ const RankPresenter = ({timeValue,rankData ,top3,nowStudy, calendar}) => {
                     {/* <div>내 등수 <span>{rankData.indexOf("")}</span> 등</div> */}
                     <div>상위 <span>10</span>%</div>
                 </Indicator>
-            {!rankData ? <LoaderCotainer />: 
-                rankData.map((user, idx) => 
+                {rankData.map((user, idx) => 
                 <RankEle key={user.id}>
                     <div className={"rank__number"}>
                         {idx+1}
@@ -118,7 +109,7 @@ const RankPresenter = ({timeValue,rankData ,top3,nowStudy, calendar}) => {
                     </div>
                 </RankEle>)
             }
-            </Middle>
+            </Middle>}
         </Body>
     </Container>
 )}

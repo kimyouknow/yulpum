@@ -16,7 +16,7 @@ const Container = styled.div`
 const Top = styled(Header)`
     height: 200px;
     flex-direction: column;
-    > span:last-child{
+    > h3:last-child{
         margin-top: 14px;
         font-size: 30px;
         font-weight: 600;
@@ -86,8 +86,8 @@ const SubjectsPresenter = ({
             onSubmitHandler={onSubmitHandler}/>
         <Container>
             <Top>
-                <span>{new Date().toISOString().slice(0,10)}</span>
-                <span>{displayTime(totalLapse)}</span>
+                <h3>{new Date().toISOString().slice(0,10)}</h3>
+                <h3>{displayTime(totalLapse)}</h3>
             </Top>
             <UList>
                 <Line className={"ul__title"}>

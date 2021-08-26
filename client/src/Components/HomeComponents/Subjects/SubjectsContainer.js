@@ -58,22 +58,23 @@ const SubjectsContainer = ({tokenData}) => {
             return 
         }
         if (element === "add"){
-        const addedName = subjectInput;
-        setSubjectInput("");
-        let body = {
-            subject_title: addedName,
-            token: tokenData,
-            timeValue: 0
-        };
-        dispatch(addSubject(body))
-            .then(response => {
-                const {isSuccess, Study} = response.payload;
-                if(isSuccess) {
-                    setSubjects(subject => [...subject, Study]);
-                } else {
-                    alert("Error!");
-                }
-            })
+            const addedName = subjectInput;
+            setSubjectInput("");
+            let body = {
+                subject_title: addedName,
+                token: tokenData,
+                timeValue: 0
+            };
+            console.log(body);
+            dispatch(addSubject(body))
+                .then(response => {
+                    const {isSuccess, Study} = response.payload;
+                    if(isSuccess) {
+                        setSubjects(subject => [...subject, Study]);
+                    } else {
+                        alert("Error!");
+                    }
+                })
         } else {
             let body = {
                 subject_id: element,
