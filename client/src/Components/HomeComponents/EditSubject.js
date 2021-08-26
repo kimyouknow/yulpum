@@ -21,9 +21,10 @@ const EditSubject = ({id, clicked, clickhandler, onSubmitHandler, editInput ,set
                     <Input type="text" value={editInput} onChange={(e => setEditInput(e.target.value))} />
                 </Form>
                 <Button onClick={() => closeModal()}>EDIT</Button>
-                <Button onClick={() => {
+                <Button onClick={(e) => {
                     handleRemove(id);
                     closeModal();
+                    onSubmitHandler(e, id);
                 }}>DELETE</Button>
             </ModalBody>
         </Modal>
