@@ -97,7 +97,7 @@ const RankPresenter = ({timeValue,rankData ,top3,nowStudy, calendar}) => {
                 <Indicator>
                     <div>공부중 <span>{nowStudy}</span>명 </div>
                     <div>오늘 전체 <span>{rankData.length}</span>명 </div>
-                    <div>내 등수 <span>10</span> 등</div>
+                    {/* <div>내 등수 <span>{rankData.indexOf("")}</span> 등</div> */}
                     <div>상위 <span>10</span>%</div>
                 </Indicator>
             {!rankData ? <LoaderCotainer />: 
@@ -114,7 +114,7 @@ const RankPresenter = ({timeValue,rankData ,top3,nowStudy, calendar}) => {
                                 <span>{displayTime(Math.floor(user.totalTime))}</span>
                             }
                         </div>
-                        <Info className={"info__bar"} long={Math.floor((user.totalTime / top3[0].totalTime)*100)}></Info>
+                        <Info className={"info__bar"} long={top3[0].totalTime === 0 ? 0:Math.floor((user.totalTime / top3[0].totalTime)*100)}></Info>
                     </div>
                 </RankEle>)
             }

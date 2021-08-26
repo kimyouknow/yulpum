@@ -29,10 +29,12 @@ const DetailModal = ({activeInfo ,setActiveInfo}) => {
                 <span>그룹 둘러보기</span>
             </ModalHeader>
             <ModalBody>
+                <ModalBody>
                 <span className={"input__name"}>그룹 이름</span>
                 <span>{g_name}</span>
                 <span className={"input__name"}>그룹 소개</span>
                 <span>{g_description}</span>
+                </ModalBody>
                 <Button onClick={() => handleSignIn()}>가입</Button>
             </ModalBody>
         </Modal>

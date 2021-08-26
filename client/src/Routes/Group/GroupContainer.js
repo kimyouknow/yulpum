@@ -8,7 +8,7 @@ const GroupContainer = () => {
     const dispatch = useDispatch();
     const {user, group} = useSelector((state) => state);
     const [openModal, setOpenModal] = useState(false);
-    const [groups, setGroups] = useState([]);
+    const [groups, setGroups] = useState(null);
     const handleModal = () => !openModal ? setOpenModal(true) : setOpenModal(false);
     const getGroupData = async() => {
         let body = {

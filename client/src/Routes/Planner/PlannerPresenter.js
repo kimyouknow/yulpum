@@ -9,6 +9,9 @@ import { compareDate } from "../../hoc/renderCalendar";
 import { DateComponent, DateContainer, DateEle, WeekComponent, WeekContainer } from "../../Styled/Calendar";
 import Container from "../../Styled/Container";
 import Header from "../../Styled/Header";
+import { SideBar } from "../../Styled/SideBar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 const ToDoContainer = styled.div`
     display: flex;
@@ -102,7 +105,15 @@ const PlannerPresenter = ({dates, activeDate, monthData, handleModal, openModal,
                     </DateComponent>)
                 }
                 </DateContainer>
-                <button onClick={()=> handleModal()}>ADD</button>
+                <SideBar>
+                    <div className={"subBtn first empty"}></div>
+                    <div className={"subBtn second"} onClick={()=> handleModal()}>
+                        계획 추가
+                    </div>
+                    <div className={"menuBtn"}>
+                        <FontAwesomeIcon icon={faBars} />
+                    </div>
+                </SideBar>
                 <AddModal openModal={openModal} setOpenModal={setOpenModal} />
                 {activeInfo && 
                     <EditModal

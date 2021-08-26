@@ -23,7 +23,7 @@ const AddModal = ({openModal ,setOpenModal}) => {
             groupGoal,
             groupDesc,
         }
-        const {server: {payload: {isSuccess, isDuplicate}}} = await dispatch(createGroup(body));
+        const {payload: {isSuccess, isDuplicate}} = await dispatch(createGroup(body));
         if(isSuccess){
             closeModal();
         } else if(isDuplicate){
@@ -43,7 +43,7 @@ const AddModal = ({openModal ,setOpenModal}) => {
                 <span>그룹 추가</span>
             </ModalHeader>
             <ModalBody>
-            <Form onSubmit={(e => onSubmitHandler(e))}>
+            <Form>
                 <span className={"input__name"}>그룹이름</span>
                 <Input type="text" value={groupName} onChange={(e) => setGroupName(e.target.value)} placeholder="e.g. 대학생모임, 수능준비.." />
                 <span className={"input__name"}>목표시간</span>
@@ -53,7 +53,7 @@ const AddModal = ({openModal ,setOpenModal}) => {
                 <span className={"input__name"}>그룹 설명</span>
                 <Input type="text" value={groupDesc} onChange={(e) => setGroupDesc(e.target.value)}/>
             </Form>
-            <Button type="submit">추가</Button>
+            <Button onClick={(e => onSubmitHandler(e))}>추가</Button>
             </ModalBody>
         </Modal>
     )

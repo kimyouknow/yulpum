@@ -47,13 +47,13 @@ const AddModal = ({openModal ,setOpenModal}) => {
                 <span>계획 추가</span>
             </ModalHeader>
             <ModalBody>
-            <Form onSubmit={(e => onSubmitHandler(e))}>
+            <Form>
                 <span className={"input__name"}>날짜</span>
                 <Input type="date" value={diplayDate(activeDate)} onChange={(e) => onChangeHandler(e.target.value)} />
                 <span className={"input__name"}>추가할 계획 이름</span>
                 <Input type="text" value={planInput} placeholder="To Do" onChange={(e => setPlanInput(e.target.value))} />
             </Form>
-            <Button className={"input__submit"} type="submit">submit</Button>
+            <Button className={"input__submit"} onClick={(e => onSubmitHandler(e))}>submit</Button>
             </ModalBody>
         </Modal>
     )

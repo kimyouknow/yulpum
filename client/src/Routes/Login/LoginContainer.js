@@ -9,7 +9,6 @@ const LoginContainer = () => {
     const dispatch = useDispatch();
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-
     const onSubmitHandler = (e) => {
         e.preventDefault();
         let body = {

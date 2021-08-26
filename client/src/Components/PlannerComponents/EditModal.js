@@ -1,37 +1,8 @@
-import React, { useState } from "react";
-import {useDispatch, useSelector} from "react-redux";
-import styled from "styled-components";
+import React from "react";
+import {useDispatch} from "react-redux";
+import { DeletePlan } from "../../_actions/calendar_actions";
 import { BackBtn, Button } from "../../Styled/Button";
 import Modal, { ModalBody, ModalHeader } from "../../Styled/Modal";
-import { DeletePlan } from "../../_actions/calendar_actions";
-
-
-const Container = styled.div`
-    display: ${props => props.show ? "flex" : "none"};
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    left: 0;
-    top: 0;
-    font-size: 50px;
-    z-index: 100;
-`;
-
-const ModalWindow = styled.div`
-    width: 500px;
-    height: 500px;
-    border-radius: 10px;
-    background-color: #fff;
-`;
-
-const ToDoElement = styled.div`
-    cursor: pointer;
-    border: 1px solid;
-`;
 
 const EditModal = ({activeInfo ,setActiveInfo}) => {
     const dispatch = useDispatch();
@@ -49,7 +20,6 @@ const EditModal = ({activeInfo ,setActiveInfo}) => {
             todo: ele,
             token: tokenData
         }
-        console.log(body)
         await dispatch(DeletePlan(body));
         closeModal()
     }
