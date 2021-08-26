@@ -35,13 +35,15 @@ const GETLINE = "/get-line";
 const GETRANK = "/get-rank";
 const GETMYGROUP = "/get-myGroup";
 const FINDGROUP = "/get-group";
+const GETGROUPDETAIL = "/get-detail";
 
 //group
 
 const ADDGROUP = "/add-group";
-const DELETEGROUP = "/delete-group";
+// const DELETEGROUP = "/delete-group";
 const CREATEGROUP = "/create-group";
 const EXITGROUP = "/exit-group"; //그룹멤버가 그룹 나가기
+
 
 const routes = {
     //home
@@ -66,6 +68,8 @@ const routes = {
     getLine:GETLINE,
     getRank:GETRANK,
     getMyGroup:GETMYGROUP,
+    getGroupDetail:GETGROUPDETAIL,
+
     //subjec
     saveStudy:SAVE,
     addSubject:ADDSUBJECT,
@@ -79,7 +83,7 @@ const routes = {
 
     //group
     addGroup:ADDGROUP,
-    deleteGroup:DELETEGROUP,
+    // deleteGroup:DELETEGROUP,
     findGroup:FINDGROUP,
     createGroup:CREATEGROUP,
     exitGroup:EXITGROUP
