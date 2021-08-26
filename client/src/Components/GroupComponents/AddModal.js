@@ -43,7 +43,7 @@ const AddModal = ({openModal ,setOpenModal}) => {
                 <span>그룹 추가</span>
             </ModalHeader>
             <ModalBody>
-            <Form>
+            <Form onSubmit={(e => onSubmitHandler(e))}>
                 <span className={"input__name"}>그룹이름</span>
                 <Input type="text" value={groupName} onChange={(e) => setGroupName(e.target.value)} placeholder="e.g. 대학생모임, 수능준비.." />
                 <span className={"input__name"}>목표시간</span>

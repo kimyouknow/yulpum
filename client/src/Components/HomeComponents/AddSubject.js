@@ -16,7 +16,7 @@ const AddSubject = ({clicked, clickhandler, subjectInput ,setSubjectInput, onSub
                 <span>목표/과목 추가</span>
             </ModalHeader>
             <ModalBody>
-            <Form>
+            <Form onSubmit={(e => onSubmitHandler(e, "add"))}>
                 <span className={"input__name"}>측정할 과목 이름</span>
                 <Input type="text" value={subjectInput} onChange={(e => setSubjectInput(e.target.value))} placeholder="e.g. 수학, 영어, 과학.." />
             </Form>
