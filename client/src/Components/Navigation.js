@@ -1,92 +1,72 @@
 import React from "react";
 import {Link, withRouter} from "react-router-dom";
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 const Navigation = styled.nav`
-    background-color: #f5f6fa;
-    position: fixed;
-    display: flex;
-    align-items: center;
-    z-index: 10;
-
-    width: 100px;
-    height: 100%;
-    top: 0;
-    left: 0;
-    border-bottom: 2px solid #dcdde1;
-    @media all and (min-width:768px) and (max-width:1023px) {
-        width: 50px;
-    }
-    @media screen and (max-width: 480px) {
-        width: 100%;
-        height: 100px;
-    }
-
-
+    ${({theme}) => {
+        const {common, colors, fonts} = theme;
+        return css`
+            z-index: 10;
+            position: fixed;
+            ${common.flexCenter}
+            width: 100%;
+            height: 100px;
+            top: 0;
+            left: 0;
+        > ul{
+            ${common.flexCenter}
+            height: 100%;
+            width: 100%;
+            background-color: ${colors.white};
+            border-bottom: 1px solid ${colors.grey};
+            >li{
+                height: 100%;
+                width: 100%;
+                text-align: center;
+                >a{
+                    height: 100%;
+                    ${common.flexCenter}
+                    font-size: ${fonts.size.base};
+                    font-weight: ${fonts.weight.bold};
+                }
+                /* >div{
+                    height: 100%;
+                    width: 100%;
+                    ${common.flexCenter}
+                    font-size: ${fonts.size.xl};
+                    font-weight: ${fonts.weight.bold};
+                } */
+            }
+        }
+        `; 
+    }}
 `;  
 
-const List = styled.ul`
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-    @media all and (min-width:768px) and (max-width:1023px) {
-        
-    }
-    @media screen and (max-width: 480px) {
-        flex-direction: row;
-    }
-`;
-
-const Item = styled.li`
-    height: 100%;
-    width: 100%;
-    text-align: center;
-    color: ${props => (props.current ? "black" : "#a4b0be")};
-`;
-
-const SLink = styled(Link)`
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size:14px;
-    font-weight: 700;
-`;
-
-const Icon = styled.div`
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    font-weight: 700;
+const Li = styled.li`
+    color: ${props => props.current ? "black" : "#a4b0be"};
 `;
 
 export default withRouter(({location: {pathname}}) => (
     <Navigation>
-        <List>
-            <Item current={pathname === "/stat"}>
-                <SLink to="/stat">통계</SLink>
-            </Item>
-            <Item current={pathname === "/planner"}>
-                <SLink to="/planner">플래너</SLink>
-            </Item>
-            {pathname === "/active" ? 
-                <Icon><FontAwesomeIcon icon={faUser} /></Icon>:
-                <Item current={pathname === "/"}>
-                    <SLink to="/">Home</SLink>
-                </Item>
-            }
-            <Item current={pathname === "/group"}>
-                <SLink to="/group">그룹</SLink>
-            </Item>
-            <Item current={pathname === "/rank"}>
-                <SLink to="/rank">랭킹</SLink>
-            </Item>
-        </List>
+        <ul>
+            <Li current={pathname === "/stat"}>
+                <Link to="/stat">통계</Link>
+            </Li>
+            <Li current={pathname === "/planner"}>
+                <Link to="/planner">플래너</Link>
+            </Li>
+            {/* <div><FontAwesomeIcon icon={faUser} /></div>: */}
+            <Li current={pathname === "/"}>
+                <Link to="/">Home</Link>
+            </Li>
+            <Li current={pathname === "/group"}>
+                <Link to="/group">그룹</Link>
+            </Li>
+            <Li current={pathname === "/rank"}>
+                <Link to="/rank">랭킹</Link>
+            </Li>
+        </ul>
     </Navigation>
 ))

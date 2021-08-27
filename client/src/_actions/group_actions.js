@@ -45,10 +45,7 @@ export function getGroupDetail(dataTosubmit) {
         payload: request
     }
 }
-// const{
-//     token,
-//     group_id // 삭제할 그룹 아이디
-// } = req.body;
+
 export function exitGroup(dataTosubmit) {
     const request = axios.post('/api/group/exit-group', dataTosubmit)
             .then(response => response.data)

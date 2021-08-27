@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import Container from "../../Styled/Container";
 import Header from "../../Styled/Header";
 import { DateComponent, DateContainer, DateEle, WeekComponent, WeekContainer } from "../../Styled/Calendar";
+import Body from "../../Styled/Body";
 
 const TimeIndicatorContainer = styled.div`
     display: flex;
@@ -54,6 +55,7 @@ const StatPresenter =  ({dates, activeDate, monthData}) => {
                 </span>
                 <span onClick={() => dispatch(nextMonth(activeM))}>▶</span>
             </Header>
+            <Body>
             <WeekContainer>
                 {weeks.map(week => <WeekComponent key={week}>{week}</WeekComponent>)}
             </WeekContainer>
@@ -83,6 +85,7 @@ const StatPresenter =  ({dates, activeDate, monthData}) => {
                 </TimeIndicator>
             </TimeIndicatorContainer>
             <StatInnerMenu />
+        </Body>
         </Container>
         }
         </>

@@ -1,14 +1,16 @@
 import React from "react"
 import Router from "./Components/Router";
+import { ThemeProvider } from "styled-components";
 import GlobalStyles from "./Styled/GlobalStyles";
+import { lightTheme } from "./Styled/theme";
 
 
 function App() {
   return (
-    <div className="App">
+    <ThemeProvider theme={lightTheme} >
       <Router />
       <GlobalStyles />
-    </div>
+    </ThemeProvider>
   );
 }
 

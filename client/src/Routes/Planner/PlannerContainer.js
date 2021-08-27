@@ -5,7 +5,7 @@ import { renderCalendar } from "../../hoc/renderCalendar";
 import { getCalendar } from "../../_actions/calendar_actions";
 
 const PlannerContainer = () => {
-    const tokenData = document.cookie.split("=")[1];
+    const token = document.cookie.split("=")[1];
     const dispatch = useDispatch();
     const {calendar} = useSelector((state) => state);
     const {activeD, activeM, activeY, monthData, refresh} = calendar;
@@ -16,7 +16,7 @@ const PlannerContainer = () => {
         let body = {
             year: activeY,
             month: activeM,
-            token: tokenData
+            token
         }
         const response = await dispatch(getCalendar(body));
         const {isSuccess, } = response.payload;

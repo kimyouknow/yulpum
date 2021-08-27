@@ -17,7 +17,7 @@ const Body = styled.ul`
     width: 100%;
 `;
 
-const GroupPresenter = ({groups, handleModal ,openModal ,setOpenModal, found}) => {
+const GroupPresenter = ({groups, handleModal ,openModal ,setOpenModal, setGroups}) => {
     console.log(groups)
     return(
         <Container>
@@ -42,7 +42,7 @@ const GroupPresenter = ({groups, handleModal ,openModal ,setOpenModal, found}) =
                     <FontAwesomeIcon icon={faBars}/>
                 </div>
             </SideBar>
-        <AddModal openModal={openModal} setOpenModal={setOpenModal} />
+        <AddModal openModal={openModal} setOpenModal={setOpenModal} groups={groups} setGroups={setGroups} />
         </Container>
     )
 }
