@@ -26,6 +26,7 @@ const GroupContainer = () => {
             handleModal={handleModal}
             openModal={openModal}
             setOpenModal={setOpenModal}
+            setGroups={setGroups}
         />
         )
 }
