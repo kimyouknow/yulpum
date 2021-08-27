@@ -8,13 +8,11 @@ import EditSubject from "../EditSubject";
 import Subject from "../Subject";
 import { displayTime } from "../../../Routes/ActiveTimer/ActiveTimerPresenter";
 import Header from "../../../Styled/Header";
-
-const Container = styled.div`
-    width: 100%;
-`;
+import Container from "../../../Styled/Container";
 
 const Top = styled(Header)`
     flex-direction: column;
+    width: 100vw;
     > h3:last-child{
         margin-top: 14px;
         font-size: 30px;
@@ -26,6 +24,7 @@ const UList = styled.ul`
     box-sizing: content-box;
     display: flex;
     flex-direction: column;
+    width: 100%;
 `;
 
 const Line = styled.li`
@@ -76,13 +75,6 @@ const SubjectsPresenter = ({
     clicked, clickhandler,subjectInput, setSubjectInput, onSubmitHandler, editInput, setEditInput, subjects, handleRemove}) => {
     const totalLapse = subjects ? subjects.reduce((acc, cur) => cur.total_time + acc, 0): 0;
     return (
-        <>
-        <AddSubject
-            clicked={clicked}
-            clickhandler={clickhandler}
-            subjectInput={subjectInput} 
-            setSubjectInput={setSubjectInput} 
-            onSubmitHandler={onSubmitHandler}/>
         <Container>
             <Top>
                 <h3>{new Date().toISOString().slice(0,10)}</h3>
@@ -119,8 +111,13 @@ const SubjectsPresenter = ({
                         <Text>과목 추가하기</Text>
                 </Line>
             </UList>
+            <AddSubject
+            clicked={clicked}
+            clickhandler={clickhandler}
+            subjectInput={subjectInput} 
+            setSubjectInput={setSubjectInput} 
+            onSubmitHandler={onSubmitHandler}/>
         </Container>
-        </>
     )
 }
 export default SubjectsPresenter

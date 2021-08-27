@@ -31,7 +31,7 @@ ${({ theme }) => {
         height: 100vh;
         max-width: 768px;
         ${device.tabletL}{
-            margin-left: 10vw;
+            margin-left: 100px;
         }
         ${device.tablet}{
             width: 100vw;

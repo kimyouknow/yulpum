@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledSideBar = styled.nav`
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
+  position: fixed;
+  right: 5vw;
+  bottom: 5vh;
   display: flex;
   flex-direction: column;
   justify-content: space-around;

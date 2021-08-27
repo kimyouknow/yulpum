@@ -40,7 +40,7 @@ const colors = {
 const size = {
   mobile: "425px",
   tablet: "768px",
-  tabletL: "900px",
+  tabletL: "920px",
   desktop: "1440px",
 };
 

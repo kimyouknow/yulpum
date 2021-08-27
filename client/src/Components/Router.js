@@ -15,13 +15,7 @@ import Register from "../Routes/Register";
 import GDetail from "../Routes/GDetail/GDetailContainer";
 
 const Container = styled.div`
-    ${({theme}) => {
-        const { device} = theme;
-        return css`
-            width: 100%;
-            
-        `; 
-    }}
+    width: 100%;
 `;
 
 const AppRouter = () => (

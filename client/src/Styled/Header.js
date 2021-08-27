@@ -5,8 +5,8 @@ const StyledHeader = styled.header`
   ${({ theme }) => {
     const { colors, fonts, common, margins } = theme;
     return css`
-      height: 200px;
-      width: 100%;
+      height: 160px;
+      width: 100vw;
       color: ${colors.white};
       background-color: ${colors.orange};
       font-size: ${fonts.size.lg};
