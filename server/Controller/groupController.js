@@ -243,13 +243,12 @@ export const exitGroup = async (req,res)=>{
 
     await User.findByToken(token, async(err,query,user)=>{
 
-        const group = await Group.find({_id:group_id});
+        const foundGroup = await Group.findOne({_id:group_id});
 
         //그룹 리더는 방을 삭제함
-        if(group.g_leader === user.name){
+        if(foundGroup.g_leader === user.name){
+            let isComplete;
             console.log("그룹 리더는 방을 삭제함");
-            const group = await Group.find({_id:group_id, g_leader: user.name});
-            if(group){
                 //테스트 요망, 유저에도 자동으로 ref 삭제 되나?
                 await Group.deleteOne({
                     _id:group_id
@@ -273,9 +272,10 @@ export const exitGroup = async (req,res)=>{
                     })
                 }
 
-            }
+    
         } //그룹 리더가 아니면 방을 나감
         else{
+           
             let flag = 0;
             //그룹 나가기
             for(let i = 0 ; i <  user.groupID.length ; i++){
@@ -285,9 +285,10 @@ export const exitGroup = async (req,res)=>{
                     break;
                 }
             }
+            console.log(foundGroup);
             //그룹 유저 목록에서 삭제
-            for(let i = 0 ; i< group.g_user.length ;i++){
-                if(group.g_user[i] == user_id){
+            for(let i = 0 ; i< foundGroup.g_user.length ;i++){
+                if(foundGroup.g_user[i] == user_id){
                     user.g_user.splice(i,1);
                     flag = 1;
                     break;

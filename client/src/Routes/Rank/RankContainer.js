@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { requestRank } from "../../_actions/user_action";
 
 const RankContainer = () => {
-    const tokenData = document.cookie.split("=")[1];
     const dispatch = useDispatch();
     const [timeValue, setTimeValue] = useState(0);
     const {user: {rankData}, calendar} = useSelector((state) => state);

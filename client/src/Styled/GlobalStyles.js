@@ -1,4 +1,4 @@
-import {createGlobalStyle} from "styled-components";
+import {createGlobalStyle, css } from "styled-components";
 import reset from "styled-reset";
 
 const GlobalStyles = createGlobalStyle`
@@ -18,14 +18,27 @@ input, button, textarea {
     box-sizing:border-box;
     font-size: 100%;
 }
-body{
-    font-family:--apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    margin: 0 auto;
-    position: relative; 
-    width: 100vw;
-    height: 100vh;
-    max-width: 990px;
-}
+${({ theme }) => {
+    const { device, fonts} = theme;
+    return css`
+    body {
+        font-family: ${fonts.family.base};
+        font-weight: ${fonts.weight.normal};
+        font-size: ${fonts.size.base};
+        position: relative; 
+        margin: 0 auto;
+        width: 100vw;
+        margin-top: 100px;
+        max-width: 768px;
+        /* ${device.tabletL}{
+            margin-left: 100px;
+        } */
+        ${device.tablet}{
+            
+        }
+    }
+    `;
+}}
 `;
 
 export default GlobalStyles;
