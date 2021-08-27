@@ -1,5 +1,5 @@
 import React, {Suspense} from "react";
-import styled from 'styled-components';
+import styled,{css} from 'styled-components';
 import {BrowserRouter as Router, Route, Redirect, Switch} from "react-router-dom";
 import ActiveTimer from "../Routes/ActiveTimer"
 import Auth from "../hoc/auth";
@@ -15,10 +15,13 @@ import Register from "../Routes/Register";
 import GDetail from "../Routes/GDetail/GDetailContainer";
 
 const Container = styled.div`
-    width: 100%;
-    @media screen and (max-width: 480px) {
-        margin-top: 100px;
-    }
+    ${({theme}) => {
+        const { device} = theme;
+        return css`
+            width: 100%;
+            
+        `; 
+    }}
 `;
 
 const AppRouter = () => (

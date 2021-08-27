@@ -14,7 +14,6 @@ const Container = styled.div`
 `;
 
 const Top = styled(Header)`
-    height: 200px;
     flex-direction: column;
     > h3:last-child{
         margin-top: 14px;
