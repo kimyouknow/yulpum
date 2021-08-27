@@ -1,16 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import LoaderCotainer from "../../Components/Loader";
+import Body from "../../Styled/Body";
 import Container from "../../Styled/Container";
 import Header from "../../Styled/Header";
 import { displayTime } from "../ActiveTimer/ActiveTimerPresenter";
-
-const Body = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-`;
 
 const Middle = styled.div`
     width: 95%;

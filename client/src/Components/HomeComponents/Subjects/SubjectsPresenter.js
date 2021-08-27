@@ -105,10 +105,10 @@ const SubjectsPresenter = ({
                     />
                 </Line>)}
                 <Line>
-                        <Button onClick={() => clickhandler("add")}>
-                            <FontAwesomeIcon icon={faPlus} />
-                        </Button>
-                        <Text>과목 추가하기</Text>
+                    <Button onClick={() => clickhandler("add")}>
+                        <FontAwesomeIcon icon={faPlus} />
+                    </Button>
+                    <Text>과목 추가하기</Text>
                 </Line>
             </UList>
             <AddSubject

@@ -1,47 +1,46 @@
 import React from "react";
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import {Link} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
 
 const SLink = styled(Link)`
+    ${({ theme }) => {
+    const { colors, common, margins } = theme;
+    return css`
     width: 100%;
     display: flex;
     align-items: center;
-`;
-
-const Container = styled.div`
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-`;
-
-const TimerContainer = styled.span``;
-const PlayBtn = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    color: white;
-    background-color: teal;
-    margin-right: 8px;
+    >.subject__playBtn{
+        ${common.flexCenter}
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        color: ${colors.white};
+        background-color: ${colors.orange};
+        margin-right: ${margins.sm}
+    }
+    >.subject__container{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    `;
+}}
 `;
 
 const Subject = ({text, id, time}) => {
     // console.log(time)
     return (
     <SLink to={{pathname: "/active", state: {id, text, time}}}>
-        {/* to={`/active/${id}`} params={{id: id}} */}
-        <PlayBtn>
+        <div className={"subject__playBtn"}>
             <FontAwesomeIcon icon={faPlay} />
-        </PlayBtn>
-        <Container>
+        </div>
+        <div className={"subject__container"}>
             <h1>{text}</h1>
-            <TimerContainer>{time}</TimerContainer>
-        </Container>
+            <span>{time}</span>
+        </div>
     </SLink>
     )
 };

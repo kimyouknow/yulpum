@@ -20,9 +20,9 @@ const fonts = {
   size: {
     sm: "0.6rem",
     base: "1rem",
-    lg: "1.6rem",
-    xl: "2rem",
-    title: "3rem",
+    lg: "1.4rem",
+    xl: "1.8rem",
+    title: "2rem",
   },
   weight: {
     light: 100,

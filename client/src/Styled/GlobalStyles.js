@@ -26,17 +26,15 @@ ${({ theme }) => {
         font-weight: ${fonts.weight.normal};
         font-size: ${fonts.size.base};
         position: relative; 
-        width: 100vw;
         margin: 0 auto;
-        height: 100vh;
+        width: 100vw;
+        margin-top: 100px;
         max-width: 768px;
-        ${device.tabletL}{
+        /* ${device.tabletL}{
             margin-left: 100px;
-        }
+        } */
         ${device.tablet}{
-            width: 100vw;
-            margin: 0;
-            margin-top: 100px;
+            
         }
     }
     `;

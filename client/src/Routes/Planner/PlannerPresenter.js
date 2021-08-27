@@ -12,6 +12,7 @@ import Header from "../../Styled/Header";
 import { SideBar } from "../../Styled/SideBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import Body from "../../Styled/Body";
 
 const ToDoContainer = styled.div`
     display: flex;
@@ -64,56 +65,58 @@ const PlannerPresenter = ({dates, activeDate, monthData, handleModal, openModal,
                     </span>
                     <span onClick={() => dispatch(nextMonth(activeM))}>▶</span>
                 </Header>
-                <WeekContainer>
-                    {weeks.map(week => <WeekComponent key={week}>{week}</WeekComponent>)}
-                </WeekContainer>
-                <DateContainer>
-                    {!dates ? <h1>Loading</h1> : 
-                    dates.map(date =>
-                    <DateComponent key={date.date} 
-                        timecolor={1}
-                        isCur={date.isCur}>
-                            <DateEle today={date.date.getDate() === new Date().getDate() && date.date.getMonth() === new Date().getMonth()}>{date.date.getDate()}</DateEle>
-                            {filtered(date) &&
-                            <ToDoContainer>
-                            {filtered(date).c_todo.length > 3 ?
-                            <>
-                                <ToDoElement onClick={()=> setActiveInfo({ele: filtered(date).c_todo[0], c_date: filtered(date).c_date})}>
-                                    {filtered(date).c_todo[0].length > 8 ? filtered(date).c_todo[0].substring(0,8)+"..." : filtered(date).c_todo[0]}
-                                </ToDoElement>
-                                <ToDoElement className={"more"}>
-                                    +
-                                </ToDoElement >
-                                {filtered(date).c_todo.slice(1).map((ele, idx) => 
-                                    <ToDoElement className={"overflow"} key={idx} onClick={()=> {
+                <Body>
+                    <WeekContainer>
+                        {weeks.map(week => <WeekComponent key={week}>{week}</WeekComponent>)}
+                    </WeekContainer>
+                    <DateContainer>
+                        {!dates ? <h1>Loading</h1> : 
+                        dates.map(date =>
+                        <DateComponent key={date.date} 
+                            timecolor={1}
+                            isCur={date.isCur}>
+                                <DateEle today={date.date.getDate() === new Date().getDate() && date.date.getMonth() === new Date().getMonth()}>{date.date.getDate()}</DateEle>
+                                {filtered(date) &&
+                                <ToDoContainer>
+                                {filtered(date).c_todo.length > 3 ?
+                                <>
+                                    <ToDoElement onClick={()=> setActiveInfo({ele: filtered(date).c_todo[0], c_date: filtered(date).c_date})}>
+                                        {filtered(date).c_todo[0].length > 8 ? filtered(date).c_todo[0].substring(0,8)+"..." : filtered(date).c_todo[0]}
+                                    </ToDoElement>
+                                    <ToDoElement className={"more"}>
+                                        +
+                                    </ToDoElement >
+                                    {filtered(date).c_todo.slice(1).map((ele, idx) => 
+                                        <ToDoElement className={"overflow"} key={idx} onClick={()=> {
+                                            setActiveInfo({ele, c_date: filtered(date).c_date})
+                                        }}>
+                                            {ele.length > 8 ? ele.substring(0,8)+"..." : ele}
+                                        </ToDoElement>
+                                    )}
+                                </> :
+                                filtered(date).c_todo.map((ele, idx) => 
+                                    <ToDoElement key={idx} onClick={()=> {
                                         setActiveInfo({ele, c_date: filtered(date).c_date})
                                     }}>
                                         {ele.length > 8 ? ele.substring(0,8)+"..." : ele}
                                     </ToDoElement>
-                                )}
-                            </> :
-                            filtered(date).c_todo.map((ele, idx) => 
-                                <ToDoElement key={idx} onClick={()=> {
-                                    setActiveInfo({ele, c_date: filtered(date).c_date})
-                                }}>
-                                    {ele.length > 8 ? ele.substring(0,8)+"..." : ele}
-                                </ToDoElement>
-                            )      
-                            }
-                            </ToDoContainer>
-                            }
-                    </DateComponent>)
-                }
-                </DateContainer>
-                <SideBar>
-                    <div className={"subBtn first empty"}></div>
-                    <div className={"subBtn second"} onClick={()=> handleModal()}>
-                        계획 추가
-                    </div>
-                    <div className={"menuBtn"}>
-                        <FontAwesomeIcon icon={faBars} />
-                    </div>
-                </SideBar>
+                                )      
+                                }
+                                </ToDoContainer>
+                                }
+                        </DateComponent>)
+                    }
+                    </DateContainer>
+                    <SideBar>
+                        <div className={"subBtn first empty"}></div>
+                        <div className={"subBtn second"} onClick={()=> handleModal()}>
+                            계획 추가
+                        </div>
+                        <div className={"menuBtn"}>
+                            <FontAwesomeIcon icon={faBars} />
+                        </div>
+                    </SideBar>
+                </Body>
                 <AddModal openModal={openModal} setOpenModal={setOpenModal} />
                 {activeInfo && 
                     <EditModal
