@@ -6,6 +6,9 @@ import Line from "../models/Line";
 //50명의 최대 공부 시간 유저들 표시
 export const getRank = async(req,res)=>{
 
+    const{
+        token
+    }=req.body
     let today = new Date();
     const now = today.toLocaleDateString(); //현재 시간 , 밀리세컨드 반환값
     let resultArr =[];
