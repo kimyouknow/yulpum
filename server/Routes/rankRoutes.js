@@ -10,6 +10,6 @@ const rankRoutes = express.Router();
 
 var rank = routes.rank;
 
-rankRoutes.get(rank+routes.getRank, getRank);
+rankRoutes.post(rank+routes.getRank, getRank);
 
 export default rankRoutes;
