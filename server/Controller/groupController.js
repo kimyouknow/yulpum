@@ -97,7 +97,8 @@ export const createGroup = async(req,res)=>{
             g_start_date:now,
             g_description:groupDesc
         });
-        
+        n_group.g_user.push(user);
+        await n_group.save();
         user.groupID.push(n_group);
         await user.save();
 
