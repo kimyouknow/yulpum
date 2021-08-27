@@ -67,6 +67,7 @@ export const addGroup = async(req,res)=>{
             user.save();
             console.log("그룹 추가 완료");
             return res.status(400).json({
+                group,
                 isDuplicate:false,
                 isSuccess:true
             });
@@ -103,6 +104,7 @@ export const createGroup = async(req,res)=>{
         await user.save();
 
         return res.status(200).json({
+            n_group,
             isDuplicate:false,
             isSuccess:true
         });
