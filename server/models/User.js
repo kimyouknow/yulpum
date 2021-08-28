@@ -89,7 +89,7 @@ userSchema.pre('deleteOne',{document:true},async function(next){
     await Calendar.deleteOne({c_user_id: this._id});
     await Line.deleteOne({l_user_id:this._id });
     await Subject.deleteOne({s_user_id:this._id});
-    await Group.deleteOne({g_user_id:this._id});
+    //await Group.deleteOne({g_user_id:this._id});
 
     next();
 
