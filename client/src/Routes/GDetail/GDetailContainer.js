@@ -15,7 +15,8 @@ function GDetailContainer() {
   const [dates, setDates] = useState([]);
   const [groupD, setGroupD] = useState({
     groupY: new Date().getFullYear(),
-    groupM: new Date().getMonth()
+    groupM: new Date().getMonth(),
+    groupDate: new Date().getDate()
   })
   const {groupY, groupM} = groupD;
   const handleMonth = (type) => {
