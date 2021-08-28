@@ -313,6 +313,7 @@ export const exitGroup = async (req,res)=>{
 
             const flag2 = await group_del(foundGroup, user.id);
             console.log(foundGroup);
+            foundGroup.g_current = foundGroup.g_current - 1;
             await foundGroup.save();
 
             if(flag && flag2){
