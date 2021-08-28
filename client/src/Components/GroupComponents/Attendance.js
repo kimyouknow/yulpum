@@ -34,7 +34,7 @@ const ToDoElement = styled.div`
         background-color: ${props => props.done? "rgba(255, 107, 129,0.5)": "rgba(164, 176, 190,0.5)" };
     }
     &.overflow{
-        z-index: 10;
+        z-index: 5;
         opacity: 0;
         visibility: hidden;
     }
@@ -46,6 +46,7 @@ const ToDoElement = styled.div`
 function Attendance({active,serverD, dates}) {
   const weeks = ["SUN", "MON","TUE","WED","THU","FRI","SAT"];
   const filtered = (date) => serverD && serverD.filter(obj =>Number(obj[0]) === Number(new Date(date).getDate()));
+  console.log(dates)
   return (
     <Container active={active}>
       <WeekContainer>

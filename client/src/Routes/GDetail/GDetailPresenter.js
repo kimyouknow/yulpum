@@ -38,6 +38,7 @@ const Menu = styled.li`
 
 function GDetailPresenter({handleExit, dates, handleMonth, groupD, serverD,active ,setActive}) {
   const {groupY, groupM} = groupD;
+  console.log(serverD);
   return (
     <Container>
       {active === "attendance" ? 
@@ -71,7 +72,7 @@ function GDetailPresenter({handleExit, dates, handleMonth, groupD, serverD,activ
         {dates.length !== 0 && active ==="attendance" && 
             <Attendance active={active === "attendance"} serverD={serverD} dates={dates} />}
         {dates.length !== 0 && active ==="ranking" && 
-            <MemberRank active={active === "ranking"} dates={dates} />}
+            <MemberRank active={active === "ranking"} serverD={serverD} dates={dates} />}
         <SideBar>
           <div className={"subBtn first empty"}></div>
           <div className={"subBtn second"} onClick={()=> handleExit()}>

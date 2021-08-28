@@ -29,15 +29,15 @@ ${({ theme }) => {
         transform: scale(1.2);
       }
       &.first {
-        z-index: 1;
+        z-index: 11;
         transition: all 0.4s ease;
       }
       &.second {
-        z-index: 2;
+        z-index: 12;
         transition: all 0.5s ease;
       }
       &.menuBtn {
-        z-index: 4;
+        z-index: 14;
       }
       &.subBtn {
         opacity: 0;

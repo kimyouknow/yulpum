@@ -7,7 +7,7 @@ import {
 
 const initState = {
     rankData: [],
-    userID: null
+    userName: null
 }
 
 const userReducer = (state=initState, action) => {
@@ -19,7 +19,7 @@ const userReducer = (state=initState, action) => {
         case REGISTER_USER:
             return {...state, register: action.payload}
         case AUTH_USER:
-            return {...state, userID: action.payload.user_id ,userData: action.payload}
+            return {...state, userName: action.payload.userName ,userData: action.payload}
         case GET_RANK:
             return {...state, rankData: action.payload.resultArr}
         default:

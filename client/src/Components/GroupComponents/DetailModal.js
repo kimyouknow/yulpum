@@ -15,12 +15,9 @@ const DetailModal = ({founds,setFounds,activeInfo ,setActiveInfo}) => {
             token: tokenData,
             group_id: _id
         }
-        const {payload: {isSuccess, isDuplicate, group}} = await dispatch(signInGroup(body));
+        const {payload: {isSuccess, group}} = await dispatch(signInGroup(body));
         if(isSuccess){
-            setFounds(ele => [...ele, group]);
             closeModal();
-        } else if(isDuplicate){
-            alert("이미 사용된 이름입니다")
         }
         else{
             alert("Error");
