@@ -6,7 +6,7 @@ import { requestRank } from "../../_actions/user_action";
 const RankContainer = () => {
     const dispatch = useDispatch();
     const [timeValue, setTimeValue] = useState(0);
-    const {user: {rankData}, calendar} = useSelector((state) => state);
+    const {user: {rankData, userID}, calendar} = useSelector((state) => state);
     const top3 = rankData ? [rankData[0], rankData[1], rankData[2]] : null;
     const getRankData = async() => {
         await dispatch(requestRank());
@@ -18,13 +18,14 @@ const RankContainer = () => {
     //     const activeTime = setTimeout(() => setTimeValue(timeValue + 1), 1000);
     //     return () => clearTimeout(activeTime);
     // },[timeValue])
-    console.log(rankData)
+    const myRate = rankData ? rankData.findIndex(ele => ele.id === userID)+1: 0;
     const nowStudy = rankData ? rankData.filter(ele=>ele.nowStudy === true ).length : 0
     return(
         <RankPresenter 
         rankData={rankData}
         calendar={calendar}
         top3={top3}
+        myRate={myRate}
         nowStudy={nowStudy}
         timeValue={timeValue}
         />

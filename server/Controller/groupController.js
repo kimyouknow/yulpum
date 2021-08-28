@@ -59,18 +59,27 @@ export const addGroup = async(req,res)=>{
         }
         else{
             const group = await Group.findOne({_id:group_id});
-            console.log("그룹이 찾아졌나?"+group);
+            if(group.g_current === group.g_max)
+            {
+                console.log("그룹 최대인원 초과");
+                return res.status(400).json({
+                    isSuccess:false
+                });
+            }
+            else{
             group.g_user.push(user);
+            group.g_current = group.g_current + 1;
             group.save();
 
             user.groupID.push(group);
             user.save();
             console.log("그룹 추가 완료");
-            return res.status(400).json({
+            return res.status(200).json({
                 group,
                 isDuplicate:false,
                 isSuccess:true
             });
+            }
         }
      
     });
@@ -233,7 +242,27 @@ export const getGroupDetail = async(req, res)=>{
 }
 
     
+function group_del(group,userId){
 
+    for(let i = 0 ; i< group.g_user.length ;i++){
+        if(group.g_user[i] == userId){
+            group.g_user.splice(i,1);
+            return true;
+        }
+    }
+}
+
+function user_del(user,groupId){
+        //그룹 나가기
+         for(let i = 0 ; i <  user.groupID.length ; i++){
+             if( user.groupID[i] ==groupId){
+                 user.groupID.splice(i,1);
+                 return true;
+             }
+                
+        }
+
+}
 
 export const exitGroup = async (req,res)=>{
     const{
@@ -275,37 +304,29 @@ export const exitGroup = async (req,res)=>{
     
         } //그룹 리더가 아니면 방을 나감
         else{
-           
-            let flag = 0;
-            //그룹 나가기
-            for(let i = 0 ; i <  user.groupID.length ; i++){
-                if( user.groupID[i] === group_id){
-                    user.groupID.splice(i,1);
-                    flag=1;
-                    break;
-                }
-            }
-            console.log(foundGroup);
+       
+         
+           const flag = await user_del(user,group_id);
+           console.log(user);
+           await user.save();
             //그룹 유저 목록에서 삭제
-            for(let i = 0 ; i< foundGroup.g_user.length ;i++){
-                if(foundGroup.g_user[i] == user_id){
-                    user.g_user.splice(i,1);
-                    flag = 1;
-                    break;
-                }
-            }
 
-            if(flag){
+            const flag2 = await group_del(foundGroup, user.id);
+            console.log(foundGroup);
+            await foundGroup.save();
+
+            if(flag && flag2){
                 console.log("나가기 성공");
                 return res.status(200).json({
-                            isSuccess:true
-                        })
+                  isSuccess:true
+                })
             }
+           
             else{
                 console.log("나가기 실패");
-                    return res.status(400).json({
-                        isSuccess:false
-                    })
+                return res.status(400).json({
+                  isSuccess:false
+                })
             }
     
 

@@ -6,6 +6,35 @@ export const compareDate = (input) => {
     return inputY+inputM+inputD
 }
 
+export const setToday = () => {
+    const newDate = new Date();
+    const setM = newDate.getMonth();
+    const setY = newDate.getFullYear();
+    return {setY, setM};
+}
+
+export const prevMonth = (Y, M) => {
+    let preM = M -1;
+    let preY = Y;
+    if(M === 0){
+        preM = M+11;
+        preY = Y-1;
+        return {preY, preM};
+    }
+    return {preY, preM};
+}
+
+export const nextMonth = (Y, M) => {
+    let nextM = M +1;
+    let nextY = Y;
+    if(M === 11){
+        nextM = M-11;
+        nextY = Y+1;
+        return {nextY, nextM};
+    }
+    return {nextY, nextM};
+}
+
 export const renderCalendar = (renderYear, renderMonth) => {
     const preLast = new Date(renderYear, renderMonth, 0);
         const currentLast = new Date(renderYear, renderMonth+1, 0);

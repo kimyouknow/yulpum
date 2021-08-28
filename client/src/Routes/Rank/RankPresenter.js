@@ -65,7 +65,7 @@ const Info = styled.div`
     width: ${props => props.long !== "undefined" ? props.long + "%" : "0%" };
 `;
 
-const RankPresenter = ({timeValue,rankData ,top3,nowStudy, calendar}) => {
+const RankPresenter = ({timeValue,rankData ,top3, myRate,nowStudy, calendar}) => {
     const {activeD, activeM, activeY} = calendar;
     console.log(rankData);
     return (
@@ -83,8 +83,8 @@ const RankPresenter = ({timeValue,rankData ,top3,nowStudy, calendar}) => {
                 <Indicator>
                     <div>공부중 <span>{nowStudy}</span>명 </div>
                     <div>오늘 전체 <span>{rankData.length}</span>명 </div>
-                    {/* <div>내 등수 <span>{rankData.indexOf("")}</span> 등</div> */}
-                    <div>상위 <span>10</span>%</div>
+                    <div>내 등수 <span>{myRate}</span> 등</div>
+                    <div>상위 <span>{myRate / rankData.length * 100}</span>%</div>
                 </Indicator>
                 {rankData.map((user, idx) => 
                 <RankEle key={user.id}>
