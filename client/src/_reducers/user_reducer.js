@@ -7,7 +7,7 @@ import {
 
 const initState = {
     rankData: [],
-    userName: null
+    userName: ""
 }
 
 const userReducer = (state=initState, action) => {
@@ -15,11 +15,10 @@ const userReducer = (state=initState, action) => {
     switch (action.type) {
         case LOGIN_USER:
             return { ...state, loginSuccess: action.payload }
-            // loginSuccess에 user_actions에서 받은 payload(request)를 넣어줌
         case REGISTER_USER:
             return {...state, register: action.payload}
         case AUTH_USER:
-            return {...state, userName: action.payload.userName ,userData: action.payload}
+            return {...state, userName: action.payload.userName, userData: action.payload}
         case GET_RANK:
             return {...state, rankData: action.payload.resultArr}
         default:

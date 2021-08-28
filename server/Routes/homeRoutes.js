@@ -25,6 +25,7 @@ import{
 const homeRoutes = express.Router();
 homeRoutes.get(routes.auth, auth,(req, res)=>{
     res.status(200).json({
+        userName: req.user.name,
         isAdmin: req.user.role === 0 ? false :true,
         isAuth: true,
         role:req.user.role

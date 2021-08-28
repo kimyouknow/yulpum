@@ -42,8 +42,6 @@ const calendarReducer = (state = initState, action) => {
             } return {...state,activeD: newD, activeM:newM}
         }
         case GET_CALENDAR:
-            // let temp = []
-            // action.payload.ret.map((ele) => temp.push({todo: ele.c_todo, date: ele.c_date, totalTime: ele.c_total_time}))
             return {...state, monthData:action.payload.ret, calendarData: action.payload} 
         case ADD_PLAN:
             return{...state, refresh: !state.refresh}

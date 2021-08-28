@@ -14,7 +14,6 @@ export default function AuthHOC(SpecificComponent, option, adminRoute = null) {
         function AuthenticationCheck(props) {
             const dispatch = useDispatch();
             useEffect(()=> {
-            // axios.get('/api/users/auth')
             dispatch(auth()).then(response => {
                 const {isAdmin, isAuth} = response.payload;
                 // 로그인 하지 않은 상태
@@ -36,7 +35,6 @@ export default function AuthHOC(SpecificComponent, option, adminRoute = null) {
                 }
             })
             }, [])
-            // console.log(userID);
             return (
                 <SpecificComponent
                 />

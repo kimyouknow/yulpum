@@ -65,20 +65,14 @@ const Info = styled.div`
     width: ${props => props.long !== "undefined" ? props.long + "%" : "0%" };
 `;
 
-const RankPresenter = ({timeValue,rankData ,top3, myRate,nowStudy, calendar}) => {
-    const {activeD, activeM, activeY} = calendar;
-    console.log(rankData);
+const RankPresenter = ({timeValue,rankData ,top3, myRate,nowStudy}) => {
     return (
     <Container>
         <Header>
-            <span>◀</span>
-            <span>{activeY}년</span>
-            <span>{activeM+1}월</span>
-            <span>{activeD}일</span>
-            <span>▶</span>
+            <h3>오늘의 랭킹</h3>
         </Header>
         <Body>
-            {!rankData ? <LoaderCotainer />: 
+            {!rankData || !myRate ? <LoaderCotainer />: 
             <Middle>
                 <Indicator>
                     <div>공부중 <span>{nowStudy}</span>명 </div>

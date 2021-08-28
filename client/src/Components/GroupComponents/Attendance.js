@@ -14,7 +14,7 @@ const ToDoContainer = styled.div`
     display: flex;
     flex-direction:column;
     width: 90%;
-    z-index: 5;
+    /* z-index: 5; */
     &:hover .overflow {
         opacity: 1;
         visibility: visible;
@@ -29,7 +29,6 @@ const ToDoElement = styled.div`
     text-align: center;
     background-color: ${props => props.done? "rgba(255, 107, 129,1.0)": "rgba(164, 176, 190,1.0)" };
     border-radius: 6px;
-    cursor: pointer;
     &:hover {
         background-color: ${props => props.done? "rgba(255, 107, 129,0.5)": "rgba(164, 176, 190,0.5)" };
     }

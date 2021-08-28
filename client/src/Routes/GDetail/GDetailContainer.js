@@ -13,25 +13,25 @@ function GDetailContainer() {
   const [active, setActive] = useState("attendance");
   const [serverD, setServerD] = useState([]);
   const [dates, setDates] = useState([]);
-  const [groupD, setGroupD] = useState({
+  const [groupDate, setGroupDate] = useState({
     groupY: new Date().getFullYear(),
     groupM: new Date().getMonth(),
-    groupDate: new Date().getDate()
+    groupD: new Date().getDate()
   })
-  const {groupY, groupM} = groupD;
+  const {groupY, groupM, groupD} = groupDate;
   const handleMonth = (type) => {
     switch (type) {
       case "prev":
-        const {preY, preM} = prevMonth(groupY, groupM);
-        setGroupD({groupY: preY, groupM: preM})
+        const {preY, preM, preD} = prevMonth(groupY, groupM, groupD);
+        setGroupDate({groupY: preY, groupM: preM})
         break;
       case "next":
-        const {nextY, nextM} = nextMonth(groupY, groupM);
-        setGroupD({groupY: nextY, groupM: nextM})
+        const {nextY, nextM, nextD} = nextMonth(groupY, groupM, groupD);
+        setGroupDate({groupY: nextY, groupM: nextM})
         break;
       case "today":
         const {setY, setM} = setToday();
-        setGroupD({groupY: setY, groupM: setM})
+        setGroupDate({groupY: setY, groupM: setM})
         break;
       default:
         break;
@@ -60,22 +60,19 @@ function GDetailContainer() {
     }
     const dates = renderCalendar(groupY, groupM);
     setDates(dates);
-    // console.log(typeof(retArr));
-    // console.log(retArr)
     setServerD(retArr);
   }
   useEffect(() => {
     getDetailData();
   },[groupY, groupM])
-  // console.log(serverD)
   return (
     <GDetailPresenter 
     handleExit={handleExit}
     dates={dates}
     handleMonth={handleMonth}
-    groupD={groupD}
+    groupDate={groupDate}
     serverD={serverD}
-active={active}
+    active={active}
     setActive={setActive}
     />
   )

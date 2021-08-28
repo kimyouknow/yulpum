@@ -13,24 +13,24 @@ export const setToday = () => {
     return {setY, setM};
 }
 
-export const prevMonth = (Y, M) => {
+export const prevMonth = (Y, M, D) => {
     let preM = M -1;
     let preY = Y;
     if(M === 0){
         preM = M+11;
         preY = Y-1;
-        return {preY, preM};
+        return {preY, preM, D};
     }
     return {preY, preM};
 }
 
-export const nextMonth = (Y, M) => {
+export const nextMonth = (Y, M, D) => {
     let nextM = M +1;
     let nextY = Y;
     if(M === 11){
         nextM = M-11;
         nextY = Y+1;
-        return {nextY, nextM};
+        return {nextY, nextM, D};
     }
     return {nextY, nextM};
 }

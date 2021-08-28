@@ -52,20 +52,20 @@ const Container = styled.div`
 `;
 
 function MemberRank({active, serverD}) {
-  const filtered = (date) => serverD && serverD.filter(obj =>Number(obj[0]) === Number(new Date(date).getDate())).sort((a,b) => b[1].totalTime-a[1].totalTime);
-  const date = new Date();
-  const [timeValue, setTimeValue] = useState(0);
-  useEffect(() => {
-        const activeTime = setTimeout(() => setTimeValue(timeValue + 1), 1000);
-        return () => clearTimeout(activeTime);
-    },[timeValue])
-  return (
+    const filtered = (date) => serverD && serverD.filter(obj =>Number(obj[0]) === Number(new Date(date).getDate())).sort((a,b) => b[1].totalTime-a[1].totalTime);
+    const date = new Date();
+    const [timeValue, setTimeValue] = useState(0);
+//   useEffect(() => {
+//         const activeTime = setTimeout(() => setTimeValue(timeValue + 1), 1000);
+//         return () => clearTimeout(activeTime);
+//     },[timeValue])
+    return (
     <Container active={active}>
-      {console.log(filtered(date))}
-      {!filtered(date)? <LoaderCotainer /> :
+        {console.log(filtered(date))}
+        {!filtered(date)? <LoaderCotainer /> :
         filtered(date)
-          .map((user, idx) => 
-          <RankEle key={idx}>
+            .map((user, idx) => 
+            <RankEle key={idx}>
             <div className={"rank__number"}>
                 {idx+1}
             </div>
@@ -79,10 +79,10 @@ function MemberRank({active, serverD}) {
                 </div>
                 <Info className={"info__bar"} long={filtered(date)[0][1].totalTime === 0 ? 0:Math.floor((user[1].totalTime / filtered(date)[0][1].totalTime)*100)}></Info>
             </div>
-          </RankEle>)
+            </RankEle>)
         }
     </Container>
-  )
+    )
 }
 
 export default MemberRank

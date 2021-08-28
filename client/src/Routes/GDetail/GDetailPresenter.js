@@ -36,9 +36,8 @@ const Menu = styled.li`
   }
 `;
 
-function GDetailPresenter({handleExit, dates, handleMonth, groupD, serverD,active ,setActive}) {
-  const {groupY, groupM} = groupD;
-  console.log(serverD);
+function GDetailPresenter({handleExit, dates, handleMonth, groupDate, serverD,active ,setActive}) {
+  const {groupY, groupM, groupD} = groupDate;
   return (
     <Container>
       {active === "attendance" ? 
@@ -50,12 +49,7 @@ function GDetailPresenter({handleExit, dates, handleMonth, groupD, serverD,activ
           <span onClick={() => handleMonth("next")}>▶</span>
         </Header>:
         <Header>
-          {/* <span onClick={() => handleMonth("prev")}>◀</span>
-          <span onClick={()=> handleMonth("today")}>
-              {groupY}년 {groupM+1}월
-          </span>
-          <span onClick={() => handleMonth("next")}>▶</span> */}
-          오늘 날짜
+          <h3>지금 공부중인 멤버</h3>
         </Header>
       }
       <Body>
@@ -65,7 +59,7 @@ function GDetailPresenter({handleExit, dates, handleMonth, groupD, serverD,activ
                     출석부
                 </Menu>
                 <Menu active={active === "ranking"} onClick={() => setActive("ranking")} >
-                    지금 공부중인 멤버
+                    랭킹
                 </Menu>
             </Menus>
         </InnerMenu>

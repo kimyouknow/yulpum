@@ -18,17 +18,17 @@ const RegisterContainer = () => {
         if (password !== verifyPassword){
             return alert("비밀번호와 비밀번호 확인이 같아야 함")
         }
-
         let body = {
             email,
             name,
             password,
             verifyPassword
         }
-        // 여기서 바로 axios를 통해 data를 보내야하는데 dispatch를 사용해 actions에서 data다루기
         dispatch(registerUser(body))
             .then(response => {
-                if(response.payload.success) {
+                const {payload: {success}} = response;
+                console.log(response);
+                if(success) {
                     history.push("/login");
                 } else {
                     alert("Failed to sign up");
