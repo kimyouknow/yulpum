@@ -7,7 +7,6 @@ const StyledBody = styled.div`
     return css`
       ${common.flexCenterColumn}
       width: 100%;
-      margin-top: 20px;
     `;
   }}
 `;

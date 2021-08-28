@@ -13,8 +13,7 @@ const Body = styled.ul`
     width: 100%;
 `;
 
-function GStudyPresenter({founds, activeInfo,setActiveInfo}) {
-    console.log(founds);
+function GStudyPresenter({founds, setFounds, activeInfo,setActiveInfo}) {
     return (
         <Container>
         <Header>스터디 그룹</Header>
@@ -32,6 +31,8 @@ function GStudyPresenter({founds, activeInfo,setActiveInfo}) {
         {activeInfo && 
                     <DetailModal
                     activeInfo={activeInfo}
+                    founds={founds}
+                    setFounds={setFounds}
                     setActiveInfo={setActiveInfo}/>
                 }
     </Container>
