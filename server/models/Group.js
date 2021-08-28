@@ -17,7 +17,8 @@ const groupSchema = mongoose.Schema({
     }],
     g_goal:{
         type:Number,
-        default:0
+        default:0,
+        required:true
     },
     g_max:{
         type:Number,
