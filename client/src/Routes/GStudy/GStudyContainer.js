@@ -22,7 +22,8 @@ const GStudyContainer = () => {
     return (
         <GStudyPresenter 
             founds={founds}
-activeInfo={activeInfo}
+            setFounds={setFounds}
+            activeInfo={activeInfo}
             setActiveInfo={setActiveInfo}
         />
     )

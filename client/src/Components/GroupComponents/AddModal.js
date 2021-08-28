@@ -23,19 +23,9 @@ const AddModal = ({openModal ,setOpenModal,groups, setGroups}) => {
             groupGoal,
             groupDesc,
         }
-        const {payload: {isSuccess, isDuplicate}} = await dispatch(createGroup(body));
+        const {payload: {isSuccess, isDuplicate, n_group}} = await dispatch(createGroup(body));
         if(isSuccess){
-            const newGroup = {
-                g_current: 1,
-                g_description: groupDesc,
-                g_goal: groupGoal,
-                g_leader: "me",
-                g_max: groupMax,
-                g_name: groupName,
-                g_start_date: String(new Date()),
-                _id: new Date()
-            }
-            setGroups([...groups, newGroup]);
+            setGroups(ele => [...ele, n_group]);
             closeModal();
         } else if(isDuplicate){
             alert("이미 사용된 이름입니다")

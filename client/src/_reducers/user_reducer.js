@@ -6,7 +6,8 @@ import {
 } from '../_actions/types';
 
 const initState = {
-    rankData: []
+    rankData: [],
+    userID: null
 }
 
 const userReducer = (state=initState, action) => {
@@ -18,7 +19,7 @@ const userReducer = (state=initState, action) => {
         case REGISTER_USER:
             return {...state, register: action.payload}
         case AUTH_USER:
-            return {...state, userData: action.payload}
+            return {...state, userID: action.payload.user_id ,userData: action.payload}
         case GET_RANK:
             return {...state, rankData: action.payload.resultArr}
         default:

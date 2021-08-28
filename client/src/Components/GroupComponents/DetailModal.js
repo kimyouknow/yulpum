@@ -4,7 +4,7 @@ import { BackBtn, Button } from "../../Styled/Button";
 import Modal, { ModalBody, ModalHeader } from "../../Styled/Modal";
 import { signInGroup } from "../../_actions/group_actions";
 
-const DetailModal = ({activeInfo ,setActiveInfo}) => {
+const DetailModal = ({founds,setFounds,activeInfo ,setActiveInfo}) => {
     console.log(activeInfo)
     const dispatch = useDispatch();
     const tokenData = document.cookie.split("=")[1];
@@ -15,9 +15,16 @@ const DetailModal = ({activeInfo ,setActiveInfo}) => {
             token: tokenData,
             group_id: _id
         }
-        console.log(body)
-        await dispatch(signInGroup(body));
-        closeModal()
+        const {payload: {isSuccess, isDuplicate, group}} = await dispatch(signInGroup(body));
+        if(isSuccess){
+            setFounds(ele => [...ele, group]);
+            closeModal();
+        } else if(isDuplicate){
+            alert("이미 사용된 이름입니다")
+        }
+        else{
+            alert("Error");
+        }
     }
     if (activeInfo){
         window.addEventListener("keydown", (e) => e.keyCode === 27 ? closeModal(): null);
