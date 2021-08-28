@@ -5,9 +5,10 @@ export const postRegister = async (req,res) =>{
     const param_email = req.body.email;
     const param_password = req.body.password;
     
-    const user = await User.findOne({name: param_name, email: param_email});
+    const flag1 = await User.findOne({'name': param_name});
+    const flag2 = await User.findOne({'email': param_email});
 
-    if(user === null){
+    if(!flag1 && !flag2){
         try{
             const user = await User({
                 name:param_name,
@@ -30,12 +31,20 @@ export const postRegister = async (req,res) =>{
         })
 
     }
-    else if(user){
+    else if(flag1){
         //이미 있음
         res.json({
-            success:false
+            success:false,
+            nameDuplicate:true
         })
 
+    }else if(flag2){
+
+            //이미 있음
+            res.json({
+                success:false,
+                emailDuplicate:true
+            })
     }
 
  
@@ -57,8 +66,9 @@ export const postLogin = async(req,res) =>{
                 
                 //생성된 토큰 저장 => 쿠키 혹은 로컬 스토리지
                 //쿠키이름 : user_auth
+                res.cookie("userName",user.name);
                 res.cookie("user_auth",user.token).status(200).json({
-                    success:true, userId:user._id,
+                    success:true,
                     userName:user.name
                 })
                 
