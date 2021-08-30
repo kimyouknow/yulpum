@@ -18,15 +18,15 @@ function GDetailContainer() {
     groupM: new Date().getMonth(),
     groupD: new Date().getDate()
   })
-  const {groupY, groupM, groupD} = groupDate;
+  const {groupY, groupM} = groupDate;
   const handleMonth = (type) => {
     switch (type) {
       case "prev":
-        const {preY, preM, preD} = prevMonth(groupY, groupM, groupD);
+        const {preY, preM} = prevMonth(groupY, groupM);
         setGroupDate({groupY: preY, groupM: preM})
         break;
       case "next":
-        const {nextY, nextM, nextD} = nextMonth(groupY, groupM, groupD);
+        const {nextY, nextM} = nextMonth(groupY, groupM);
         setGroupDate({groupY: nextY, groupM: nextM})
         break;
       case "today":

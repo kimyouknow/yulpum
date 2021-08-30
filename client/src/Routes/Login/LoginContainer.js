@@ -9,19 +9,13 @@ const LoginContainer = () => {
     const dispatch = useDispatch();
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const onSubmitHandler = (e) => {
-        e.preventDefault();
-        let body = {
-            email,
-            password
-        }
-        // 여기서 바로 axios를 통해 data를 보내야하는데 dispatch를 사용해 actions에서 data다루기
-        dispatch(loginUser(body))
+    const onSubmitHandler = (values) => {
+        dispatch(loginUser(values))
             .then(response => {
                 if(response.payload.success) {
                     history.push("/");
                 } else {
-                    alert("Failed to Login");
+                    alert("이메일 또는 비밀번호를 확인하세요.");
                 }
             })
     }

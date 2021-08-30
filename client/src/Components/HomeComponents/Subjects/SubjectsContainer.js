@@ -10,8 +10,6 @@ const SubjectsContainer = ({tokenData}) => {
         editButton: false,
         addButton: false
     });
-    const [subjectInput, setSubjectInput] = useState("");
-    const [editInput, setEditInput] = useState("");
     const [subjects, setSubjects] = useState(null);
     const clickhandler= (text) => {
         if (text === "add") {
@@ -50,62 +48,51 @@ const SubjectsContainer = ({tokenData}) => {
                 setSubjects(subjects.filter(element => element._id !== id));
             })
     }
-
-    const onSubmitHandler = (e, element) => {
-        e.preventDefault();
-        if(subjectInput === ""){
-            alert("뭐라도 입력하세요")
-            return 
-        }
-        if (element === "add"){
-            const addedName = subjectInput;
-            setSubjectInput("");
-            let body = {
-                subject_title: addedName,
-                token: tokenData,
-                timeValue: 0
-            };
-            console.log(body);
-            dispatch(addSubject(body))
-                .then(response => {
-                    const {isSuccess, Study} = response.payload;
-                    if(isSuccess) {
-                        setSubjects(subject => [...subject, Study]);
-                    } else {
-                        alert("Error!");
-                    }
-                })
-        } else {
-            let body = {
-                subject_id: element,
-                token: tokenData,
-                editSubject_title: editInput
-            };
-            dispatch(editSubject(body))
-                .then(response => {
-                const {isSuccess} = response.payload;
-                if (!isSuccess) {
+    const handleAdd  = ({subject_title}) => {
+        let body = {
+            subject_title,
+            token: tokenData,
+            timeValue: 0
+        };
+        console.log(body);
+        dispatch(addSubject(body))
+            .then(response => {
+                const {isSuccess, Study} = response.payload;
+                if(isSuccess) {
+                    setSubjects(subject => [...subject, Study]);
+                } else {
                     alert("Error!");
-                } 
-                setSubjects(subjects.map(item => item._id === element ? {...item, subject_name: editInput} : item));
-                })
-        }
+                }
+            })
+    }
+    const handleEdit = (values, id) => {
+        console.log(values, id);
+        // let body = {
+        //     subject_id: id,
+        //     token: tokenData,
+        //     editSubject_title: editInput
+        // };
+        // dispatch(editSubject(body))
+        //     .then(response => {
+        //     const {isSuccess} = response.payload;
+        //     if (!isSuccess) {
+        //         alert("Error!");
+        //     } 
+        //     setSubjects(subjects.map(item => item._id === element ? {...item, subject_name: editInput} : item));
+        // })
     }
     useEffect(() => {
         displaySubject();
     },[])
     return(
         <SubjectsPresenter 
+            subjects={subjects}
             clicked={clicked}
             clickhandler={clickhandler}
-            subjectInput={subjectInput}
-            setSubjectInput={setSubjectInput}
-            editInput={editInput}
-            setEditInput={setEditInput}
-            onSubmitHandler={onSubmitHandler}
-            subjects={subjects}
             handleRemove={handleRemove}
+            handleAdd={handleAdd}
+            handleEdit={handleEdit}
         />
-        )
+    )
 }
 export default SubjectsContainer

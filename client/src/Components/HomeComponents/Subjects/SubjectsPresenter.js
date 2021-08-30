@@ -72,7 +72,7 @@ const EditButton = styled.div`
 
 
 const SubjectsPresenter = ({
-    clicked, clickhandler,subjectInput, setSubjectInput, onSubmitHandler, editInput, setEditInput, subjects, handleRemove}) => {
+    clicked, clickhandler, subjects, handleRemove, handleAdd, handleEdit}) => {
     const totalLapse = subjects ? subjects.reduce((acc, cur) => cur.total_time + acc, 0): 0;
     return (
         <Container>
@@ -98,9 +98,7 @@ const SubjectsPresenter = ({
                         id={subject._id}
                         clicked={clicked}
                         clickhandler={clickhandler}
-                        onSubmitHandler={onSubmitHandler}
-                        editInput={editInput}
-                        setEditInput={setEditInput}
+                        handleEdit={handleEdit}
                         handleRemove={handleRemove}
                     />
                 </Line>)}
@@ -114,9 +112,7 @@ const SubjectsPresenter = ({
             <AddSubject
             clicked={clicked}
             clickhandler={clickhandler}
-            subjectInput={subjectInput} 
-            setSubjectInput={setSubjectInput} 
-            onSubmitHandler={onSubmitHandler}/>
+            handleAdd={handleAdd} />
         </Container>
     )
 }

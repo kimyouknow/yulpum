@@ -10,28 +10,16 @@ const RegisterContainer = () => {
     const [email, setEmail] = useState("")
     const [name, setName] = useState("")
     const [password, setPassword] = useState("")
-    const [verifyPassword, setVerifyPassword] = useState("")
-
-    const onSubmitHandler = (e) => {
-        e.preventDefault();
-
-        if (password !== verifyPassword){
-            return alert("비밀번호와 비밀번호 확인이 같아야 함")
-        }
-        let body = {
-            email,
-            name,
-            password,
-            verifyPassword
-        }
-        dispatch(registerUser(body))
+    const [verifyPassword, setVerifyPassword] = useState("");    
+    const onSubmitHandler = (values) => {
+        dispatch(registerUser(values))
             .then(response => {
                 const {payload: {success}} = response;
-                console.log(response);
                 if(success) {
+                    alert('회원가입이 완료되었습니다..')
                     history.push("/login");
                 } else {
-                    alert("Failed to sign up");
+                    alert('서버 오류로 에러가 났습니다.')
                 }
             })
     }
