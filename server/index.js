@@ -10,14 +10,18 @@ import groupRoutes from "./Routes/groupRoutes";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 
-
 dotenv.config();
-mongoose.connect(process.env.serverURL,{
-    useNewUrlParser : true, useUnifiedTopology: true, useCreateIndex:true, useFindAndModify:false
-}).then(() => console.log('DB has been Connected.'))
-.catch(err => console.log(err));
+mongoose
+  .connect(process.env.serverURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  })
+  .then(() => console.log("DB has been Connected."))
+  .catch((err) => console.log(err));
 
-const app = express()
+const app = express();
 const PORT = process.env.PORT || 4000;
 
 app.use(bodyParser.urlencoded());
@@ -25,15 +29,22 @@ app.use(bodyParser.json());
 // app.use(express.urlencoded({extends: true}));
 app.use(cookieParser());
 
+app.use(routes.api, homeRoutes);
+app.use(routes.api, staticRoutes);
+app.use(routes.api, plannerRoutes);
+app.use(routes.api, rankRoutes);
+app.use(routes.api, groupRoutes);
 
-app.use(routes.api,homeRoutes);
-app.use(routes.api,staticRoutes);
-app.use(routes.api,plannerRoutes);
-app.use(routes.api,rankRoutes);
-app.use(routes.api,groupRoutes);
+// 리액트 정적 파일 제공
+app.use(express.static(path.join(__dirname, "client/build")));
 
-const handleListenning = () =>{ 
-    console.log(`✅ Listening on: http://localhost:${PORT}`);
+// 라우트 설정
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
+});
+
+const handleListenning = () => {
+  console.log(`✅ Listening on: http://localhost:${PORT}`);
 };
 
 app.listen(PORT, handleListenning);
