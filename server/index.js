@@ -22,6 +22,7 @@ mongoose
   .catch((err) => console.log(err));
 
 const app = express();
+const path = require("path");
 const PORT = process.env.PORT || 4000;
 
 app.use(bodyParser.urlencoded());
