@@ -10,6 +10,7 @@ const StyledHeader = styled.header`
       color: ${colors.white};
       background-color: ${colors.orange};
       font-size: ${fonts.size.lg};
+      margin-bottom: ${margins.base};
       ${common.flexCenter}
       > span {
         ${common.cursorPointer}

@@ -26,7 +26,8 @@ const StyledForm = styled.form`
     &[type="reset"] {
       width: 100%;
       border: none;
-      margin: auto 0 1rem auto;
+      margin: ${(props) =>
+        props.styles === "auth" ? "none" : "auto 0 1rem auto"};
       cursor: pointer;
       border-radius: 10px;
       font-weight: bold;

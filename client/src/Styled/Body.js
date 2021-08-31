@@ -5,7 +5,7 @@ const StyledBody = styled.div`
   ${({ theme }) => {
     const { common } = theme;
     return css`
-      ${common.flexCenterColumn}
+      ${common.flexCenterColumn};
       width: 100%;
     `;
   }}
