@@ -1,5 +1,5 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
+import React from "react";
+import styled, { css } from "styled-components";
 
 const StyledHeader = styled.header`
   ${({ theme }) => {
@@ -15,7 +15,8 @@ const StyledHeader = styled.header`
         ${common.cursorPointer}
         margin: 0 ${margins.sm};
       }
-      > span:first-child, >span:last-child{
+      > span:first-child,
+      > span:last-child {
         margin: 0;
         :hover {
           transform: scale(1.4);

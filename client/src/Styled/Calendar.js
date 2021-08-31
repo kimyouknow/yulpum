@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const StyledWeekContainer = styled.div`
   display: grid;
@@ -13,11 +13,11 @@ const StyledWeekComponent = styled.div`
   align-items: center;
   height: 70px;
   width: 100%;
-  :nth-child(7n+1){
-      color: #d13e3e;
+  :nth-child(7n + 1) {
+    color: #d13e3e;
   }
-  :nth-child(7n){
-      color: #396ee2;
+  :nth-child(7n) {
+    color: #396ee2;
   }
 `;
 
@@ -37,27 +37,32 @@ const StyledDateComponent = styled.div`
   padding: 8px;
   position: relative;
   border: none;
-  background-color: ${props => (props.timecolor < 0) ? "rgba(223, 230, 233,1.0)":
-    (props.timecolor < 10) ? "white" :
-    (props.timecolor < 30) ? "rgba(238, 90, 36, 0.3)" :
-    (props.timecolor < 40) ? "rgba(238, 90, 36, 0.6)":
-    "rgba(238, 90, 36,1.0)"
-  };
-  :nth-child(7n+1){
-      color: #d13e3e;
-  };
-  :nth-child(7n){
-      color: #396ee2;
-  };
+  background-color: ${(props) =>
+    props.timecolor < 0
+      ? "rgba(223, 230, 233,1.0)"
+      : props.timecolor < 60 * 30
+      ? "white"
+      : props.timecolor < 60 * 60
+      ? "rgba(238, 90, 36, 0.3)"
+      : props.timecolor < 60 * 60 * 2
+      ? "rgba(238, 90, 36, 0.6)"
+      : "rgba(238, 90, 36,1.0)"};
+  :nth-child(7n + 1) {
+    color: #d13e3e;
+  }
+  :nth-child(7n) {
+    color: #396ee2;
+  }
   cursor: pointer;
 `;
 
 const StyledDateEle = styled.div`
   padding: 6px;
   margin-bottom: 4px;
-  color: ${props => (props.today ? "#fff" : "#000")};
-  background-color: ${props => (props.today ? "rgba(255, 107, 129,1.0)" : "none")};
-  border-radius: ${props => (props.today ? "50%" : "none")};
+  color: ${(props) => (props.today ? "#fff" : "#000")};
+  background-color: ${(props) =>
+    props.today ? "rgba(255, 107, 129,1.0)" : "none"};
+  border-radius: ${(props) => (props.today ? "50%" : "none")};
 `;
 
 export function WeekContainer({ children, ...rest }) {

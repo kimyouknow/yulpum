@@ -1,62 +1,72 @@
 import React, { useState } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { addPlanServer } from "../../_actions/calendar_actions";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import Modal, { ModalBody, ModalHeader } from "../../Styled/Modal";
-import Input from "../../Styled/Input";
-import {BackBtn, Button} from "../../Styled/Button";
+import { BackBtn } from "../../Styled/Button";
 import Form from "../../Styled/Form";
 
-const AddModal = ({openModal ,setOpenModal}) => {
-    const dispatch = useDispatch();
-    const tokenData = document.cookie.split("=")[1];
-    const [planInput, setPlanInput] = useState("");
-    const closeModal = () => setOpenModal(false);
-    const [activeDate, setActiveDate] = useState(new Date());
-    const onChangeHandler = (value) => {
-        const Y = Number(value.slice(0,4))
-        const M = Number(value.slice(5,7))-1
-        const D = Number(value.slice(8,10))
-        setActiveDate(new Date(Y,M,D));
-    }
-    const onSubmitHandler = async(e) => {
-        e.preventDefault();
-        setPlanInput("");
-        const body = {
-            year: activeDate.getFullYear(),
-            month: activeDate.getMonth(),
-            date: activeDate.getDate(),
-            todo: planInput,
-            token: tokenData
-        }
-        await dispatch(addPlanServer(body));
-        closeModal()
-    }
-    if (openModal){
-        window.addEventListener("keydown", (e) => e.keyCode === 27 ? closeModal(): null);
-    }
-    const diplayDate = (activeDate) => {
-        let year = activeDate.getFullYear();
-        let month = activeDate.getMonth()+1;
-        let date = activeDate.getDate();
-        return `${year}-${month < 10 ? `0${month}` : month}-${date < 10 ? `0${date}`: date}`;
-    }
-    return (
-        <Modal show={openModal}>
-            <ModalHeader>
-                <BackBtn className={"bbtn"} onClick={() =>closeModal()}>x</BackBtn>
-                <span>계획 추가</span>
-            </ModalHeader>
-            <ModalBody>
-            <Form onSubmit={(e => onSubmitHandler(e))}>
-                <span className={"input__name"}>날짜</span>
-                <Input type="date" value={diplayDate(activeDate)} onChange={(e) => onChangeHandler(e.target.value)} />
-                <span className={"input__name"}>추가할 계획 이름</span>
-                <Input type="text" value={planInput} placeholder="To Do" onChange={(e => setPlanInput(e.target.value))} />
-            </Form>
-            <Button className={"input__submit"} onClick={(e => onSubmitHandler(e))}>submit</Button>
-            </ModalBody>
-        </Modal>
-    )
-}
+const AddModal = ({ openModal, setOpenModal }) => {
+  const schema = yup.object().shape({
+    activeDate: yup.string().required(),
+    planInput: yup.string().required(),
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
+  const dispatch = useDispatch();
+  const tokenData = document.cookie.split("=")[1];
+  const closeModal = () => setOpenModal(false);
+  const onSubmitHandler = async ({ activeDate, planInput }, e) => {
+    const year = Number(activeDate.slice(0, 4));
+    const month = Number(activeDate.slice(5, 7)) - 1;
+    const date = Number(activeDate.slice(8, 10));
+    const body = {
+      year,
+      month,
+      date,
+      todo: planInput,
+      token: tokenData,
+    };
+    console.log(body);
+    await dispatch(addPlanServer(body));
+    e.target.reset();
+    closeModal();
+  };
+  if (openModal) {
+    window.addEventListener("keydown", (e) =>
+      e.keyCode === 27 ? closeModal() : null
+    );
+  }
+  return (
+    <Modal show={openModal}>
+      <ModalHeader>
+        <BackBtn className={"bbtn"} onClick={() => closeModal()}>
+          x
+        </BackBtn>
+        <span>계획 추가</span>
+      </ModalHeader>
+      <ModalBody>
+        <Form onSubmit={handleSubmit(onSubmitHandler)}>
+          <span className={"input__name"}>날짜</span>
+          <input type="date" {...register("activeDate")} />
+          <span>{errors.activeDate && "날짜를 입력하세요."}</span>
+          <input
+            type="text"
+            placeholder="계획을 입력하세요"
+            {...register("planInput")}
+          />
+          <span>{errors.planInput && "계획을 입력하세요."}</span>
+          <input type="submit" value="추가" />
+          <input type="reset" value="초기화" />
+        </Form>
+      </ModalBody>
+    </Modal>
+  );
+};
 
 export default AddModal;
