@@ -37,11 +37,12 @@ app.use(routes.api, rankRoutes);
 app.use(routes.api, groupRoutes);
 
 // 리액트 정적 파일 제공
-app.use(express.static(path.join(__dirname, "client/build")));
-
+app.use(express.static("client/build"));
+// console.log(express.static("client/build"));
+// console.log(express.static("client/build"));
 // 라우트 설정
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/client/build/index.html"));
+  res.sendFile("/client/build/index.html");
 });
 
 const handleListenning = () => {
