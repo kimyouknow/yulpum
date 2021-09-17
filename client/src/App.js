@@ -1,17 +1,7 @@
-import React from "react"
-import Router from "./Components/Router";
-import { ThemeProvider } from "styled-components";
-import GlobalStyles from "./Styled/GlobalStyles";
-import { lightTheme } from "./Styled/theme";
-
+import React from "react";
 
 function App() {
-  return (
-    <ThemeProvider theme={lightTheme} >
-      <Router />
-      <GlobalStyles />
-    </ThemeProvider>
-  );
+  return <div>hello</div>;
 }
 
 export default App;
