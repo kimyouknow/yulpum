@@ -75,14 +75,22 @@ https://github.com/yulpumta-clone-team/yulpumta-clone
 
 ### Client
 
-### 1. form validation
+### 1. redux 
+
+> redux로 state를 관리하고, api를 요청했습니다. 
+
+### 2. form validation
 
 > react-hooks-form과 yup을 이용해 validation check
 
-### 2. 달력
+### 3. 달력
 
 > 별도의 라이브러리 없이 달력을 구현했습니다.
 
-### 3. hoc를 이용한 auth
+### 4. hoc를 이용한 auth
+
+### 5. styeld-compent를 활용한 css 작업
+
+> GlabalStyle과 Theme으로 반복되는 컴포넌트를 줄였습니다. 
 
 ### Server
