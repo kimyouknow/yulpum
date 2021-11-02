@@ -1,6 +1,8 @@
 # 열품타 clone Project
 https://github.com/yulpumta-clone-team/yulpumta-clone 
+
 > 공부기록 및 일정관리
+> https://yulpumta.herokuapp.com/ 
 
 ## 목차
 
@@ -69,9 +71,8 @@ https://github.com/yulpumta-clone-team/yulpumta-clone
 
 > 그룹 내 랭킹을 확인할 수 있습니다.
 
-## 3. **UI/UX**
 
-## 4. **프로젝트 구현 기술**
+## 3. **프로젝트 구현 기술**
 
 ### Client
 
@@ -94,3 +95,6 @@ https://github.com/yulpumta-clone-team/yulpumta-clone
 > GlabalStyle과 Theme으로 반복되는 컴포넌트를 줄였습니다. 
 
 ### Server
+
+## 4. **UI/UX**
+
